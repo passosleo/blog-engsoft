@@ -12,48 +12,33 @@ function requiredEnv(env: keyof AppEnv) {
 }
 
 function getBaseUrl() {
-  if (appConfig.host.startsWith('http://localhost')) {
-    return `${appConfig.host}:${appConfig.port}`;
+  if (baseConfig.host.startsWith('http://localhost')) {
+    return `${baseConfig.host}:${baseConfig.port}`;
   } else {
-    return appConfig.host;
+    return baseConfig.host;
   }
 }
 
-const appConfig = {
+const baseConfig = {
   name: process.env.NAME || name,
   host:
     process.env.NODE_ENV === 'production'
       ? requiredEnv('HOST')
       : process.env.HOST || 'http://localhost',
-  port: process.env.PORT || 3000,
+  port: Number(process.env.PORT) || 3000,
   environment: process.env.NODE_ENV || 'development',
 };
 
 export const config = {
   app: {
-    ...appConfig,
+    ...baseConfig,
     baseUrl: getBaseUrl(),
   },
   db: {
     url: requiredEnv('DATABASE_URL'),
   },
-  mail: {
-    host: requiredEnv('MAIL_HOST'),
-    port: requiredEnv('MAIL_PORT'),
-    user: requiredEnv('MAIL_USER'),
-    password: requiredEnv('MAIL_PASSWORD'),
-  },
-  cloudinary: {
-    cloudName: requiredEnv('CLOUDINARY_CLOUD_NAME'),
-    apiKey: requiredEnv('CLOUDINARY_API_KEY'),
-    apiSecret: requiredEnv('CLOUDINARY_API_SECRET'),
-  },
   jwt: {
     secret: requiredEnv('JWT_SECRET'),
     expiresIn: requiredEnv('JWT_EXPIRES_IN'),
-  },
-  redirects: {
-    recoverPassword: requiredEnv('REDIRECT_RECOVER_PASSWORD'),
-    verifyEmail: requiredEnv('REDIRECT_VERIFY_EMAIL'),
   },
 };

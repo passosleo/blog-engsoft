@@ -3,7 +3,7 @@ import { RequestSchema } from '../types/generic';
 import { ZodIssue, z } from 'zod';
 import { HttpStatusCode } from '../http';
 
-export function validate<T>(schema: RequestSchema<T>) {
+export function validationMiddleware<T>(schema: RequestSchema<T>) {
   function createZodSchema<T>(requestSchema: RequestSchema<T>) {
     return z.object({
       body: requestSchema.body ? z.object(requestSchema.body) : z.unknown(),

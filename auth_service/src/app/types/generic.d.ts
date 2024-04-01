@@ -1,4 +1,5 @@
-import { RequestHandler } from 'express';
+import { ErrorRequestHandler, RequestHandler } from 'express';
+import swaggerUi from 'swagger-ui-express';
 import { Schema } from 'zod';
 
 export interface RequestSchema<T = any> {
@@ -16,10 +17,37 @@ export type Route = {
   controller: RequestHandler;
 };
 
+export type SwaggerConfig =
+  | {
+      enabled?: true;
+      path: string;
+      config: swaggerUi.JsonObject;
+    }
+  | {
+      enabled?: false;
+      path?: string;
+      config?: swaggerUi.JsonObject;
+    };
+
 export type ApplicationConfig = {
-  port?: number | string;
+  port?: number;
   host?: string;
   name?: string;
+  baseUrl?: string;
+  swagger?: SwaggerConfig;
+};
+
+export type ApplicationMiddlewares = {
+  global?: RequestHandler[];
+  authentication?: RequestHandler;
+  error?: ErrorRequestHandler;
+  validation?: (schema: RequestSchema) => RequestHandler;
+  response?: RequestHandler;
+};
+
+export type ApplicationOptions = ApplicationConfig & {
+  routes: Route[];
+  middlewares?: ApplicationMiddlewares;
 };
 
 export type LoggerOptions = {
