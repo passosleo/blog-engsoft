@@ -10,16 +10,22 @@ import Image from "next/image";
 import { CustomLink } from "@/components/CustomLink";
 
 export default function Login() {
-  const { onSubmit, isLoading, isVerifyingSession } = useLogin();
+  // const { onSubmit, isLoading, isVerifyingSession } = useLogin();
 
-  if (isVerifyingSession) {
-    return <CustomLoading isLoading fullScreen />;
-  }
+  // if (isVerifyingSession) {
+  //   return <CustomLoading isLoading fullScreen />;
+  // }
+  
+  const isLoading = false;
+
+  function onSubmit(values: any) {
+    console.log(values);
+  } 
 
   return (
     <div>
       <CustomLoading isLoading={isLoading}>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <Image
             src={Logo}
             alt="Logo"
@@ -28,7 +34,7 @@ export default function Login() {
             priority
           />
           <h1 className="text-center font-medium text-lg">EngSoft</h1>
-        </div>
+        </div> */}
         <CustomForm onSubmit={onSubmit} zodSchema={loginSchema}>
           <CustomInput name="email" type="email" label="E-mail" />
           <CustomInput name="password" type="password" label="Senha" /> 

@@ -19,7 +19,7 @@ export function useLogin() {
   }, [status, router]);
 
   function onSubmit(data: z.infer<typeof loginSchema>) {
-    console.log("data: ", data);
+  
    /*  setIsLoading(true);
     const callbackUrl = queryParams?.callbackUrl
       ? new URL(queryParams.callbackUrl).pathname +
