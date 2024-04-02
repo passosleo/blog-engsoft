@@ -24,17 +24,8 @@ export default function Login() {
 
   return (
     <div>
-      <CustomLoading isLoading={isLoading}>
-        {/* <div className="mb-3">
-          <Image
-            src={Logo}
-            alt="Logo"
-            width={100}
-            className="mx-auto"
-            priority
-          />
-          <h1 className="text-center font-medium text-lg">EngSoft</h1>
-        </div> */}
+      <CustomLoading isLoading={isLoading}> 
+      <h1 className="text-center text-lg font-semibold my-1">Acesse sua conta</h1>
         <CustomForm onSubmit={onSubmit} zodSchema={loginSchema}>
           <CustomInput name="email" type="email" label="E-mail" />
           <CustomInput name="password" type="password" label="Senha" /> 

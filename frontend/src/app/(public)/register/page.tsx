@@ -13,10 +13,7 @@ export function Register() {
 
   return (
     <div>
-      {/* <div className="mb-3">
-        <Image src={Logo} alt="Logo" width={100} className="mx-auto" priority />
-        <h1 className="text-center font-medium text-lg">EngSoft</h1>
-      </div> */}
+      <h1 className="text-center text-lg font-semibold my-1">Cadastre-se</h1>
       <CustomForm onSubmit={onSubmit} zodSchema={RegisterSchema}>
         <CustomInput name="name" type="text" label="Nome" />
         <CustomInput name="username" type="text" label="Username" />
@@ -28,7 +25,7 @@ export function Register() {
           type="password"
           label="Confirmar Senha"
         />
-        
+
         <CustomButton type="submit" className="mt-5">
           Cadastrar
         </CustomButton>

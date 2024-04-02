@@ -43,7 +43,7 @@ export function CustomForm<T extends FieldValues>({
   return (
     <FormProvider {...methods}>
       <form
-        className={twMerge("flex w-full flex-col gap-3", className)}
+        className={twMerge("flex w-full flex-col gap-1", className)}
         onSubmit={methods.handleSubmit((data) => onSubmit(data, methods))}
         onKeyDown={onKeyDown}
       >

@@ -71,51 +71,54 @@ export function CustomInput({
                     {label}
                   </label>
                 )}
-                <div className="flex items-center gap-1">
-                  {leftElement ? (
-                    <span
-                      onClick={onLeftElementClick || (() => {})}
-                      className={twMerge(
-                        "p-2 bg-primary rounded-sm border border-primary text-white hover:bg-primary/90 transition-all",
-                        onLeftElementClick ? "cursor-pointer" : ""
-                      )}
-                    >
-                      {leftElement}
-                    </span>
-                  ) : (
-                    <></>
-                  )}
-                  <Input
-                    id={id}
-                    ref={(e) => {
-                      ref(e);
-                      inputRef.current = e as React.LegacyRef<HTMLInputElement>;
-                    }}
-                    onKeyDown={onKeyDown}
-                    {...fields}
-                    {...props}
-                  />
-                  {rightElement ? (
-                    <span
-                      onClick={onRightElementClick || (() => {})}
-                      className={twMerge(
-                        "p-2 bg-primary rounded-sm ml-1 border border-primary text-white hover:bg-primary/90 transition-all",
-                        onRightElementClick ? "cursor-pointer" : ""
-                      )}
-                    >
-                      {rightElement}
-                    </span>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-                {!hideError && (hasError || error) && (
-                  <div data-testid="messageValidation">
-                    <label className="text-red-500 text-xs">
-                      {(hasError?.message || error) as string}
-                    </label>
+                <div>
+                  <div className="flex items-center gap-1">
+                    {leftElement ? (
+                      <span
+                        onClick={onLeftElementClick || (() => {})}
+                        className={twMerge(
+                          "p-2 bg-primary rounded-sm border border-primary text-white hover:bg-primary/90 transition-all",
+                          onLeftElementClick ? "cursor-pointer" : ""
+                        )}
+                      >
+                        {leftElement}
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                    <Input
+                      id={id}
+                      ref={(e) => {
+                        ref(e);
+                        inputRef.current =
+                          e as React.LegacyRef<HTMLInputElement>;
+                      }}
+                      onKeyDown={onKeyDown}
+                      {...fields}
+                      {...props}
+                    />
+                    {rightElement ? (
+                      <span
+                        onClick={onRightElementClick || (() => {})}
+                        className={twMerge(
+                          "p-2 bg-primary rounded-sm ml-1 border border-primary text-white hover:bg-primary/90 transition-all",
+                          onRightElementClick ? "cursor-pointer" : ""
+                        )}
+                      >
+                        {rightElement}
+                      </span>
+                    ) : (
+                      <></>
+                    )}
                   </div>
-                )}
+                  <div data-testid="messageValidation" className="h-6">
+                    {!hideError && (hasError || error) && (
+                      <label className="text-red-500 text-xs">
+                        {(hasError?.message || error) as string}
+                      </label>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
           />
