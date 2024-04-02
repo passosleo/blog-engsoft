@@ -1,25 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
 
-export class CreateClientController {
+export class CreateAccountController {
   /**
    * @openapi
-   * /api/v1/clients:
+   * /api/v1/account:
    *   post:
    *     tags:
-   *       - Clients
-   *     summary: Create a new client
+   *       - Account
+   *     summary: Create a new account
    *     security:
    *       - JWTAuth: []
    *     requestBody:
-   *       description: CreateClientDTO
+   *       description: CreateAccountDTO
    *       required: true
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/schemas/CreateClientDTO'
+   *             $ref: '#/components/schemas/CreateAccountDTO'
    *     responses:
-   *       200:
-   *         description: OK
+   *       201:
+   *         description: Created
    *         content:
    *           application/json:
    *             schema:
@@ -27,24 +27,18 @@ export class CreateClientController {
    *               properties:
    *                 status:
    *                   type: number
-   *                   example: 200
+   *                   example: 201
    *                 message:
    *                   type: string
-   *                   example: 'OK'
+   *                   example: 'Created'
    *                 data:
-   *                   $ref: '#/components/schemas/ClientDTO'
+   *                   $ref: '#/components/schemas/AccountDTO'
    *       400:
    *         description: Bad Request
    *         content:
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/BadRequestDTO'
-   *       401:
-   *         description: Unauthorized
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/UnauthorizedDTO'
    *       500:
    *         description: Internal Server Error
    *         content:

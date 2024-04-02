@@ -11,46 +11,46 @@ datasource db {
 }
 
 model User {
-  userId        String      @id @default(uuid())
-  email         String      @unique
-  emailVerified Boolean     @default(false)
+  userId        String   @id @default(uuid())
+  email         String   @unique
+  emailVerified Boolean  @default(false)
   name          String
-  username      String      @unique
+  username      String   @unique
   password      String
-  isEnabled     Boolean     @default(true)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  userRoles     UserRoles[]
+  isEnabled     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  // userRoles     UserRoles[]
 }
 
-model Client {
-  clientId     String       @id @default(uuid())
-  clientSecret String
-  name         String       @unique
-  description  String?
-  isEnabled    Boolean      @default(true)
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  clientRoles  ClientRole[]
-}
+// model Client {
+//   clientId     String       @id @default(uuid())
+//   clientSecret String
+//   name         String       @unique
+//   description  String?
+//   isEnabled    Boolean      @default(true)
+//   createdAt    DateTime     @default(now())
+//   updatedAt    DateTime     @updatedAt
+//   clientRoles  ClientRole[]
+// }
 
-model ClientRole {
-  clientRoleId String      @id @default(uuid())
-  clientId     String
-  name         String      @unique
-  description  String?
-  isEnabled    Boolean     @default(true)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  client       Client      @relation(fields: [clientId], references: [clientId])
-  userRoles    UserRoles[]
-}
+// model ClientRole {
+//   clientRoleId String      @id @default(uuid())
+//   clientId     String
+//   name         String      @unique
+//   description  String?
+//   isEnabled    Boolean     @default(true)
+//   createdAt    DateTime    @default(now())
+//   updatedAt    DateTime    @updatedAt
+//   client       Client      @relation(fields: [clientId], references: [clientId])
+//   userRoles    UserRoles[]
+// }
 
-model UserRoles {
-  clientRoleId String
-  userId       String
-  clientRole   ClientRole @relation(fields: [clientRoleId], references: [clientRoleId])
-  user         User       @relation(fields: [userId], references: [userId])
+// model UserRoles {
+//   clientRoleId String
+//   userId       String
+//   clientRole   ClientRole @relation(fields: [clientRoleId], references: [clientRoleId])
+//   user         User       @relation(fields: [userId], references: [userId])
 
-  @@id([clientRoleId, userId])
-}
+//   @@id([clientRoleId, userId])
+// }
