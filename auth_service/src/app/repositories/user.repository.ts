@@ -27,18 +27,6 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  async findOneByUsername(username: string): Promise<User | null> {
-    try {
-      const model = await this.dbContext.user.findFirst({
-        where: { username },
-      });
-
-      return model ? new User(model) : null;
-    } finally {
-      await this.dbContext.$disconnect();
-    }
-  }
-
   async create(data: CreateUserDTO): Promise<User> {
     try {
       const model = await this.dbContext.user.create({ data });

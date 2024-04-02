@@ -7,11 +7,6 @@ import { User } from '../../entities/user.entity';
  *    CreateAccountDTO:
  *      type: object
  *      properties:
- *        username:
- *          type: string
- *          minLength: 3
- *          maxLength: 50
- *          required: true
  *        name:
  *          type: string
  *          minLength: 3
@@ -29,13 +24,11 @@ import { User } from '../../entities/user.entity';
  *          required: true
  */
 export class CreateAccountDTO implements Partial<User> {
-  username: string;
   name: string;
   email: string;
   password: string;
 
   constructor(data: CreateAccountDTO) {
-    this.username = data.username;
     this.name = data.name;
     this.email = data.email;
     this.password = data.password;

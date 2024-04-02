@@ -15,7 +15,6 @@ model User {
   email         String   @unique
   emailVerified Boolean  @default(false)
   name          String
-  username      String   @unique
   password      String
   isEnabled     Boolean  @default(true)
   createdAt     DateTime @default(now())
