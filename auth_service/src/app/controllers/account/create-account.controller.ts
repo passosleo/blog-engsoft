@@ -53,7 +53,7 @@ export class CreateAccountController {
         data: req.body,
       };
 
-      return res.sendResponse(200, response);
+      return res.sendResponse(201, response);
     } catch (error) {
       next(error);
     }
