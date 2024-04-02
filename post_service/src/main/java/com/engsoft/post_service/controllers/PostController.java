@@ -1,18 +1,21 @@
 package com.engsoft.post_service.controllers;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import com.engsoft.post_service.dtos.PostDTO;
+import com.engsoft.post_service.entities.PostEntity;
+import com.engsoft.post_service.repositories.PostRepository;
 
 @RestController
 @RequestMapping("/api/v1/posts")
 public class PostController {
 
+  @Autowired
+  private PostRepository repository;
+
   @PostMapping
-  public void createPost(@RequestBody PostDTO json) {
-    System.out.println(json);
+  public void createPost(@RequestBody PostDTO postData) {
+    repository.save(new PostEntity(postData));
   }
 }
