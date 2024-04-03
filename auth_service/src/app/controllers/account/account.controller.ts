@@ -1,6 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
+import { CreateAccountDTO } from '../../../domain/dtos/account/create-account.dto';
+import { AccountService } from '../../use-cases/account/account.service';
+import { UserRepository } from '../../repositories/user.repository';
+import { DbContext } from '../../data/db-context';
+import { IAccountService } from '../../../domain/services/account/account.service';
 
-export class CreateAccountController {
+const accountService: IAccountService = new AccountService(new UserRepository(DbContext.getConnection()));
+
+export class AccountController {
   /**
    * @openapi
    * /api/v1/account:
@@ -8,8 +15,6 @@ export class CreateAccountController {
    *     tags:
    *       - Account
    *     summary: Create a new account
-   *     security:
-   *       - JWTAuth: []
    *     requestBody:
    *       description: CreateAccountDTO
    *       required: true
@@ -46,12 +51,10 @@ export class CreateAccountController {
    *             schema:
    *               $ref: '#/components/schemas/InternalServerErrorDTO'
    */
-  static async execute(req: Request, res: Response, next: NextFunction) {
+  static async createAccount(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = {
-        success: true,
-        data: req.body,
-      };
+      const data = new CreateAccountDTO(req.body);
+      const response = await accountService.createAccount(data);
 
       return res.sendResponse(201, response);
     } catch (error) {

@@ -6,6 +6,7 @@ import { UpdateAccountDTO } from '../../../domain/dtos/account/update-account.dt
 import { IUserRepository } from '../../../domain/repositories/user.repository';
 import { CreateAccountDTO } from '../../../domain/dtos/account/create-account.dto';
 import { CreateUserDTO } from '../../../domain/dtos/user/create-user.dto';
+import { Helpers } from '../../helpers';
 
 export class AccountService implements IAccountService {
   constructor(private readonly userRepository: IUserRepository) {}
@@ -17,17 +18,14 @@ export class AccountService implements IAccountService {
       throw new Exception('CONFLICT', 'Email already exists');
     }
 
-    // const hashedPassword = await helpers.password.hashPassword(data.password);
+    const hashedPassword = await Helpers.hashPassword(data.password);
 
     const userData = new CreateUserDTO({
       ...data,
-      // password: hashedPassword,
+      password: hashedPassword,
     });
 
-    const newUser = await this.userRepository.create({
-      ...data,
-      // password: hashedPassword,
-    });
+    const createdUser = await this.userRepository.create(userData);
 
     // const token = await authPlugin.generateToken({
     //     payload: {
@@ -37,7 +35,7 @@ export class AccountService implements IAccountService {
 
     return {
       success: true,
-      // data: new AccountDTO({}),
+      data: new AccountDTO(createdUser),
     };
   }
 
