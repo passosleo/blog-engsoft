@@ -3,6 +3,7 @@ package com.engsoft.post_service.entities;
 import java.time.LocalDateTime;
 
 import com.engsoft.post_service.dtos.CreatePostDTO;
+import com.engsoft.post_service.dtos.UpdatePostDTO;
 import com.engsoft.post_service.enums.PostCategory;
 
 import jakarta.persistence.*;
@@ -52,5 +53,19 @@ public class PostEntity {
   @PreUpdate
   protected void onUpdate() {
     this.updatedAt = LocalDateTime.now();
+  }
+
+  public void updateEntity(UpdatePostDTO postData) {
+    if (postData.title() != null) {
+      this.title = postData.title();
+    }
+
+    if (postData.content() != null) {
+      this.content = postData.content();
+    }
+
+    if (postData.category() != null) {
+      this.category = postData.category();
+    }
   }
 }
