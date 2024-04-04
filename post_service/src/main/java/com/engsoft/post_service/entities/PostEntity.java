@@ -2,7 +2,7 @@ package com.engsoft.post_service.entities;
 
 import java.time.LocalDateTime;
 
-import com.engsoft.post_service.dtos.PostDTO;
+import com.engsoft.post_service.dtos.CreatePostDTO;
 import com.engsoft.post_service.enums.PostCategory;
 
 import jakarta.persistence.*;
@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(of = "postId")
 public class PostEntity {
 
-  public PostEntity(PostDTO postData) {
+  public PostEntity(CreatePostDTO postData) {
     this.title = postData.title();
     this.content = postData.content();
     this.author = postData.author();
