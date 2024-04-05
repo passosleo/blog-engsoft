@@ -1,18 +1,16 @@
 "use client";
 
-import { CustomButton } from "@/components/CustomButton";
-import { When } from "@/components/When";
+import { When } from "@/components/shared/When";
 import { useState } from "react";
-import Login from "../login/page";
-import Arrow from "@/assets/icons/arrow-left.svg";
 import Image from "next/image";
-import { Register } from "../register/page";
 import WelcomeImage from "@/assets/images/welcome-image.jpg";
 import { useMobile } from "@/hooks/useMobile";
 import { twMerge } from "tailwind-merge";
-import Logo from "@/assets/images/logo.svg";
+import Logo from "@/assets/images/logo-name.svg";
+import Login from "./components/Login/page";
+import { Register } from "./components/Register/page";
 
-export function Welcome() {
+export default function Welcome() {
   const [isLogged, setIsLogged] = useState<"login" | "register">("login");
 
   const isMobile = useMobile();

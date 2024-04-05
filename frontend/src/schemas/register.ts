@@ -6,11 +6,11 @@ const { validations } = config.messages;
 
 export const RegisterSchema = z
   .object({
-    username: z
-    .string({ required_error: validations.isRequired })
-    .min(3, validations.string.isMinThenThree)
-    .max(50, validations.string.isMoreThenFifty)
-    .transform((value) => value.trim()),
+    // username: z
+    // .string({ required_error: validations.isRequired })
+    // .min(3, validations.string.isMinThenThree)
+    // .max(50, validations.string.isMoreThenFifty)
+    // .transform((value) => value.trim()),
     name: z
       .string()
       .min(3, validations.string.isMinThenThree)
