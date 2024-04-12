@@ -1,7 +1,6 @@
 import { CustomAvatar } from "@/components/CustomAvatar";
 import Image from "next/image";
 
-import Logo from '@/assets/images/logo.svg'
 import EngSoft from '@/assets/images/engsoft.svg'
 
 import Link from "next/link";

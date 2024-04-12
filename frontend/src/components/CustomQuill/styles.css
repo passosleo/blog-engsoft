@@ -1,0 +1,17 @@
+.quill {
+  min-height: 250px;
+  background: #121214;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.quill .ql-toolbar.ql-snow {
+  border-bottom:1px solid #29292E;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.quill .ql-container.ql-snow {
+  border: none;
+}

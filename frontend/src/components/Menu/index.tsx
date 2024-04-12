@@ -6,8 +6,7 @@ import { CustomAvatar } from "../CustomAvatar";
 export function Menu() {
   return (
     <div className="mr-5 flex items-center flex-col gap-5">
-      <Link href="/home" className="">
-        {/* <Image src={Logo} alt="Logo" width={45} height={45} /> */}
+      {/* <Link href="/home" className="">
         <Image
           src={EngSoft}
           alt="Logo"
@@ -15,10 +14,16 @@ export function Menu() {
           height={120}
           className="hover:opacity-90"
         />
-      </Link>
+      </Link> */}
 
       <div className="bg-black-secundary h-36 w-72 rounded-lg px-4 py-6 flex flex-col items-center">
-        <CustomAvatar name="John Doe" />
+        {/* <CustomAvatar name="John Doe" /> */}
+          
+          <p>Front-End</p>
+          <p>Backend</p>
+          <p>Inteligencia artificial</p>
+          <p>Dev ops</p>
+
       </div>
     </div>
   );
