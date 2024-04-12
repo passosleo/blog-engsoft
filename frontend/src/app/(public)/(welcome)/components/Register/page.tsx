@@ -5,7 +5,8 @@ import { RegisterSchema } from "@/schemas/register";
 
 export function Register() {
   function onSubmit(values: any) {
-    console.log(values);
+    console.log("values: ", values);
+    
   }
 
   return (

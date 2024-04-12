@@ -7,8 +7,8 @@ export default function PrivateLayout({
 }) {
   return (
     <div>
-      <Header />
-      <main className="h-screen w-full pt-20 max-w-screen-xl mx-auto px-4 ">
+      {/* <Header /> */}
+      <main className="h-screen w-full  max-w-screen-xl mx-auto p-4 ">
         {children}
       </main>
     </div>
