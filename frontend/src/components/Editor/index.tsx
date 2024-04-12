@@ -9,6 +9,18 @@ import "./styles.css";
 export function Editor() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [text, setText] = useState("");
+
+  function handleChangeText(value: any) {
+    console.log("value: ", value);
+    setText(value);
+  };
+
+  function onCancel() {
+    setIsOpen(false)
+    setText("")
+  }
+
   return (
     <div className="bg-black-secundary p-4 flex flex-col rounded-lg ">
       <When condition={!isOpen}>
@@ -29,12 +41,12 @@ export function Editor() {
       </When>
 
       <div className={`slide-down ${isOpen ? "open" : ""}`}>
-        <CustomQuill />
+        <CustomQuill value={text} onChange={handleChangeText} />
         <div className="flex gap-3 justify-end">
           <CustomButton
             className="bg-black-secundary h-[41px]"
             variant="outline"
-            onClick={() => setIsOpen(false)}
+            onClick={onCancel}
           >
             Cancelar
           </CustomButton>

@@ -5,16 +5,13 @@ import './styles.css'
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+};
 
-export function CustomQuill(){
-  const [text, setText] = useState("");
-
-  const handleChange = (value: any) => {
-    console.log("value: ", value);
-    setText(value);
-  };
-
+export function CustomQuill({value, onChange}: Props){
   return (
-    <ReactQuill value={text} onChange={handleChange} />
+    <ReactQuill value={value} onChange={onChange} />
   )
 }

@@ -1,5 +1,6 @@
 .quill {
-  min-height: 250px;
+  min-height: 250px; 
+  height: auto;
   background: #121214;
   border-radius: 4px;
   margin-top: 1rem;
@@ -14,4 +15,9 @@
 
 .quill .ql-container.ql-snow {
   border: none;
+  max-height: 200px;
+}
+
+.ql-editor {
+  max-height: 200px;
 }

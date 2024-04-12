@@ -8,5 +8,6 @@
 }
 
 .slide-down.open {
-  max-height: 500px; /* Ajuste a altura conforme necessário */
+  min-height: 323px;
+  height: auto;
 }
