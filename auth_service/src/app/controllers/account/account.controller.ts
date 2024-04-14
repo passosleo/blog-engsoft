@@ -4,8 +4,12 @@ import { AccountService } from '../../services/account/account.service';
 import { UserRepository } from '../../repositories/user.repository';
 import { DbContext } from '../../data/db-context';
 import { IAccountService } from '../../../domain/services/account/account.service';
+import { AuthPlugin } from '../../plugins/auth.plugin';
 
-const accountService: IAccountService = new AccountService(new UserRepository(DbContext.getConnection()));
+const accountService: IAccountService = new AccountService(
+  new UserRepository(DbContext.getConnection()),
+  new AuthPlugin()
+);
 
 export class AccountController {
   /**
