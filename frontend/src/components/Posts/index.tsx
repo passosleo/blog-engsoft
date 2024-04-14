@@ -18,7 +18,7 @@ const postsTI = [
   {
     category: "DevOps",
     tittle: "Implementando CI/CD com Jenkins",
-    content: "<h2>O que é CI/CD?</h2><p>CI/CD (Integração Contínua / Entrega Contínua) é uma prática de desenvolvimento de software em que as alterações de código são automaticamente testadas e preparadas para implantação em um ambiente de produção.</p><h2>Jenkins</h2><p>O Jenkins é uma ferramenta popular para automação de CI/CD. Ele oferece uma variedade de plugins e uma interface amigável para configurar pipelines de integração e entrega.</p><h2>Como Implementar com Jenkins</h2><p>Veja como configurar um pipeline de CI/CD para um projeto de exemplo usando Jenkins:</p><ul><li><a href='https://www.jenkins.io/doc/tutorials/build-a-node-js-and-react-app-with-npm/'>Jenkins Tutorial: Build a Node.js and React app with npm</a></li></ul>",
+    content: "<h2>O que é CI/CD?</h2><p>CI/CD (Integração Contínua / Entrega Contínua) é uma prática de desenvolvimento de software em que as alterações de código são automaticamente testadas e preparadas para implantação em um ambiente de produção.</p><h2>Jenkins</h2><p>O Jenkins é uma ferramenta popular para automação de CI/CD. Ele oferece uma variedade de plugins e uma interface amigável para configurar pipelines de integração e entrega.</p><h2>Como Implementar com Jenkins</h2><p>Veja como configurar um pipeline de CI/CD para um projeto de exemplo usando Jenkins:</p><ul><li><a href='https://www.jenkins.io/doc/tutorials/build-a-node-js-and-react-app-with-npm/'>Jenkins Tutorial: Build a Node.js and React app with npm</a></li></ul> <br /> <button>Leia mais </button>",
     author: "Ray Melo",
     publishedAt: new Date("2024-03-11 08:13:30"),
   }

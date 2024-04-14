@@ -19,10 +19,10 @@ export function Menu() {
       <div className="bg-black-secundary h-36 w-72 rounded-lg px-4 py-6 flex flex-col items-center">
         {/* <CustomAvatar name="John Doe" /> */}
           
-          <p>Front-End</p>
-          <p>Backend</p>
-          <p>Inteligencia artificial</p>
-          <p>Dev ops</p>
+          <p className="m-0">Front-End</p>
+          <p className="m-0">Backend</p>
+          <p className="m-0">Inteligencia artificial</p>
+          <p className="m-0">Dev ops</p>
 
       </div>
     </div>

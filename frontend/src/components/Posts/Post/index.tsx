@@ -1,4 +1,5 @@
 import ReactHtmlParser from "react-html-parser";
+import "./global.css";
 
 type Props = {
   post: {
