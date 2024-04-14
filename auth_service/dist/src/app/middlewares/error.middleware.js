@@ -12,7 +12,7 @@ async function errorMiddleware(error, req, res, next) {
         params,
         query,
         body,
-        error: JSON.stringify(error.stack),
+        error: JSON.stringify(error.stack, null, 2),
     };
     if (error instanceof http_1.Exception) {
         if (error.statusCode === http_1.HttpStatusCode.INTERNAL_SERVER_ERROR) {
