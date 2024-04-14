@@ -45,4 +45,14 @@ public class PostController {
       repository.save(post);
     }
   }
+
+  @DeleteMapping("/{postId}")
+  @Transactional
+  public void deletePost(@PathVariable(required = true) String postId) {
+    PostEntity post = repository.findByPostId(postId);
+
+    if (post != null) {
+      repository.delete(post);
+    }
+  }
 }
