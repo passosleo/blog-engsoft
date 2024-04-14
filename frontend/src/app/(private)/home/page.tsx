@@ -3,6 +3,7 @@ import React from "react";
 import "react-quill/dist/quill.snow.css";
 import { Menu } from "@/components/Menu";
 import { Editor } from "@/components/Editor";
+import { Posts } from "@/components/Posts";
 
 export default function Home() {
 
@@ -11,7 +12,8 @@ export default function Home() {
       <Menu />
       <div className="border-l pl-5 border-[#29292E] h-auto w-full ">
         <Editor />
-      </div>
+        <Posts />
+      </div> 
     </div>
   );
 }
