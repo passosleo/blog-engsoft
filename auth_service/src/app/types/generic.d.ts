@@ -39,7 +39,7 @@ export type ApplicationConfig = {
 
 export type ApplicationMiddlewares = {
   global?: RequestHandler[];
-  authentication?: RequestHandler;
+  authentication?: () => RequestHandler;
   error?: ErrorRequestHandler;
   validation?: (schema: RequestSchema) => RequestHandler;
   response?: RequestHandler;

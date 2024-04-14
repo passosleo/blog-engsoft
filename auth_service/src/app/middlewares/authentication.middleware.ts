@@ -34,7 +34,7 @@ export function authenticationMiddleware() {
       const authPlugin: IAuthPlugin = new AuthPlugin();
       const token = authorization.split(' ')[1];
 
-      const { account } = await authPlugin.verifyToken<{account: AccountDTO}>(token);
+      const { account } = await authPlugin.verifyToken<{ account: AccountDTO }>(token);
 
       if (!account) throw new Exception('UNAUTHORIZED', 'Invalid token');
 

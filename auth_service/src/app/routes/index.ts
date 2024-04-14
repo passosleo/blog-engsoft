@@ -17,4 +17,10 @@ export const routes: Route[] = [
     schema: CredentialsSchema,
     controller: AuthenticationController.authenticate,
   },
+  {
+    path: '/api/v1/validate-token',
+    method: 'POST',
+    auth: true,
+    controller: AuthenticationController.validateToken,
+  },
 ];

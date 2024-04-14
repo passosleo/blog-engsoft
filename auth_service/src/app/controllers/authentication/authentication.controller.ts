@@ -8,7 +8,7 @@ import { DbContext } from '../../data/db-context';
 
 const authenticationService: IAuthenticationService = new AuthenticationService(
   new UserRepository(DbContext.getConnection()),
-  new AuthPlugin()
+  new AuthPlugin(),
 );
 
 export class AuthenticationController {
@@ -76,5 +76,44 @@ export class AuthenticationController {
     } catch (error) {
       next(error);
     }
+  }
+
+  /**
+   * @openapi
+   * /api/v1/validate-token:
+   *   post:
+   *     tags:
+   *       - Authentication
+   *     summary: Validate token
+   *     security:
+   *       - JWTAuth: []
+   *     responses:
+   *       200:
+   *         description: OK
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: number
+   *                   example: 200
+   *                 message:
+   *                   type: string
+   *                   example: 'OK'
+   *                 data:
+   *                   $ref: '#/components/schemas/AccountDTO'
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/UnauthorizedDTO'
+   */
+  static async validateToken(req: Request, res: Response, next: NextFunction) {
+    return res.sendResponse(200, {
+      success: true,
+      data: req.account,
+    });
   }
 }

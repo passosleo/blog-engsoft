@@ -12,6 +12,7 @@ import { User } from '../../entities/user.entity';
  *           format: email
  *         password:
  *           type: string
+ *           minLength: 8
  */
 export class CredentialsDTO implements Partial<User> {
   email: string;
