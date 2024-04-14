@@ -5,7 +5,6 @@ export class User implements Omit<UserPrismaModel, 'password'> {
   email: string;
   emailVerified: boolean;
   name: string;
-  username: string;
   password: string;
   isEnabled: boolean;
   createdAt: Date;
@@ -16,7 +15,6 @@ export class User implements Omit<UserPrismaModel, 'password'> {
     this.email = data.email;
     this.emailVerified = data.emailVerified;
     this.name = data.name;
-    this.username = data.username;
     this.password = data.password;
     this.isEnabled = data.isEnabled;
     this.createdAt = data.createdAt;
