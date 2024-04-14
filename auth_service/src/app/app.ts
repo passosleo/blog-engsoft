@@ -82,7 +82,6 @@ export class Application {
       if (route.middlewares) {
         routeMiddlewaresList.push(...route.middlewares);
       }
-      console.log('Application ~ this.routes.forEach ~ routeMiddlewaresList', routeMiddlewaresList);
 
       this.app[route.method.toLowerCase() as keyof Express](route.path, routeMiddlewaresList, route.controller);
 

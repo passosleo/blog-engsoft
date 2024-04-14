@@ -65,5 +65,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/passosleo/blog-engsoft"
+  },
+  "resolutions": {
+    "@types/mime": "3.0.4"
   }
 }
