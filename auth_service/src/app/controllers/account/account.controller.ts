@@ -27,8 +27,8 @@ export class AccountController {
    *           schema:
    *             $ref: '#/components/schemas/CreateAccountDTO'
    *     responses:
-   *       201:
-   *         description: Created
+   *       200:
+   *         description: OK
    *         content:
    *           application/json:
    *             schema:
@@ -36,7 +36,7 @@ export class AccountController {
    *               properties:
    *                 status:
    *                   type: number
-   *                   example: 201
+   *                   example: 200
    *                 message:
    *                   type: string
    *                   example: 'Created'
@@ -60,7 +60,7 @@ export class AccountController {
       const data = new CreateAccountDTO(req.body);
       const response = await accountService.createAccount(data);
 
-      return res.sendResponse(201, response);
+      return res.sendResponse(200, response);
     } catch (error) {
       next(error);
     }
