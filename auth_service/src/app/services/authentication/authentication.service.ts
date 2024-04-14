@@ -23,10 +23,7 @@ export class AuthenticationService implements IAuthenticationService {
 
     const { password: hashedUserPassword } = user;
 
-    const isValidPassword = await Helpers.validateHashedPassword(
-      credentials.password,
-      hashedUserPassword,
-    );
+    const isValidPassword = await Helpers.validateHashedPassword(credentials.password, hashedUserPassword);
 
     if (!isValidPassword) {
       throw new Exception('UNAUTHORIZED', 'Invalid password');
@@ -43,9 +40,4 @@ export class AuthenticationService implements IAuthenticationService {
       data: new AuthenticationDTO({ token, type: 'Bearer' }),
     };
   }
-
-  async validateToken(token: string): Promise<ServiceResult<AccountDTO>> {
-    throw new Error('Method not implemented.');
-  }
-
 }
