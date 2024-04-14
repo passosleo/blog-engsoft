@@ -33,10 +33,10 @@ export class AccountService implements IAccountService {
     const createdUser = await this.userRepository.create(userData);
 
     const token = await this.authPlugin.generateToken({
-        payload: {
-          account: new AccountDTO(createdUser),
-        },
-      });
+      payload: {
+        account: new AccountDTO(createdUser),
+      },
+    });
 
     return {
       success: true,
@@ -45,7 +45,16 @@ export class AccountService implements IAccountService {
   }
 
   async getAccount(userId: string): Promise<ServiceResult<AccountDTO>> {
-    throw new Error('Method not implemented.');
+    const user = await this.userRepository.findOneById(userId);
+
+    if (!user) {
+      throw new Exception('NOT_FOUND', 'User not found');
+    }
+
+    return {
+      success: true,
+      data: new AccountDTO(user),
+    };
   }
 
   async updateAccount(userId: string, data: UpdateAccountDTO): Promise<ServiceResult<AccountDTO>> {

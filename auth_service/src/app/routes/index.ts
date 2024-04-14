@@ -12,6 +12,12 @@ export const routes: Route[] = [
     controller: AccountController.createAccount,
   },
   {
+    path: '/api/v1/account',
+    method: 'GET',
+    auth: true,
+    controller: AccountController.getAccount,
+  },
+  {
     path: '/api/v1/authenticate',
     method: 'POST',
     schema: CredentialsSchema,
