@@ -10,8 +10,6 @@ import { User } from '../../entities/user.entity';
  *         userId:
  *           type: string
  *           format: uuid
- *         username:
- *           type: string
  *         name:
  *           type: string
  *         email:
@@ -30,7 +28,6 @@ import { User } from '../../entities/user.entity';
  */
 export class AccountDTO implements Partial<User> {
   userId: string;
-  username: string;
   name: string;
   email: string;
   emailVerified: boolean;
@@ -40,10 +37,9 @@ export class AccountDTO implements Partial<User> {
 
   constructor(data: AccountDTO) {
     this.userId = data.userId;
+    this.name = data.name;
     this.email = data.email;
     this.emailVerified = data.emailVerified;
-    this.name = data.name;
-    this.username = data.username;
     this.isEnabled = data.isEnabled;
     this.createdAt = data.createdAt;
     this.updatedAt = data.updatedAt;

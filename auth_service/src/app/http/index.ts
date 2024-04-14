@@ -1,9 +1,9 @@
 export class Exception extends Error {
   public statusCode: HttpStatusCode;
 
-  constructor(statusCode: HttpStatusCode, message: string) {
+  constructor(statusCode: keyof typeof HttpStatusCode, message: string) {
     super(message);
-    this.statusCode = statusCode;
+    this.statusCode = HttpStatusCode[statusCode];
   }
 }
 

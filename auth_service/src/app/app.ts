@@ -1,11 +1,6 @@
 import express, { Express, RequestHandler } from 'express';
 import { ILogger, Logger } from './plugins/logger.plugin';
-import {
-  ApplicationConfig,
-  ApplicationMiddlewares,
-  ApplicationOptions,
-  Route,
-} from './types/generic';
+import { ApplicationConfig, ApplicationMiddlewares, ApplicationOptions, Route } from './types/generic';
 import { config } from '../config/app.config';
 import { DbContext } from './data/db-context';
 import swaggerUi from 'swagger-ui-express';
@@ -46,11 +41,7 @@ export class Application {
     this.app.use(express.urlencoded({ extended: true }));
 
     if (this.config.swagger?.enabled) {
-      this.app.use(
-        this.config.swagger.path,
-        swaggerUi.serve,
-        swaggerUi.setup(this.config.swagger.config),
-      );
+      this.app.use(this.config.swagger.path, swaggerUi.serve, swaggerUi.setup(this.config.swagger.config));
     }
 
     if (this.middlewares.global) {
@@ -74,11 +65,9 @@ export class Application {
 
       if (route.auth) {
         if (this.middlewares.authentication) {
-          routeMiddlewaresList.push(this.middlewares.authentication);
+          routeMiddlewaresList.push(this.middlewares.authentication());
         } else {
-          this.logger.warn(
-            `Route "${route.path}" requires authentication but no auth middleware is provided`,
-          );
+          this.logger.warn(`Route "${route.path}" requires authentication but no auth middleware is provided`);
         }
       }
 
@@ -86,9 +75,7 @@ export class Application {
         if (this.middlewares.validation) {
           routeMiddlewaresList.push(this.middlewares.validation(route.schema));
         } else {
-          this.logger.warn(
-            `Route "${route.path}" requires validation but no validation middleware is provided`,
-          );
+          this.logger.warn(`Route "${route.path}" requires validation but no validation middleware is provided`);
         }
       }
 
@@ -96,15 +83,9 @@ export class Application {
         routeMiddlewaresList.push(...route.middlewares);
       }
 
-      this.app[route.method.toLowerCase() as keyof Express](
-        route.path,
-        routeMiddlewaresList,
-        route.controller,
-      );
+      this.app[route.method.toLowerCase() as keyof Express](route.path, routeMiddlewaresList, route.controller);
 
-      this.logger.info(
-        `Route ${route.method} ${route.path} successfully registered`,
-      );
+      this.logger.info(`Route ${route.method} ${route.path} successfully registered`);
     });
   }
 
@@ -113,16 +94,10 @@ export class Application {
       this.logger.info('Application is ready to start');
 
       this.app.listen(port, () => {
-        this.logger.info(
-          `Application ${this.config.name ?? ''} successfully started on ${
-            this.config.baseUrl
-          }`,
-        );
+        this.logger.info(`Application ${this.config.name ?? ''} successfully started on ${this.config.baseUrl}`);
 
         if (this.config.swagger?.enabled) {
-          this.logger.info(
-            `Swagger is available under ${this.config.baseUrl}${this.config.swagger.path}`,
-          );
+          this.logger.info(`Swagger is available under ${this.config.baseUrl}${this.config.swagger.path}`);
         }
       });
     });
