@@ -12,7 +12,7 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: `${config.app.baseUrl}/api/v1`,
+        url: config.app.baseUrl,
       },
     ],
     consumes: ['application/json'],

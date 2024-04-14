@@ -3,12 +3,7 @@ import { Logger } from '../plugins/logger.plugin';
 import { Exception, HttpStatusCode, ResponseMessages } from '../http';
 import { DefaultError } from '../types/generic';
 
-export async function errorMiddleware(
-  error: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export async function errorMiddleware(error: Error, req: Request, res: Response, next: NextFunction) {
   const logger = new Logger({ context: 'error-handler' });
   const { method, path, params, query, body } = req;
 
@@ -18,7 +13,7 @@ export async function errorMiddleware(
     params,
     query,
     body,
-    error: JSON.stringify(error.stack),
+    error: JSON.stringify(error.stack, null, 2),
   };
 
   if (error instanceof Exception) {

@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  auth_service_db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+    ports:
+      - "5432:5432"
+
+  auth_service:
+    build:
+      context: ./auth_service/dist
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      HOST: "http://localhost"
+      PORT: 3000
+      NAME: "auth-service"
+      DATABASE_URL: "postgresql://user:password@auth_service_db:5432/database?schema=public"
+      JWT_SECRET: "8bc8c6ed7899c1e6a280dccac8ce567d16c7e3d65dba6fb0a399266c9a3f0743"
+      JWT_EXPIRES_IN: "90d"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth_service_db

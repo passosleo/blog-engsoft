@@ -1,5 +1,5 @@
 {
-  "watch": ["src", "public", "./swagger.json", "./.env"],
+  "watch": ["src", "./.env"],
   "ext": ".ts,.js,.json",
   "ignore": ["node_modules", "dist", "coverage", "public"],
   "exec": "ts-node ./src/app/server.ts"
