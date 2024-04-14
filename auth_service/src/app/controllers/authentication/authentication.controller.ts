@@ -1,31 +1,31 @@
-import { IAccountService } from '../../../domain/services/account/account.service';
-import { CreateAccountDTO } from '../../../domain/dtos/account/create-account.dto';
-import { AccountService } from '../../services/account/account.service';
+import { IAuthenticationService } from '../../../domain/services/authentication/authentication.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { CredentialsDTO } from '../../../domain/dtos/authentication/credentials.dto';
 import { UserRepository } from '../../repositories/user.repository';
 import { Request, Response, NextFunction } from 'express';
 import { AuthPlugin } from '../../plugins/auth.plugin';
 import { DbContext } from '../../data/db-context';
 
-const accountService: IAccountService = new AccountService(
+const authenticationService: IAuthenticationService = new AuthenticationService(
   new UserRepository(DbContext.getConnection()),
   new AuthPlugin()
 );
 
-export class AccountController {
+export class AuthenticationController {
   /**
    * @openapi
-   * /api/v1/account:
+   * /api/v1/authenticate:
    *   post:
    *     tags:
-   *       - Account
-   *     summary: Create a new account
+   *       - Authentication
+   *     summary: Authenticate user
    *     requestBody:
-   *       description: CreateAccountDTO
+   *       description: CredentialsDTO
    *       required: true
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/schemas/CreateAccountDTO'
+   *             $ref: '#/components/schemas/CredentialsDTO'
    *     responses:
    *       200:
    *         description: OK
@@ -48,12 +48,18 @@ export class AccountController {
    *           application/json:
    *             schema:
    *               $ref: '#/components/schemas/BadRequestDTO'
-   *       409:
-   *         description: Conflict
+   *       401:
+   *         description: Unauthorized
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '#/components/schemas/ConflictDTO'
+   *               $ref: '#/components/schemas/UnauthorizedDTO'
+   *       404:
+   *         description: Not Found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/NotFoundDTO'
    *       500:
    *         description: Internal Server Error
    *         content:
@@ -61,10 +67,10 @@ export class AccountController {
    *             schema:
    *               $ref: '#/components/schemas/InternalServerErrorDTO'
    */
-  static async createAccount(req: Request, res: Response, next: NextFunction) {
+  static async authenticate(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = new CreateAccountDTO(req.body);
-      const response = await accountService.createAccount(data);
+      const data = new CredentialsDTO(req.body);
+      const response = await authenticationService.authenticate(data);
 
       return res.sendResponse(200, response);
     } catch (error) {

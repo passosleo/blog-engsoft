@@ -40,17 +40,15 @@ export class AccountService implements IAccountService {
 
     return {
       success: true,
-      data: new AuthenticationDTO({
-        type: 'Bearer',
-        token,
-      }),
+      data: new AuthenticationDTO({ token, type: 'Bearer' }),
     };
   }
 
-  getAccount(userId: string): Promise<ServiceResult<AccountDTO>> {
+  async getAccount(userId: string): Promise<ServiceResult<AccountDTO>> {
     throw new Error('Method not implemented.');
   }
-  updateAccount(userId: string, data: UpdateAccountDTO): Promise<ServiceResult<AccountDTO>> {
+
+  async updateAccount(userId: string, data: UpdateAccountDTO): Promise<ServiceResult<AccountDTO>> {
     throw new Error('Method not implemented.');
   }
 }
