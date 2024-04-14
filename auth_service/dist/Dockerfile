@@ -15,5 +15,5 @@ RUN npx prisma generate
 EXPOSE 3000
 
 # Start the API
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["npm", "run", "start:migrate"]
 

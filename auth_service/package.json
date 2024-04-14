@@ -8,17 +8,13 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./dist/src/app/server.js",
+    "start:migrate": "npx prisma migrate deploy && npm run start",
     "dev": "cross-env NODE_ENV=development nodemon",
     "prebuild": "rimraf ./dist",
     "build": "yarn prebuild && tsc && ts-node build",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "logs:clear": "rimraf ./logs",
-    "test": "jest --passWithNoTests",
-    "prisma:seed": "npx prisma db seed",
-    "prisma:push": "npx prisma db push",
-    "prisma:update": "npx prisma generate && npx prisma db push",
-    "prisma:generate": "npx prisma generate",
-    "prisma:migrate:dev": "npx prisma migrate dev"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
