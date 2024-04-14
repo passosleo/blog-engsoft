@@ -34,7 +34,7 @@ export class AuthenticationService implements IAuthenticationService {
 
     const token = await this.authPlugin.generateToken({
       payload: {
-        user: new AccountDTO(user),
+        account: new AccountDTO(user),
       },
     });
 

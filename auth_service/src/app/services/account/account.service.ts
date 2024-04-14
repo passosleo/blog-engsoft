@@ -34,7 +34,7 @@ export class AccountService implements IAccountService {
 
     const token = await this.authPlugin.generateToken({
         payload: {
-          user: new AccountDTO(createdUser),
+          account: new AccountDTO(createdUser),
         },
       });
 

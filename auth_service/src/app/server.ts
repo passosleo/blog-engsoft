@@ -1,3 +1,4 @@
+import { authenticationMiddleware } from './middlewares/authentication.middleware';
 import { validationMiddleware } from './middlewares/validate.middleware';
 import { responseMiddleware } from './middlewares/response.middleware';
 import { errorMiddleware } from './middlewares/error.middleware';
@@ -16,6 +17,7 @@ const server = new Application({
   },
   middlewares: {
     global: [cors(), morgan('dev')],
+    authentication: authenticationMiddleware,
     validation: validationMiddleware,
     response: responseMiddleware,
     error: errorMiddleware,
