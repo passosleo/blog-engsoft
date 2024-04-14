@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CreateAccountDTO } from '../../../domain/dtos/account/create-account.dto';
-import { AccountService } from '../../use-cases/account/account.service';
+import { AccountService } from '../../services/account/account.service';
 import { UserRepository } from '../../repositories/user.repository';
 import { DbContext } from '../../data/db-context';
 import { IAccountService } from '../../../domain/services/account/account.service';
