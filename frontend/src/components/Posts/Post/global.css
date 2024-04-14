@@ -76,6 +76,11 @@ a {
   cursor: pointer;
   text-decoration: underline;
   color: #8257E5;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: #6f4bd8;
 }
 
 b, strong  {
