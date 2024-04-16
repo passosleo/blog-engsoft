@@ -215,7 +215,7 @@ li {
   unicode-bidi: isolate;
 }
 
-button {
+/* button {
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: #fafafa;
@@ -234,4 +234,9 @@ button {
 
 button:hover {
   background-color: #7852d1;
+} */
+
+ 
+img {
+  border-radius: 3px; 
 }
