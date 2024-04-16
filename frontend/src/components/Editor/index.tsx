@@ -9,6 +9,7 @@ import { CustomSelect } from "../CustomSelect";
 import { CustomForm } from "../CustomForm";
 import { CustomInput } from "../CustomInput";
 import { CustomSwitch } from "../CustomSwitch";
+import { postSchema } from "@/schemas/post";
 
 const categories = [
   {
@@ -46,16 +47,10 @@ const categories = [
 export function Editor() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [text, setText] = useState("");
-
-  function handleChangeText(value: any) {
-    console.log("value: ", value);
-    setText(value);
-  }
+ 
 
   function onCancel() {
     setIsOpen(false);
-    setText("");
   }
 
   function onSubmit(values: any) {
@@ -72,7 +67,7 @@ export function Editor() {
           Crie uma nova postagem para compartilhar com a comunidade...
         </button>
       </When>
-      <CustomForm onSubmit={onSubmit} /* zodSchema={} */>
+      <CustomForm onSubmit={onSubmit} zodSchema={postSchema}>
         <When condition={isOpen}>
           <CustomInput
             name="title"
@@ -87,19 +82,20 @@ export function Editor() {
             options={categories.map((category) => ({
               label: category.name,
               value: category.categoryId,
+              key: category.categoryId,
             }))}
+            id="category"
             name="category"
             label="Categoria"
             className="w-full  "
-            /* disabled={isLoading} */
           />
           <CustomSwitch
-            name="isEnabled"
+            id="isPublic"
+            name="isPublic"
             label="Público"
             defaultChecked 
-            // disabled={isLoading}
-          />
-          <CustomQuill value={text} onChange={handleChangeText} />
+          /> 
+          <CustomQuill id="content" />
           <div className="flex gap-3 justify-end">
             <CustomButton
               className="bg-black-secundary h-[41px] hover:bg-transparent"

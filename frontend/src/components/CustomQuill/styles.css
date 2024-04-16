@@ -15,7 +15,7 @@
 
 .quill .ql-container.ql-snow {
   border: none;
-  max-height: 400px;
+  height: 400px;
 }
 
 .ql-editor {
