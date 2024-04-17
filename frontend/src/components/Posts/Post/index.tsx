@@ -35,10 +35,7 @@ export function Post({ post }: Props) {
       addSuffix: true,
     }
   );
-
-  {console.log(post.category.color)}
-
-
+ 
   return (
     <div className="bg-black-secundary py-4 px-8 my-4 rounded-lg">
       <div className="flex justify-between border-b border-[#29292E] pb-4">
@@ -64,7 +61,7 @@ export function Post({ post }: Props) {
 
       <div className="flex mt-4 gap-2 border-t border-[#29292E] pt-4">
         <span className="text-[#8d8d99]">Tags:</span>
-        <div className={`w-fit px-2 rounded text-white bg-[${category.color}]`}>
+        <div className={`w-fit px-2 rounded text-white`} style={{backgroundColor: category.color}}>
           <span className="font-medium text-sm">{category.name}</span>
         </div>
       </div>

@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { CustomQuill } from "../CustomQuill";
-import { When } from "../shared/When";
 import { CustomButton } from "../CustomButton";
 
 import "./global.css";
@@ -47,8 +46,6 @@ const categories = [
 export function Editor() {
   const [isOpen, setIsOpen] = useState(false);
 
- 
-
   function onCancel() {
     setIsOpen(false);
   }
@@ -58,26 +55,21 @@ export function Editor() {
   }
 
   return (
-    <div className="bg-black-secundary p-4 flex flex-col rounded-lg ">
-      <When condition={!isOpen}>
+    <div className="bg-black-secundary flex flex-col rounded-lg ">
         <button
-          className="bg-black h-12 rounded px-3 focus:outline-none justify-start text-[#9ca3af] hover:bg-black"
+          className="bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4"
           onClick={() => setIsOpen(true)}
         >
           Crie uma nova postagem para compartilhar com a comunidade...
         </button>
-      </When>
-      <CustomForm onSubmit={onSubmit} zodSchema={postSchema}>
-        <When condition={isOpen}>
+      <div className={`slide-down ${isOpen ? "open" : ""}`}>
+        <CustomForm onSubmit={onSubmit} zodSchema={postSchema} className="p-4 border-t border-[#29292E]">
           <CustomInput
             name="title"
             className="bg-black  rounded px-3 focus:outline-none"
             label="Título"
             placeholder="Título da publicação"
           />
-        </When>
-
-        <div className={`slide-down ${isOpen ? "open" : ""}`}>
           <CustomSelect
             options={categories.map((category) => ({
               label: category.name,
@@ -93,11 +85,12 @@ export function Editor() {
             id="isPublic"
             name="isPublic"
             label="Público"
-            defaultChecked 
-          /> 
+            defaultChecked
+          />
           <CustomQuill id="content" />
           <div className="flex gap-3 justify-end">
             <CustomButton
+              type="button"
               className="bg-black-secundary h-[41px] hover:bg-transparent"
               variant="outline"
               onClick={onCancel}
@@ -106,8 +99,8 @@ export function Editor() {
             </CustomButton>
             <CustomButton type="submit">Publicar</CustomButton>
           </div>
-        </div>
-      </CustomForm>
+        </CustomForm>
+      </div>
     </div>
   );
 }

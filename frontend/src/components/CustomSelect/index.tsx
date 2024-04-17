@@ -4,11 +4,10 @@ import { iterateObject } from "@/utils/functions/object";
 import { Controller, RegisterOptions } from "react-hook-form";
 import { ErrorHookForm, ErrorsHookForm } from "@/types/react-hook-form";
 import { twMerge } from "tailwind-merge";
- 
+
 import { SelectProps } from "@radix-ui/react-select";
 import { useCustomSelect } from "./hooks/useCustomSelect";
 import { Option } from "@/types/generic";
-
 
 export type CustomSelectProps = SelectProps & {
   options: Option[];
@@ -26,7 +25,7 @@ export type CustomSelectProps = SelectProps & {
   optionClassName?: string;
 };
 
-import './global.css'
+import "./global.css";
 
 export function CustomSelect({
   className,
@@ -62,7 +61,7 @@ export function CustomSelect({
             render={({ field: { ref, ...fields } }) => (
               <div
                 className={twMerge(
-                  "flex flex-col gap-1",
+                  "flex flex-col",
                   props.hidden ? "hidden" : "",
                   containerClassName
                 )}
@@ -72,56 +71,33 @@ export function CustomSelect({
                     {label}
                   </label>
                 )}
-                <select  
-                  id={id} {...fields} className={twMerge("h-10 focus:outline-none px-3 text-sm text-[#71717A] bg-black rounded-sm border border-input", className)}>
+                <select
+                  id={id}
+                  {...fields}
+                  className={twMerge(
+                    "h-10 focus:outline-none px-3 text-sm text-[#71717A] bg-black rounded-sm border border-input",
+                    className
+                  )}
+                >
+                  <option value="" key="-1">
+                    Selecionar
+                  </option>
                   {options.map((option, index) => (
-                    <option key={option.key || index || option.value} value={option.value} >
-                    {option.label}
+                    <option
+                      key={option.key || index || option.value}
+                      value={option.value}
+                    >
+                      {option.label}
                     </option>
                   ))}
                 </select>
-               {/*  <Select
-                  {...fields}
-                  {...props}
-                  onValueChange={fields.onChange}
-                  defaultValue={fields.value}
-                >
-                  <SelectTrigger
-                    id={id}
-                    ref={(e) => {
-                      ref(e);
-                      selectRef.current =
-                        e as React.LegacyRef<HTMLInputElement>;
-                    }}
-                    className={twMerge("w-[180px]", className)}
-                  >
-                    <SelectValue placeholder={placeholder || "Selecionar"} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {optionsLabel && (
-                        <SelectLabel>{optionsLabel}</SelectLabel>
-                      )}
-                      {options.map((option, index) => (
-                        <SelectItem
-                          key={option.key || index || option.value}
-                          value={option.value}
-                          disabled={option.disabled}
-                          className={twMerge(option.className, optionClassName)}
-                        >
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select> */}
-                {!hideError && (hasError || error) && (
-                  <div data-testid="messageValidation">
+                <div data-testid="messageValidation" className="h-6">
+                  {!hideError && (hasError || error) && (
                     <label className="text-red-500 text-xs">
                       {(hasError?.message || error) as string}
                     </label>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
           />
