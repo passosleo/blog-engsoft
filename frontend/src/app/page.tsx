@@ -1,9 +1,12 @@
-import Welcome from "./(public)/(welcome)/page";
+import { AuthProvider } from "@/context/AuthContext";
+import AuthCondicional from "./(public)/(auth)/page";
 
 export default function Initial() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
-      <Welcome />
-    </main>
+    <AuthProvider>
+      <main className="flex min-h-screen flex-col items-center justify-between ">
+        <AuthCondicional />
+      </main>
+    </AuthProvider>
   );
 }

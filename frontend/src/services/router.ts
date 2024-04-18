@@ -1,38 +1,18 @@
-// const HOST = process.env.NEXT_PUBLIC_FRONTEND_URL as string;
+const HOST = process.env.NEXT_PUBLIC_FRONTEND_URL as string;
 
 const routes = {
-  /* getUsers: {
-    method: "GET",
-    uri: "/api/users",
-  },
-  getUserById: {
-    method: "GET",
-    uri: "/api/users/:userId",
+  signIn: {
+    method: "POST",
+    uri: "/api/v1/authenticate ",
   },
   createUser: {
     method: "POST",
-    uri: "/api/users",
+    uri: "/api/v1/account",
   },
-  updateUser: {
-    method: "PUT",
-    uri: "/api/users/:userId",
-  },
-  deleteUser: {
-    method: "DELETE",
-    uri: "/api/users/:userId",
-  },
-  getRoles: {
+  getUser: {
     method: "GET",
-    uri: "/api/roles",
+    uri: "/api/v1/account",
   },
-  resetPassword: {
-    method: "PATCH",
-    uri: "/api/users/:userId",
-  },
-  redefinePassword: {
-    method: "POST",
-    uri: "/api/users/redefine-password",
-  }, */
 };
 
-export { /* HOST, */ routes };
+export { HOST, routes };

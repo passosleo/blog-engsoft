@@ -8,17 +8,17 @@ import { useMobile } from "@/hooks/useMobile";
 import { twMerge } from "tailwind-merge";
 import Logo from "@/assets/images/logo-name.svg";
 import Login from "./components/Login/page";
-import { Register } from "./components/Register/page";
+import { Register } from "./components/Register/page"; 
 
-export default function Welcome() {
+export default function Welcome() { 
   const [isLogged, setIsLogged] = useState<"login" | "register">("login");
 
   const isMobile = useMobile();
-
+  
   function onLogged(value: "login" | "register") {
     setIsLogged(value);
   }
-
+   
   return (
     <div className="flex flex-row items-center justify-center">
       <div
