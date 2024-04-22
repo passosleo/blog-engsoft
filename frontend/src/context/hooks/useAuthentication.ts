@@ -19,7 +19,11 @@ export function useAuthentication() {
   function verifyToken() { 
     const token = getCookie<string>("token");
     if (token) {
+      const decoded = jwtDecode<JwtDecode>(token);
+      const user = decoded.account as User;
+      console.log("user !: ", user);
       setAuthenticated(token);
+      setUser(user);
     } else {
       setIsLoading(false);
     }
