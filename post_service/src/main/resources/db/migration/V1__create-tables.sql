@@ -41,7 +41,7 @@ SELECT 'fa10864e-9d64-46d8-8337-979131cd33c6', 'Backend', '#55A630'
 WHERE NOT EXISTS (SELECT 1 FROM Categories WHERE categoryId = 'fa10864e-9d64-46d8-8337-979131cd33c6');
 
 INSERT INTO Categories (categoryId, name, color)
-SELECT '82cd47fd-a087-4378-9259-b72156be2a48', 'Mobile', '#F0EC57'
+SELECT '82cd47fd-a087-4378-9259-b72156be2a48', 'Mobile', '#CDC706'
 WHERE NOT EXISTS (SELECT 1 FROM Categories WHERE categoryId = '82cd47fd-a087-4378-9259-b72156be2a48');
 
 INSERT INTO Categories (categoryId, name, color)
@@ -57,7 +57,7 @@ SELECT '76325af1-e83d-40c6-ba2e-538558c7abe9', 'Cloud', '#13C4A3'
 WHERE NOT EXISTS (SELECT 1 FROM Categories WHERE categoryId = '76325af1-e83d-40c6-ba2e-538558c7abe9');
 
 INSERT INTO Categories (categoryId, name, color)
-SELECT '3b0d2288-85ac-4bbf-adb5-29d7246d0621', 'Segurança', '#AAABB8'
+SELECT '3b0d2288-85ac-4bbf-adb5-29d7246d0621', 'Segurança', '#8489CF'
 WHERE NOT EXISTS (SELECT 1 FROM Categories WHERE categoryId = '3b0d2288-85ac-4bbf-adb5-29d7246d0621');
 
 INSERT INTO Categories (categoryId, name, color)
@@ -65,6 +65,7 @@ SELECT 'b88dbe63-e673-4d3d-9903-a5d87adc9730', 'IA', '#934683'
 WHERE NOT EXISTS (SELECT 1 FROM Categories WHERE categoryId = 'b88dbe63-e673-4d3d-9903-a5d87adc9730');
 
 INSERT INTO Categories (categoryId, name, color)
-SELECT 'c94091bb-9587-4173-845a-4e2a59f15e5e', 'Outros', '#F6AF65'
+SELECT 'c94091bb-9587-4173-845a-4e2a59f15e5e', 'Outros', '#D98F40'
 WHERE NOT EXISTS (SELECT 1 FROM Categories WHERE categoryId = 'c94091bb-9587-4173-845a-4e2a59f15e5e');
+
 
