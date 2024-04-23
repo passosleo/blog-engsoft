@@ -1,5 +1,6 @@
 package com.engsoft.post_service.controllers;
 
+import com.engsoft.post_service.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,38 +22,29 @@ import jakarta.validation.Valid;
 public class PostController {
 
   @Autowired
-  private PostRepository repository;
+  private PostService postService;
 
   @PostMapping
   @Transactional
   public void createPost(@RequestBody @Valid CreatePostDTO postData) {
-    repository.save(new PostEntity(postData));
+      postService.createPost(postData);
   }
 
   @GetMapping
   public Page<PostDTO> getPosts(
       @PageableDefault(size = 10, direction = Direction.DESC, sort = "createdAt") Pageable pageable) {
-    return repository.findAll(pageable).map(PostDTO::fromEntity);
+    return postService.getPosts(pageable);
   }
 
   @PutMapping("/{postId}")
   @Transactional
   public void updatePost(@PathVariable(required = true) String postId, @RequestBody @Valid UpdatePostDTO postData) {
-    PostEntity post = repository.findByPostId(postId);
-
-    if (post != null) {
-      post.updateEntity(postData);
-      repository.save(post);
-    }
+    postService.updatePost(postId, postData);
   }
 
   @DeleteMapping("/{postId}")
   @Transactional
   public void deletePost(@PathVariable(required = true) String postId) {
-    PostEntity post = repository.findByPostId(postId);
-
-    if (post != null) {
-      repository.delete(post);
-    }
+    postService.deletePost(postId);
   }
 }
