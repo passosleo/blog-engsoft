@@ -9,7 +9,7 @@ import com.engsoft.post_service.enums.PostCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "posts")
+@Table(name = "Posts")
 @Entity(name = "Post")
 @Getter
 @NoArgsConstructor
@@ -26,7 +26,6 @@ public class PostEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "post_id")
   private String postId;
 
   private String title;
@@ -38,10 +37,8 @@ public class PostEntity {
   @Enumerated(EnumType.STRING)
   private PostCategory category;
 
-  @Column(name = "created_at")
   private LocalDateTime createdAt;
 
-  @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
   @PrePersist
