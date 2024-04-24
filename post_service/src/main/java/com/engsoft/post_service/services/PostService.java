@@ -37,11 +37,11 @@ public class PostService {
     }
 
     @Transactional
-    public void createPost(CreatePostDTO postData, AccountDTO userAccount) {
+    public PostDTO createPost(CreatePostDTO postData, AccountDTO userAccount) {
         CategoryEntity category = categoryRepository.findByCategoryId(postData.categoryId());
 
         if (category != null) {
-            postRepository.save(PostEntity.builder()
+            PostEntity createdPost = postRepository.save(PostEntity.builder()
                     .title(postData.title())
                     .content(postData.content())
                     .categoryId(postData.categoryId())
@@ -49,26 +49,37 @@ public class PostService {
                     .authorEmail(userAccount.email())
                     .authorName(userAccount.name())
                     .build());
+
+            return PostDTO.fromEntity(createdPost);
         }
+
+        return null;
     }
 
     @Transactional
-    public void updatePost(String postId, UpdatePostDTO postData, AccountDTO userAccount) {
+    public PostDTO updatePost(String postId, UpdatePostDTO postData, AccountDTO userAccount) {
         PostEntity post = postRepository.findByPostId(postId);
         CategoryEntity category = categoryRepository.findByCategoryId(postData.categoryId());
 
         if (post != null && category != null && post.getAuthorEmail().equals(userAccount.email())) {
             post.updateEntity(postData);
-            postRepository.save(post);
+            PostEntity updatedPost = postRepository.save(post);
+
+            return PostDTO.fromEntity(updatedPost);
         }
+
+        return null;
     }
 
     @Transactional
-    public void deletePost(String postId, AccountDTO userAccount) {
+    public boolean deletePost(String postId, AccountDTO userAccount) {
         PostEntity post = postRepository.findByPostId(postId);
 
         if (post != null && post.getAuthorEmail().equals(userAccount.email())) {
             postRepository.delete(post);
+            return true;
         }
+
+        return false;
     }
 }
