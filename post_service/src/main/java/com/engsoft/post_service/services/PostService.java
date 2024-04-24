@@ -27,12 +27,9 @@ public class PostService {
     private CategoryRepository categoryRepository;
 
     public Page<PostDTO> getPosts(Pageable pageable, String categoryId, String authorEmail, AccountDTO userAccount) {
-        log.info("Getting posts with categoryId: " + categoryId + " and authorEmail: " + authorEmail);
-
         if (userAccount != null) {
             return postRepository.findAllByCategoryIdAndAuthorEmailOrAll(pageable, categoryId, authorEmail).map(PostDTO::fromEntity);
         }
-
         return postRepository.findAllByCategoryIdAndIsPublicTrueOrAllByIsPublicTrue(pageable, categoryId).map(PostDTO::fromEntity);
     }
 
