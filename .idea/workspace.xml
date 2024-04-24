@@ -5,19 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c1327a1-740c-45fa-953a-fc3b4d3f06a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/annotations/Authenticated.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/auth/AccountDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/CategoryEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/interceptors/AuthInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/SwaggerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/CreatePostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/posts/CreatePostDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/posts/PostDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/UpdatePostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/posts/UpdatePostDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/PostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/PostEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/resources/db/migration/V1__create-tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/resources/db/migration/V1__create-tables.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2erhcU0QMVFvCXQ7u2jfDYOYPC8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,11 +47,39 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.PostServiceApplication.executor": "Run",
+    "Maven.post_service [clean,install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true"
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/git/blog-engsoft/post_service"
   }
 }]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="PostServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.engsoft.post_service.PostServiceApplication" />
+      <module name="post_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.engsoft.post_service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.PostServiceApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

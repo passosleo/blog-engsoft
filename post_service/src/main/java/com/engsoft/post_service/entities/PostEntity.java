@@ -2,14 +2,13 @@ package com.engsoft.post_service.entities;
 
 import java.time.LocalDateTime;
 
-import com.engsoft.post_service.dtos.CreatePostDTO;
-import com.engsoft.post_service.dtos.UpdatePostDTO;
-import com.engsoft.post_service.enums.PostCategory;
+import com.engsoft.post_service.dtos.posts.CreatePostDTO;
+import com.engsoft.post_service.dtos.posts.UpdatePostDTO;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "Posts")
+@Table(name = "posts")
 @Entity(name = "Post")
 @Getter
 @NoArgsConstructor
@@ -20,30 +19,45 @@ public class PostEntity {
   public PostEntity(CreatePostDTO postData) {
     this.title = postData.title();
     this.content = postData.content();
-    this.author = postData.author();
-    this.category = postData.category();
+    this.authorEmail = postData.authorEmail();
+    this.authorName = postData.authorName();
+    this.categoryId = postData.categoryId();
   }
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "post_id")
   private String postId;
 
+  @Column(name = "title")
   private String title;
 
+  @Column(name = "content")
   private String content;
 
-  private String author;
+  @Column(name = "author_email")
+  private String authorEmail;
 
-  @Enumerated(EnumType.STRING)
-  private PostCategory category;
+  @Column(name = "author_name")
+  private String authorName;
 
+  @Column(name = "category_id")
+  private String categoryId;
+
+  @ManyToOne()
+  @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false)
+  private CategoryEntity category;
+
+  @Column(name = "created_at")
   private LocalDateTime createdAt;
 
+  @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
   @PrePersist
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
+
     this.updatedAt = LocalDateTime.now();
   }
 
@@ -61,8 +75,8 @@ public class PostEntity {
       this.content = postData.content();
     }
 
-    if (postData.category() != null) {
-      this.category = postData.category();
+    if (postData.categoryId() != null) {
+      this.categoryId = postData.categoryId();
     }
   }
 }
