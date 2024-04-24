@@ -12,7 +12,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Slf4j
-@Component
 @AllArgsConstructor
 public class RequestHandler {
     private final HttpClient client;

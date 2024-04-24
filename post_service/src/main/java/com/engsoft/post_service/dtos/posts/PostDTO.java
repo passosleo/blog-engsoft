@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.engsoft.post_service.entities.CategoryEntity;
 import com.engsoft.post_service.entities.PostEntity;
-import com.engsoft.post_service.enums.PostCategory;
 
 public record PostDTO(
     String postId,
@@ -14,6 +13,8 @@ public record PostDTO(
     String authorName,
     String categoryId,
     CategoryEntity category,
+    boolean isPublic,
+    boolean isEdited,
     LocalDateTime createdAt,
     LocalDateTime updatedAt) {
 
@@ -26,6 +27,8 @@ public record PostDTO(
         postEntity.getAuthorName(),
         postEntity.getCategoryId(),
         postEntity.getCategory(),
+        postEntity.isPublic(),
+        postEntity.isEdited(),
         postEntity.getCreatedAt(),
         postEntity.getUpdatedAt());
   }

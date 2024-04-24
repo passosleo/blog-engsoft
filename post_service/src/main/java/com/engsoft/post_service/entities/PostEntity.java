@@ -10,20 +10,13 @@ import lombok.*;
 
 @Table(name = "posts")
 @Entity(name = "Post")
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
 @EqualsAndHashCode(of = "postId")
 public class PostEntity {
-
-  public PostEntity(CreatePostDTO postData) {
-    this.title = postData.title();
-    this.content = postData.content();
-    this.authorEmail = postData.authorEmail();
-    this.authorName = postData.authorName();
-    this.categoryId = postData.categoryId();
-  }
-
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "post_id")
@@ -47,6 +40,12 @@ public class PostEntity {
   @ManyToOne()
   @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false, insertable = false, updatable = false)
   private CategoryEntity category;
+
+  @Column(name = "is_public")
+  private boolean isPublic;
+
+  @Column(name = "is_edited")
+  private boolean isEdited;
 
   @Column(name = "created_at")
   private LocalDateTime createdAt;
@@ -78,5 +77,11 @@ public class PostEntity {
     if (postData.categoryId() != null) {
       this.categoryId = postData.categoryId();
     }
+
+    if (postData.isPublic() != this.isPublic) {
+      this.isPublic = postData.isPublic();
+    }
+
+    this.isEdited = true;
   }
 }

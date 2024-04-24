@@ -20,8 +20,6 @@ import com.engsoft.post_service.dtos.posts.UpdatePostDTO;
 
 import jakarta.validation.Valid;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/v1/posts")
 @SecurityRequirement(name = "bearerAuth")
@@ -33,8 +31,9 @@ public class PostController {
   @GetMapping
   @Authenticated(required = false)
   public Page<PostDTO> getPosts(
-          @PageableDefault(size = 10, direction = Direction.DESC, sort = "createdAt") Pageable pageable) {
-    return postService.getPosts(pageable);
+          @PageableDefault(size = 10, direction = Direction.DESC, sort = "createdAt") Pageable pageable, HttpServletRequest request) {
+    AccountDTO userAccount = Session.getUserAccount(request);
+    return postService.getPosts(pageable, userAccount);
   }
 
   @PostMapping
@@ -42,20 +41,22 @@ public class PostController {
   @Transactional
   public void createPost(@RequestBody @Valid CreatePostDTO postData, HttpServletRequest request) {
       AccountDTO userAccount = Session.getUserAccount(request);
-      postService.createPost(postData);
+      postService.createPost(postData, userAccount);
   }
 
   @PutMapping("/{postId}")
   @Authenticated
   @Transactional
-  public void updatePost(@PathVariable(required = true) String postId, @RequestBody @Valid UpdatePostDTO postData) {
-    postService.updatePost(postId, postData);
+  public void updatePost(@PathVariable(required = true) String postId, @RequestBody @Valid UpdatePostDTO postData, HttpServletRequest request) {
+    AccountDTO userAccount = Session.getUserAccount(request);
+    postService.updatePost(postId, postData, userAccount);
   }
 
   @DeleteMapping("/{postId}")
   @Authenticated
   @Transactional
-  public void deletePost(@PathVariable(required = true) String postId) {
-    postService.deletePost(postId);
+  public void deletePost(@PathVariable(required = true) String postId, HttpServletRequest request) {
+    AccountDTO userAccount = Session.getUserAccount(request);
+    postService.deletePost(postId, userAccount);
   }
 }
