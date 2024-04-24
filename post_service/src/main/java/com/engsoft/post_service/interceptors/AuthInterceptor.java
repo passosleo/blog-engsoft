@@ -23,25 +23,32 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         if (handler instanceof HandlerMethod handlerMethod) {
             Authenticated authenticatedAnnotation = handlerMethod.getMethodAnnotation(Authenticated.class);
-            if (authenticatedAnnotation != null && authenticatedAnnotation.required()) {
-                String token = request.getHeader("Authorization");
-                if (token == null || !token.startsWith("Bearer ")) {
+            if (authenticatedAnnotation != null) {
+                String authHeader = request.getHeader("Authorization");
+
+                if (!isAuthorizationHeaderValid(authHeader) && authenticatedAnnotation.required()) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     return false;
                 }
 
-                String authToken = token.split(" ")[1];
-                AccountDTO userAccount = authService.validateToken(authToken);
-                log.info("User account: {}", userAccount);
-                if (userAccount == null) {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    return false;
-                }
+                if (isAuthorizationHeaderValid(authHeader)) {
+                    String authToken = authHeader.split(" ")[1];
+                    AccountDTO userAccount = authService.validateToken(authToken);
 
-                request.setAttribute("userAccount", userAccount);
+                    if (userAccount == null && authenticatedAnnotation.required()) {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        return false;
+                    }
+
+                    request.setAttribute("userAccount", userAccount);
+                }
             }
         }
 
         return true;
+    }
+
+    private boolean isAuthorizationHeaderValid(String token) {
+        return token != null && token.startsWith("Bearer ");
     }
 }
