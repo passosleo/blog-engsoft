@@ -32,9 +32,12 @@ public class PostController {
   @GetMapping
   @Authenticated(required = false)
   public DefaultResponse<Page<PostDTO>> getPosts(
-          @PageableDefault(size = 10, direction = Direction.DESC, sort = "createdAt") Pageable pageable, HttpServletRequest request) {
+          @PageableDefault(size = 10, direction = Direction.DESC, sort = "createdAt") Pageable pageable,
+          @RequestParam(required = false) String categoryId,
+          @RequestParam(required = false) String authorEmail,
+          HttpServletRequest request) {
     var userAccount = Session.getUserAccount(request);
-    var data = postService.getPosts(pageable, userAccount);
+    var data = postService.getPosts(pageable, categoryId, authorEmail, userAccount);
 
     return DefaultResponse.<Page<PostDTO>>builder()
             .status(HttpStatus.OK.value())

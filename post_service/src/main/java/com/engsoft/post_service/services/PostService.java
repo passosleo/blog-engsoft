@@ -26,14 +26,14 @@ public class PostService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public Page<PostDTO> getPosts(Pageable pageable, AccountDTO userAccount) {
-        if (userAccount != null) {
-            log.info("User email: {}", userAccount.email());
-            return postRepository.findAll(pageable).map(PostDTO::fromEntity);
-        }
-        log.info("User account: {}", userAccount);
+    public Page<PostDTO> getPosts(Pageable pageable, String categoryId, String authorEmail, AccountDTO userAccount) {
+        log.info("Getting posts with categoryId: " + categoryId + " and authorEmail: " + authorEmail);
 
-        return postRepository.findAllByIsPublicTrue(pageable).map(PostDTO::fromEntity);
+        if (userAccount != null) {
+            return postRepository.findAllByCategoryIdAndAuthorEmailOrAll(pageable, categoryId, authorEmail).map(PostDTO::fromEntity);
+        }
+
+        return postRepository.findAllByCategoryIdAndIsPublicTrueOrAllByIsPublicTrue(pageable, categoryId).map(PostDTO::fromEntity);
     }
 
     @Transactional
