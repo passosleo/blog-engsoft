@@ -3,6 +3,7 @@ package com.engsoft.post_service.controllers;
 import com.engsoft.post_service.annotations.Authenticated;
 import com.engsoft.post_service.dtos.auth.AccountDTO;
 import com.engsoft.post_service.services.PostService;
+import com.engsoft.post_service.utils.auth.Session;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import com.engsoft.post_service.dtos.posts.PostDTO;
 import com.engsoft.post_service.dtos.posts.UpdatePostDTO;
 
 import jakarta.validation.Valid;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -38,7 +41,7 @@ public class PostController {
   @Authenticated
   @Transactional
   public void createPost(@RequestBody @Valid CreatePostDTO postData, HttpServletRequest request) {
-      AccountDTO userAccount = (AccountDTO) request.getAttribute("userAccount");
+      AccountDTO userAccount = Session.getUserAccount(request);
       postService.createPost(postData);
   }
 

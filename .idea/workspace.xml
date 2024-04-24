@@ -5,22 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c1327a1-740c-45fa-953a-fc3b4d3f06a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/annotations/Authenticated.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/auth/AccountDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/CategoryEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/interceptors/AuthInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/utils/request/RequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/utils/request/RequestHandlerResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/CreatePostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/posts/CreatePostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/posts/PostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/UpdatePostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/posts/UpdatePostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/PostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/PostEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/resources/db/migration/V1__create-tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/resources/db/migration/V1__create-tables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/auth/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/auth/AccountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/interceptors/AuthInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/interceptors/AuthInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,20 +31,23 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2erhcU0QMVFvCXQ7u2jfDYOYPC8" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.PostServiceApplication.executor": "Run",
-    "Maven.post_service [clean,install].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/git/blog-engsoft/post_service"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.PostServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.post_service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/git/blog-engsoft/post_service&quot;
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean install" />

@@ -29,5 +29,4 @@ public record PostDTO(
         postEntity.getCreatedAt(),
         postEntity.getUpdatedAt());
   }
-
 }
