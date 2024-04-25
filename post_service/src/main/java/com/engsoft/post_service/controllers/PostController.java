@@ -68,8 +68,8 @@ public class PostController {
   @Transactional
   public Response<Boolean> deletePost(@PathVariable(required = true) String postId, HttpServletRequest request) {
     var userAccount = Session.getUserAccount(request);
-    var data = postService.deletePost(postId, userAccount);
+    postService.deletePost(postId, userAccount);
 
-    return Response.of(HttpStatus.OK, data);
+    return Response.of(HttpStatus.OK);
   }
 }

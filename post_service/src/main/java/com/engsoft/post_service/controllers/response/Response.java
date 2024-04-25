@@ -16,16 +16,25 @@ public class Response<T> {
     private String message;
     private T data;
 
-    public Response(HttpStatus status, String message, T data) {
+    public Response(HttpStatus status) {
         this.status = status.value();
-        this.message = message;
-        this.data = data;
+        this.message = status.getReasonPhrase();
     }
 
     public Response(HttpStatus status, T data) {
         this.status = status.value();
         this.message = status.getReasonPhrase();
         this.data = data;
+    }
+
+    public Response(HttpStatus status, String message, T data) {
+        this.status = status.value();
+        this.message = message;
+        this.data = data;
+    }
+
+    public static <T> Response<T> of(HttpStatus status) {
+        return new Response<>(status);
     }
 
     public static <T> Response<T> of(HttpStatus status, String message, T data) {
