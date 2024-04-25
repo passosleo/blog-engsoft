@@ -9,8 +9,7 @@ import { useUserAccess } from "@/stores/user-access";
 
 export function Header() {
   const { user } = useUserAccess()
-  console.log("user: ", user.name);
-  return (
+    return (
     <header className="bg-black-secundary w-full flex items-center border-b border-[#29292E] fixed top-0 left-0 right-0 h-16 z-50">
       <div className="max-w-screen-xl mx-auto w-full px-4">
         <div className="flex flex-row justify-between items-center">

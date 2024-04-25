@@ -21,8 +21,13 @@ export function Menu() {
           
           <p className="m-0">Front-End</p>
           <p className="m-0">Backend</p>
-          <p className="m-0">Inteligencia artificial</p>
+          <p className="m-0">Mobile</p>
           <p className="m-0">Dev ops</p>
+          <p className="m-0">Banco de Dados</p>
+          <p className="m-0">Cloud</p>
+          <p className="m-0">Segurança</p>
+          <p className="m-0">IA</p>
+          <p className="m-0">Outros</p>
 
       </div>
     </div>

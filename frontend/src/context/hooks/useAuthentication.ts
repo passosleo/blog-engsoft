@@ -21,7 +21,6 @@ export function useAuthentication() {
     if (token) {
       const decoded = jwtDecode<JwtDecode>(token);
       const user = decoded.account as User;
-      console.log("user !: ", user);
       setAuthenticated(token);
       setUser(user);
     } else {
