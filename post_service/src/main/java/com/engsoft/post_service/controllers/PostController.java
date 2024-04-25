@@ -1,7 +1,7 @@
 package com.engsoft.post_service.controllers;
 
 import com.engsoft.post_service.annotations.Authenticated;
-import com.engsoft.post_service.controllers.response.DefaultResponse;
+import com.engsoft.post_service.controllers.response.Response;
 import com.engsoft.post_service.services.PostService;
 import com.engsoft.post_service.utils.auth.Session;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -31,7 +31,7 @@ public class PostController {
 
   @GetMapping
   @Authenticated(required = false)
-  public DefaultResponse<Page<PostDTO>> getPosts(
+  public Response<Page<PostDTO>> getPosts(
           @PageableDefault(size = 10, direction = Direction.DESC, sort = "createdAt") Pageable pageable,
           @RequestParam(required = false) String categoryId,
           @RequestParam(required = false) String authorEmail,
@@ -39,53 +39,37 @@ public class PostController {
     var userAccount = Session.getUserAccount(request);
     var data = postService.getPosts(pageable, categoryId, authorEmail, userAccount);
 
-    return DefaultResponse.<Page<PostDTO>>builder()
-            .status(HttpStatus.OK.value())
-            .message(HttpStatus.OK.getReasonPhrase())
-            .data(data)
-            .build();
+    return Response.of(HttpStatus.OK, data);
   }
 
   @PostMapping
   @Authenticated
   @Transactional
-  public DefaultResponse<PostDTO> createPost(@RequestBody @Valid CreatePostDTO postData, HttpServletRequest request) {
+  public Response<PostDTO> createPost(@RequestBody @Valid CreatePostDTO postData, HttpServletRequest request) {
     var userAccount = Session.getUserAccount(request);
     var data = postService.createPost(postData, userAccount);
 
-    return DefaultResponse.<PostDTO>builder()
-            .status(HttpStatus.CREATED.value())
-            .message(HttpStatus.CREATED.getReasonPhrase())
-            .data(data)
-            .build();
+    return Response.of(HttpStatus.CREATED, data);
   }
 
   @PutMapping("/{postId}")
   @Authenticated
   @Transactional
-  public DefaultResponse<PostDTO> updatePost(@PathVariable(required = true) String postId, @RequestBody @Valid UpdatePostDTO postData,
+  public Response<PostDTO> updatePost(@PathVariable(required = true) String postId, @RequestBody @Valid UpdatePostDTO postData,
                                              HttpServletRequest request) {
     var userAccount = Session.getUserAccount(request);
     var data = postService.updatePost(postId, postData, userAccount);
 
-    return DefaultResponse.<PostDTO>builder()
-            .status(HttpStatus.OK.value())
-            .message(HttpStatus.OK.getReasonPhrase())
-            .data(data)
-            .build();
+    return Response.of(HttpStatus.OK, data);
   }
 
   @DeleteMapping("/{postId}")
   @Authenticated
   @Transactional
-  public DefaultResponse<Boolean> deletePost(@PathVariable(required = true) String postId, HttpServletRequest request) {
+  public Response<Boolean> deletePost(@PathVariable(required = true) String postId, HttpServletRequest request) {
     var userAccount = Session.getUserAccount(request);
     var data = postService.deletePost(postId, userAccount);
 
-    return DefaultResponse.<Boolean>builder()
-            .status(HttpStatus.OK.value())
-            .message(HttpStatus.OK.getReasonPhrase())
-            .data(data)
-            .build();
+    return Response.of(HttpStatus.OK, data);
   }
 }

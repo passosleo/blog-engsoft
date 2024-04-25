@@ -38,19 +38,19 @@ public class PostService {
         CategoryEntity category = categoryRepository.findByCategoryId(postData.categoryId());
 
         if (category != null) {
-            PostEntity createdPost = postRepository.save(PostEntity.builder()
-                    .title(postData.title())
-                    .content(postData.content())
-                    .categoryId(postData.categoryId())
-                    .isPublic(postData.isPublic())
-                    .authorEmail(userAccount.email())
-                    .authorName(userAccount.name())
-                    .build());
-
-            return PostDTO.fromEntity(createdPost);
+           return null;
         }
 
-        return null;
+        PostEntity createdPost = postRepository.save(PostEntity.builder()
+                .title(postData.title())
+                .content(postData.content())
+                .categoryId(postData.categoryId())
+                .isPublic(postData.isPublic())
+                .authorEmail(userAccount.email())
+                .authorName(userAccount.name())
+                .build());
+
+        return PostDTO.fromEntity(createdPost);
     }
 
     @Transactional

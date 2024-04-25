@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c1327a1-740c-45fa-953a-fc3b4d3f06a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/response/Response.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/repositories/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/repositories/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/response/DefaultResponse.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
