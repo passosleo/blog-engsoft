@@ -37,7 +37,7 @@ public class PostService {
     public PostDTO createPost(CreatePostDTO postData, AccountDTO userAccount) {
         CategoryEntity category = categoryRepository.findByCategoryId(postData.categoryId());
 
-        if (category != null) {
+        if (category == null) {
            throw new NotFoundException();
         }
 
@@ -49,6 +49,8 @@ public class PostService {
                 .authorEmail(userAccount.email())
                 .authorName(userAccount.name())
                 .build());
+
+        createdPost.setCategory(category);
 
         return PostDTO.fromEntity(createdPost);
     }
@@ -68,6 +70,7 @@ public class PostService {
 
         post.updateEntity(postData);
         PostEntity updatedPost = postRepository.save(post);
+        updatedPost.setCategory(category);
 
         return PostDTO.fromEntity(updatedPost);
     }
