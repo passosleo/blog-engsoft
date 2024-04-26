@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c1327a1-740c-45fa-953a-fc3b4d3f06a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/controllers/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/dtos/categories/CategoryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/exceptions/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/exceptions/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/exceptions/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/exceptions/NotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/exceptions/UnauthorizedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/exceptions/UnauthorizedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/CategoryEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/entities/CategoryEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,5 +86,16 @@
       <updated>1712668684028</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/services/PostService.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

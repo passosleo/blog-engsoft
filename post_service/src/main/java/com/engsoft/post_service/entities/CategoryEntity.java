@@ -25,7 +25,7 @@ public class CategoryEntity {
     private String color;
 
     @Column(name = "is_enabled")
-    private String isEnabled;
+    private boolean isEnabled;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
