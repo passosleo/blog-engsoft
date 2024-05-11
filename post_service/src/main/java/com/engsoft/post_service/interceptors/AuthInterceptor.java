@@ -7,9 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.io.IOException;
 
 @Slf4j
 @Component
@@ -19,7 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     private AuthService authService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 
         if (handler instanceof HandlerMethod handlerMethod) {
             Authenticated authenticatedAnnotation = handlerMethod.getMethodAnnotation(Authenticated.class);
@@ -27,7 +30,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 String authHeader = request.getHeader("Authorization");
 
                 if (!isAuthorizationHeaderValid(authHeader) && authenticatedAnnotation.required()) {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    writeResponse(response);
                     return false;
                 }
 
@@ -36,7 +39,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     AccountDTO userAccount = authService.validateToken(authToken);
 
                     if (userAccount == null && authenticatedAnnotation.required()) {
-                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        writeResponse(response);
                         return false;
                     }
 
@@ -50,5 +53,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     private boolean isAuthorizationHeaderValid(String token) {
         return token != null && token.startsWith("Bearer ");
+    }
+
+    private void writeResponse(HttpServletResponse response) throws IOException {
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.sendError(HttpStatus.UNAUTHORIZED.value());
     }
 }
