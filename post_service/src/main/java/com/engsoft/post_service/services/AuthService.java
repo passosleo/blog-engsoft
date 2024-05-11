@@ -5,6 +5,7 @@ import com.engsoft.post_service.utils.request.RequestHandler;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Component;
 public class AuthService {
     private RequestHandler requestHandler;
 
-    public AuthService() {
-        this.requestHandler = new RequestHandler("http://localhost:3000");
+    public AuthService(@Value("${auth.api.url}") String baseUrl) {
+        this.requestHandler = new RequestHandler(baseUrl);
     }
 
     public AccountDTO validateToken(String token) {
