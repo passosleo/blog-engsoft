@@ -25,7 +25,7 @@ export function CustomLoading({
       {isLoading && (
         <div
           className={twMerge(
-            "absolute inset-0 items-center justify-center bg-white z-10",
+            "absolute inset-0 items-center justify-center bg-black z-10",
             fullScreen ? "flex fixed" : "flex bg-opacity-75"
           )}
           style={{

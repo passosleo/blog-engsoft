@@ -4,7 +4,7 @@ import { validateEmail } from "@/utils/utils";
 
 const { validations } = config.messages;
 
-export const RegisterSchema = z
+export const registerSchema = z
   .object({
     // username: z
     // .string({ required_error: validations.isRequired })

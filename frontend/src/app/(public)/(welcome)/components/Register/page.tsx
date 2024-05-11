@@ -1,10 +1,11 @@
 import { CustomButton } from "@/components/CustomButton";
 import { CustomInput } from "@/components/CustomInput";
-import { CustomForm } from "@/components/CustomForm"; 
-import { RegisterSchema } from "@/schemas/register";
+import { CustomForm } from "@/components/CustomForm";
+import { registerSchema } from "@/schemas/register";
 import { useRequest } from "@/services/hooks/useRequest";
 import { useAuth } from "@/context/AuthContext";
 import { DefaultResponse } from "@/services/types";
+import { CustomLoading } from "@/components/CustomLoading";
 
 type PayloadSignUp = {
   name: string;
@@ -23,11 +24,10 @@ export function Register() {
   const { setAuthenticated } = useAuth();
 
   const [createUser, isLoading] = useRequest<PayloadSignUp, ResponseSignUp>({
+    host: 'authService',
     routeName: "createUser",
     enabled: false,
-    onSuccess: (res) => {
-      setAuthenticated(res.data.token);
-    },
+    onSuccess: (res) => setAuthenticated(res.data.token),
   });
 
   function onSubmit(values: PayloadSignUp) {
@@ -41,20 +41,22 @@ export function Register() {
   return (
     <div>
       <h1 className="text-center text-lg font-semibold my-3">Cadastre-se</h1>
-      <CustomForm onSubmit={onSubmit} zodSchema={RegisterSchema}>
-        <CustomInput name="name" type="text" label="Nome" />
-        {/* <CustomInput name="username" type="text" label="Username" /> */}
-        <CustomInput name="email" type="email" label="E-mail" />
-        <CustomInput name="password" type="password" label="Senha" />
-        <CustomInput
-          name="confirmPassword"
-          type="password"
-          label="Confirmar Senha"
-        />
-        <CustomButton type="submit" className="mt-5">
-          Cadastrar
-        </CustomButton>
-      </CustomForm>
+      <CustomLoading isLoading={isLoading}>
+        <CustomForm onSubmit={onSubmit} zodSchema={registerSchema}>
+          <CustomInput name="name" type="text" label="Nome" disabled={isLoading} />
+          <CustomInput name="email" type="email" label="E-mail" disabled={isLoading} />
+          <CustomInput name="password" type="password" label="Senha" disabled={isLoading} />
+          <CustomInput
+            name="confirmPassword"
+            type="password"
+            label="Confirmar Senha"
+            disabled={isLoading}
+          />
+          <CustomButton type="submit" className="mt-5" disabled={isLoading}>
+            Cadastrar
+          </CustomButton>
+        </CustomForm>
+      </CustomLoading>
     </div>
   );
 }

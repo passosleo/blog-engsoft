@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { HOST, routes } from "../router";
+import { hosts, routes } from "../router";
 
 type UrlParam = Record<string, string | string[] | number | number[]>;
 
 type Options<Payload, Response> = {
+  host: keyof typeof hosts;
   routeName: keyof typeof routes;
   enabled?: boolean;
   payload?: {
@@ -17,6 +18,7 @@ type Options<Payload, Response> = {
 };
 
 export function useRequest<Payload, Response>({
+  host,
   enabled = true,
   routeName,
   headers: headersDefault,
@@ -78,13 +80,13 @@ export function useRequest<Payload, Response>({
     payload,
     onSuccess,
     onError,
-  }: Omit<Options<Payload, Response>, "routeName" | "enabled"> = {}) {
+  }: Omit<Options<Payload, Response>, "host" | "routeName" | "enabled"> = {}) {
     setRequestState((prev) => ({ ...prev, isLoading: true }));
 
     try {
       const urlWithParams = mountUrl(
         uri,
-        HOST,
+        hosts[host],
         payload?.params || payloadDefault?.params,
         payload?.query || payloadDefault?.query
       );
@@ -102,9 +104,9 @@ export function useRequest<Payload, Response>({
         body: JSON.stringify(payload?.body || payloadDefault?.body),
         headers: needAuthorization
           ? {
-              ...presetHeaders,
-              Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-            }
+            ...presetHeaders,
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          }
           : presetHeaders,
       });
       if (response.ok) {

@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 
 export function useAuthentication() {
   const { setUser } = useUserAccess();
-  const { setCookie, getCookie } = useCookies();
-
+  const { setCookie, getCookie, invalidateCookie } = useCookies();
 
   const [authentication, setAuthentication] = useState({
     token: "",
@@ -16,7 +15,7 @@ export function useAuthentication() {
   });
   const [isLoading, setIsLoading] = useState(true);
 
-  function verifyToken() { 
+  function verifyToken() {
     const token = getCookie<string>("token");
     if (token) {
       const decoded = jwtDecode<JwtDecode>(token);
@@ -36,8 +35,8 @@ export function useAuthentication() {
     try {
       const decoded = jwtDecode<JwtDecode>(token);
       const user = decoded.account as User;
-      const dateExpiration = decoded.exp ? new Date(decoded.exp * 1000) : null; 
- 
+      const dateExpiration = decoded.exp ? new Date(decoded.exp * 1000) : null;
+
       const isTokenValid = verifyTokenExpirationTime(decoded);
       if (!isTokenValid) {
         return setAuthentication({ token: "", authenticated: false });
@@ -48,10 +47,17 @@ export function useAuthentication() {
       }
     } finally {
       setIsLoading(false);
-    } 
+    }
+  }
+
+  function logout() {
+    setAuthentication({ token: "", authenticated: false });
+    setUser({});
+    invalidateCookie("token");
   }
 
   return {
+    logout,
     isLoading,
     authentication,
     setAuthenticated,
