@@ -4,7 +4,6 @@ import { CustomForm } from "@/components/CustomForm";
 import { registerSchema } from "@/schemas/register";
 import { useRequest } from "@/services/hooks/useRequest";
 import { useAuth } from "@/context/AuthContext";
-import { DefaultResponse } from "@/services/types";
 import { CustomLoading } from "@/components/CustomLoading";
 
 type PayloadSignUp = {
@@ -13,18 +12,16 @@ type PayloadSignUp = {
   password: string;
 };
 
-type ResponseSignUp = DefaultResponse & {
-  data: {
-    token: string;
-    type: string;
-  }
+type ResponseSignUp = {
+  token: string;
+  type: string;
 };
 
 export function Register() {
   const { setAuthenticated } = useAuth();
 
   const [createUser, isLoading] = useRequest<PayloadSignUp, ResponseSignUp>({
-    host: 'authService',
+    host: "authService",
     routeName: "createUser",
     enabled: false,
     onSuccess: (res) => setAuthenticated(res.data.token),
@@ -43,9 +40,24 @@ export function Register() {
       <h1 className="text-center text-lg font-semibold my-3">Cadastre-se</h1>
       <CustomLoading isLoading={isLoading}>
         <CustomForm onSubmit={onSubmit} zodSchema={registerSchema}>
-          <CustomInput name="name" type="text" label="Nome" disabled={isLoading} />
-          <CustomInput name="email" type="email" label="E-mail" disabled={isLoading} />
-          <CustomInput name="password" type="password" label="Senha" disabled={isLoading} />
+          <CustomInput
+            name="name"
+            type="text"
+            label="Nome"
+            disabled={isLoading}
+          />
+          <CustomInput
+            name="email"
+            type="email"
+            label="E-mail"
+            disabled={isLoading}
+          />
+          <CustomInput
+            name="password"
+            type="password"
+            label="Senha"
+            disabled={isLoading}
+          />
           <CustomInput
             name="confirmPassword"
             type="password"

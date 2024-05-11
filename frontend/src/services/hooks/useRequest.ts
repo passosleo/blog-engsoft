@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { hosts, routes } from "../router";
+import { DefaultResponse } from "../types";
 
 type UrlParam = Record<string, string | string[] | number | number[]>;
 
@@ -12,7 +13,7 @@ type Options<Payload, Response> = {
     query?: UrlParam;
     body?: Payload;
   };
-  onSuccess?: (data: Response) => void;
+  onSuccess?: (res: DefaultResponse<Response>) => void;
   onError?: (error: { status: number; message: string }) => void;
   headers?: Record<string, string>;
 };
@@ -104,19 +105,19 @@ export function useRequest<Payload, Response>({
         body: JSON.stringify(payload?.body || payloadDefault?.body),
         headers: needAuthorization
           ? {
-            ...presetHeaders,
-            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-          }
+              ...presetHeaders,
+              Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+            }
           : presetHeaders,
       });
       if (response.ok) {
-        const data = (await response.json()) as Response;
-        setRequestState({ isLoading: false, data, error: null });
+        const res = (await response.json()) as DefaultResponse<Response>;
+        setRequestState({ isLoading: false, data: res.data, error: null });
         if (onSuccessDefault) {
-          onSuccessDefault(data);
+          onSuccessDefault(res);
         }
         if (onSuccess) {
-          onSuccess(data);
+          onSuccess(res);
         }
       } else {
         throw {

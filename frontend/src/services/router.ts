@@ -1,7 +1,7 @@
 const hosts = {
   authService: process.env.NEXT_PUBLIC_AUTH_SERVICE_URL as string,
   postService: process.env.NEXT_PUBLIC_POST_SERVICE_URL as string,
-}
+};
 
 const routes = {
   signIn: {
@@ -15,6 +15,10 @@ const routes = {
   getUser: {
     method: "GET",
     uri: "/api/v1/account",
+  },
+  getCategories: {
+    method: "GET",
+    uri: "/api/v1/categories",
   },
 } as const;
 
