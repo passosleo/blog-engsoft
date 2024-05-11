@@ -1,6 +1,7 @@
 import { useRequest } from "@/services/hooks/useRequest";
 import { DefaultResponse } from "@/services/types";
 import { useState } from "react";
+import { CustomLoading } from "../CustomLoading";
 
 type Category = {
   categoryId: string;
@@ -25,19 +26,21 @@ export function Menu() {
 
   return (
     <div className="mr-5 flex flex-col gap-5">
-      <div className="bg-black-secundary w-72 rounded-lg px-4 py-6 flex flex-col items-start gap-2">
-        {(categories || []).map(({ categoryId, color, name }) => {
-          return (
-            <button
-              key={categoryId}
-              onClick={() => handleSelectedCategory(categoryId)}
-              className="border-l-4 pl-4 rounded h-9"
-            >
-              {name}
-            </button>
-          );
-        })}
-      </div>
+      <CustomLoading isLoading={isLoading}>
+        <div className="bg-black-secundary w-72 rounded-lg px-4 py-6 flex flex-col items-start gap-2">
+          {(categories || []).map(({ categoryId, color, name }) => {
+            return (
+              <button
+                key={categoryId}
+                onClick={() => handleSelectedCategory(categoryId)}
+                className="border-l-4 pl-4 rounded h-9"
+              >
+                {name}
+              </button>
+            );
+          })}
+        </div>
+      </CustomLoading>
     </div>
   );
 }
