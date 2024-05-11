@@ -72,7 +72,7 @@ p {
   unicode-bidi: isolate;
 }
 
-a { 
+a {
   cursor: pointer;
   text-decoration: underline;
   color: #8257E5;
@@ -83,11 +83,13 @@ a:hover {
   color: #6f4bd8;
 }
 
-b, strong  {
+b,
+strong {
   font-weight: bold;
 }
 
-i, em {
+i,
+em {
   font-style: italic;
 }
 
@@ -99,7 +101,8 @@ del {
   text-decoration: line-through;
 }
 
-ins, u {
+ins,
+u {
   text-decoration: underline;
 }
 
@@ -121,7 +124,7 @@ mark {
 abbr[title] {
   text-decoration: underline dotted;
 }
- 
+
 pre {
   display: block;
   font-family: monospace;
@@ -215,28 +218,6 @@ li {
   unicode-bidi: isolate;
 }
 
-/* button {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: #fafafa;
-  padding: 8px 16px;
-  border-radius: 0.5rem;
-  background-color: #8257E5;
-  font-weight: 500;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-transform: none;
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  background-color: #7852d1;
-} */
-
- 
 img {
-  border-radius: 3px; 
+  border-radius: 3px;
 }

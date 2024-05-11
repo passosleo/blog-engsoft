@@ -1,10 +1,11 @@
+import { CustomPagination } from "../CustomPagination";
 import { Post } from "./Post";
 
 const postsTI = [
   {
-    category:  {
+    category: {
       categoryId: '1',
-      name:"Front-End",
+      name: "Front-End",
       color: "#86469C",
     },
     tittle: "Introdução ao Desenvolvimento Front-End",
@@ -13,9 +14,9 @@ const postsTI = [
     publishedAt: new Date("2024-01-01 08:13:30"),
   },
   {
-    category:{
+    category: {
       categoryId: '2',
-      name:"Back-End",
+      name: "Back-End",
       color: "#124076",
     },
     tittle: "APIs RESTful: O que são e como funcionam",
@@ -24,9 +25,9 @@ const postsTI = [
     publishedAt: new Date("2024-03-10 08:13:30"),
   },
   {
-    category:   {
+    category: {
       categoryId: '3',
-      name:"DevOps",
+      name: "DevOps",
       color: "#135D66",
     },
     tittle: "Implementando CI/CD com Jenkins",
@@ -36,12 +37,13 @@ const postsTI = [
   }
 ];
 
-export function Posts(){
+export function Posts() {
   return (
     <div>
       {postsTI.map((post, index) => (
-        <Post key={index} post={post} /> 
+        <Post key={index} post={post} />
       ))}
+      <CustomPagination />
     </div>
   )
 }

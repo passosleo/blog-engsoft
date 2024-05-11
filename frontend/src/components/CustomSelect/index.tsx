@@ -61,7 +61,7 @@ export function CustomSelect({
             render={({ field: { ref, ...fields } }) => (
               <div
                 className={twMerge(
-                  "flex flex-col",
+                  "flex flex-col gap-1",
                   props.hidden ? "hidden" : "",
                   containerClassName
                 )}
