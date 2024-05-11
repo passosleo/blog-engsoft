@@ -1,5 +1,16 @@
 version: "3.8"
 
+networks:
+  private_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+
+volumes:
+  auth_service_db_data:
+  post_service_db_data:
+
 services:
   auth_service_db:
     image: postgres:latest
@@ -10,6 +21,11 @@ services:
       POSTGRES_DB: database
     ports:
       - "5432:5432"
+    volumes:
+      - auth_service_db_data:/var/lib/postgresql/data
+    networks:
+      private_network:
+        ipv4_address: 172.28.0.2
 
   auth_service:
     build:
@@ -17,13 +33,51 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      HOST: "http://localhost"
+      HOST: http://localhost
       PORT: 3000
-      NAME: "auth-service"
-      DATABASE_URL: "postgresql://user:password@auth_service_db:5432/database?schema=public"
-      JWT_SECRET: "8bc8c6ed7899c1e6a280dccac8ce567d16c7e3d65dba6fb0a399266c9a3f0743"
-      JWT_EXPIRES_IN: "90d"
+      NAME: auth-service
+      DATABASE_URL: postgresql://user:password@172.28.0.2:5432/database?schema=public
+      JWT_SECRET: 8bc8c6ed7899c1e6a280dccac8ce567d16c7e3d65dba6fb0a399266c9a3f0743
+      JWT_EXPIRES_IN: 90d
     ports:
       - "3000:3000"
     depends_on:
       - auth_service_db
+    networks:
+      private_network:
+        ipv4_address: 172.28.0.3
+
+  post_service_db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - post_service_db_data:/var/lib/mysql
+    networks:
+      private_network:
+        ipv4_address: 172.28.0.4
+
+  post_service:
+    build:
+      context: ./post_service
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      SPRING_APPLICATION_NAME: post-service
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.28.0.4:3306/database
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      AUTH_API_URL: http://172.28.0.3:3000
+    ports:
+      - "8080:8080"
+    depends_on:
+      - post_service_db
+    networks:
+      private_network:
+        ipv4_address: 172.28.0.5
