@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c1327a1-740c-45fa-953a-fc3b4d3f06a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/resources/application-dev.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/post_service/src/main/resources/application-prod.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post_service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/post_service/src/main/java/com/engsoft/post_service/configuration/WebConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,15 +43,21 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/git/blog-engsoft/post_service",
+    "last_opened_file_path": "C:/git/blog-engsoft/post_service/dist",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\git\blog-engsoft\post_service\dist" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean install" />
+      <command value="mvn clean package" />
     </option>
   </component>
   <component name="RunManager">
