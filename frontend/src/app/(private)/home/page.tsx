@@ -9,22 +9,19 @@ import { useMobile } from "@/hooks/useMobile";
 import { twMerge } from "tailwind-merge";
 import { When } from "@/components/shared/When";
 
-
 export default function Home() {
   const { user } = useUserAccess();
   const isMobile = useMobile();
 
   console.log("user: ", user);
   return (
-    <div className={twMerge('flex', isMobile ? 'flex-col' : 'flex-row')}>
-
+    <div className={twMerge("flex", isMobile ? "flex-col" : "flex-row")}>
       <When condition={!isMobile}>
         <Menu />
         <div className="border-l pl-5 border-[#29292E] h-auto w-full ">
           <Editor />
           <Posts />
         </div>
-
       </When>
 
       <When condition={isMobile}>

@@ -34,6 +34,7 @@ export function Menu() {
                 key={categoryId}
                 onClick={() => handleSelectedCategory(categoryId)}
                 className="border-l-4 pl-4 rounded h-9"
+                style={{ borderColor: color }}
               >
                 {name}
               </button>

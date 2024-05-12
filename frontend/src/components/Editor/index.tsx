@@ -56,14 +56,18 @@ export function Editor() {
 
   return (
     <div className="bg-black-secundary flex flex-col rounded-lg ">
-        <button
-          className="bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4"
-          onClick={() => setIsOpen(true)}
-        >
-          Crie uma nova postagem para compartilhar com a comunidade...
-        </button>
+      <button
+        className="bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4"
+        onClick={() => setIsOpen(true)}
+      >
+        Crie uma nova postagem para compartilhar com a comunidade...
+      </button>
       <div className={`slide-down ${isOpen ? "open" : ""}`}>
-        <CustomForm onSubmit={onSubmit} zodSchema={postSchema} className="p-4 border-t border-[#29292E]">
+        <CustomForm
+          onSubmit={onSubmit}
+          zodSchema={postSchema}
+          className="p-4 border-t border-[#29292E]"
+        >
           <CustomInput
             name="title"
             className="bg-black  rounded px-3 focus:outline-none"
