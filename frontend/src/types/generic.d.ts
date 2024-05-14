@@ -55,7 +55,7 @@ export type Pagination<T> = {
   empty: boolean;
 };
 
-export type RequestWithPagination = {
+export type Pageable = {
   page: number;
   size: number;
   sort?: ("asc" | "desc")[];

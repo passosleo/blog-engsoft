@@ -1,4 +1,5 @@
 import { Category } from "./category";
+import { Pageable } from "./generic";
 
 export type Post = {
   postId: string;
@@ -12,4 +13,9 @@ export type Post = {
   isEdited: boolean;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type GetPosts = Pageable & {
+  categoryId: string;
+  authorEmail: string;
 };

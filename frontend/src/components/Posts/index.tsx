@@ -1,42 +1,48 @@
 import { useRequest } from "@/services/hooks/useRequest";
 import { CustomPagination } from "../CustomPagination";
 import { Post } from "./Post";
-import { Post as PostType } from "@/types/post";
-import { Pagination, RequestWithPagination } from "@/types/generic";
-import { useState } from "react";
+import { GetPosts, Post as PostType } from "@/types/post";
+import { Pageable, Pagination } from "@/types/generic";
+import { useEffect, useMemo, useState } from "react";
+import { CustomLoading } from "../CustomLoading";
+import { useCategories } from "@/stores/categories";
 
 export function Posts() {
+  const { selectedCategory } = useCategories();
   const [page, setPage] = useState(0);
 
+  const pagination: Pageable = {
+    page: page,
+    size: 5,
+  };
+
   const [getPosts, isLoading, paginatedPosts] = useRequest<
-    RequestWithPagination,
+    GetPosts,
     Pagination<PostType>
   >({
     host: "postService",
     routeName: "getPosts",
     payload: {
-      query: {
-        page: page,
-        size: 5,
-      },
+      query: pagination,
     },
   });
 
   return (
     <div>
-      {(paginatedPosts?.content || []).map((post, index) => (
-        <Post key={index} {...post} />
-      ))}
+      <CustomLoading isLoading={isLoading}>
+        {(paginatedPosts?.content || []).map((post, index) => (
+          <Post key={index} {...post} />
+        ))}
 
-      {paginatedPosts && (
-        <CustomPagination
-          currentPage={paginatedPosts.number}
-          totalItems={paginatedPosts.totalElements}
-          pageSize={paginatedPosts.size}
-          totalPages={paginatedPosts.totalPages}
-          onPageChange={(page) => setPage(page)}
-        />
-      )}
+        {paginatedPosts && (
+          <CustomPagination
+            currentPage={paginatedPosts.number}
+            totalPages={paginatedPosts.totalPages}
+            totalItems={paginatedPosts.totalElements}
+            onPageChange={(page) => setPage(page)}
+          />
+        )}
+      </CustomLoading>
     </div>
   );
 }
