@@ -25,7 +25,7 @@ export default function Home() {
 
       <When condition={isMobile}>
         <Editor />
-        <Menu />
+        <Menu className="mt-4" />
         <Posts />
       </When>
     </div>
