@@ -8,43 +8,52 @@ import { CustomSelect } from "../CustomSelect";
 import { CustomForm } from "../CustomForm";
 import { CustomInput } from "../CustomInput";
 import { CustomSwitch } from "../CustomSwitch";
-import { postSchema } from "@/schemas/post";
+import { createPostSchema } from "@/schemas/post";
+import { useRequest } from "@/services/hooks/useRequest";
+import { useCategories } from "@/stores/categories";
 
-const categories = [
-  {
-    categoryId: "1",
-    name: "Front-End",
-    color: "#F3D0D7",
-  },
-  {
-    categoryId: "2",
-    name: "Back-End",
-    color: "#B0C5A4",
-  },
-  {
-    categoryId: "3",
-    name: "DevOps",
-    color: "#9BB0C1",
-  },
-  {
-    categoryId: "4",
-    name: "Mobile",
-    color: "#8E7AB5",
-  },
-  {
-    categoryId: "5",
-    name: "UX/UI",
-    color: "#F9B572",
-  },
-  {
-    categoryId: "6",
-    name: "Outros",
-    color: "#8DDFCB",
-  },
-];
+type PayloadCreatePost = {
+  title: string,
+  content: string,
+  categoryId: string,
+  isPublic: boolean,
+};
+
+type ResponseCreatePost = {
+  postId: string,
+  title: string,
+  content: string,
+  authorEmail: string,
+  authorName: string,
+  categoryId: string,
+  category: {
+    categoryId: string,
+    name: string,
+    color: string,
+    createdAt: string,
+    updatedAt: string,
+    enabled: boolean,
+  }
+};
+
 
 export function Editor() {
+  const { categories } = useCategories()
+  console.log("categories: ", categories);
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const [createPost, isLoading] = useRequest<PayloadCreatePost, ResponseCreatePost>({
+    host: "postService",
+    routeName: "createPost",
+    enabled: false,
+    onSuccess: (res) => {
+      console.log("Post criado com sucesso: ", res.data);
+    },
+    onError: (error) => {
+      console.log("Erro ao criar post: ", error);
+    }
+  });
 
   function onCancel() {
     setIsOpen(false);
@@ -52,6 +61,11 @@ export function Editor() {
 
   function onSubmit(values: any) {
     console.log("values: ", values);
+    createPost({
+      payload: {
+        body: values,
+      },
+    });
   }
 
   return (
@@ -65,7 +79,7 @@ export function Editor() {
       <div className={`slide-down ${isOpen ? "open" : ""}`}>
         <CustomForm
           onSubmit={onSubmit}
-          zodSchema={postSchema}
+          zodSchema={createPostSchema}
           className="p-4 border-t border-[#29292E]"
         >
           <CustomInput
@@ -80,8 +94,8 @@ export function Editor() {
               value: category.categoryId,
               key: category.categoryId,
             }))}
-            id="category"
-            name="category"
+            id="categoryId"
+            name="categoryId"
             label="Categoria"
             className="w-full  "
           />
@@ -101,7 +115,7 @@ export function Editor() {
             >
               Cancelar
             </CustomButton>
-            <CustomButton type="submit">Publicar</CustomButton>
+            <CustomButton type="submit" disabled={isLoading} isLoading={isLoading}>Publicar</CustomButton>
           </div>
         </CustomForm>
       </div>

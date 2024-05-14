@@ -2,21 +2,12 @@ import { useRequest } from "@/services/hooks/useRequest";
 import { DefaultResponse } from "@/services/types";
 import { useState } from "react";
 import { CustomLoading } from "../CustomLoading";
-
-type Category = {
-  categoryId: string;
-  name: string;
-  color: string;
-  isEnabled: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { Category } from "@/types/category";
+import { useCategories } from "@/stores/categories";
 
 export function Menu() {
-  const [getCategories, isLoading, categories] = useRequest<void, Category[]>({
-    host: "postService",
-    routeName: "getCategories",
-  });
+  const { categories } = useCategories()
+  const isLoading = !categories.length
 
   const [selectedCategory, setSelectedCategory] = useState("");
 

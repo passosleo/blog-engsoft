@@ -1,9 +1,12 @@
 import { twMerge } from "tailwind-merge";
 import { Button, ButtonProps } from "../ui/button";
+import { When } from "../shared/When";
+import { CustomLoader } from "../CustomLoader";
 
 type CustomButtonProps = ButtonProps & {
   rightIcon?: React.ReactNode;
   leftIcon?: React.ReactNode;
+  isLoading?: boolean;
 };
 
 export function CustomButton({
@@ -11,13 +14,19 @@ export function CustomButton({
   rightIcon,
   leftIcon,
   children,
+  isLoading,
   ...props
 }: CustomButtonProps) {
   return (
     <Button className={twMerge(className)} {...props}>
-      {leftIcon && <span className="mr-2">{leftIcon}</span>}
-      {children}
-      {rightIcon && <span className="ml-2">{rightIcon}</span>}
+      <When condition={isLoading}>
+        <CustomLoader />
+      </When>
+      <When condition={!isLoading}>
+        {leftIcon && <span className="mr-2">{leftIcon}</span>}
+        {children}
+        {rightIcon && <span className="ml-2">{rightIcon}</span>}
+      </When>
     </Button>
   );
 }

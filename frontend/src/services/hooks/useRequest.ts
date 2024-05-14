@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { hosts, routes } from "../router";
 import { DefaultResponse } from "../types";
+import { useCookies } from "@/hooks/useCookies";
 
 type UrlParam = Record<string, string | string[] | number | number[]>;
 
@@ -27,6 +28,7 @@ export function useRequest<Payload, Response>({
   onSuccess: onSuccessDefault,
   onError: onErrorDefault,
 }: Options<Payload, Response>) {
+  const { getCookie } = useCookies();
   const [requestState, setRequestState] = useState<{
     isLoading: boolean;
     data: Response | null;
@@ -105,9 +107,9 @@ export function useRequest<Payload, Response>({
         body: JSON.stringify(payload?.body || payloadDefault?.body),
         headers: needAuthorization
           ? {
-              ...presetHeaders,
-              Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-            }
+            ...presetHeaders,
+            Authorization: `Bearer ${getCookie("token") || ""}`,
+          }
           : presetHeaders,
       });
       if (response.ok) {

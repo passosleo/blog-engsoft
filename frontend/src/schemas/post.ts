@@ -8,14 +8,12 @@ function isEmptyString(value: string) {
   return value.trim() === "";
 }
 
-export const postSchema = z.object({
+export const createPostSchema = z.object({
   title: z
     .string({ required_error: isRequired })
     .min(3, validations.string.isMinThenThree)
     .max(50, validations.string.isMoreThenFifty),
   content: z.string({ required_error: isRequired }).min(3, validations.string.isMinThenThree),
-  category: z.string().refine((value) => !isEmptyString(value), {
-    message: isRequired, 
-  }),
+  categoryId: z.string().uuid(),
   isPublic: z.boolean({ required_error: isRequired }),
 });
