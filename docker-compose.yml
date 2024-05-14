@@ -69,6 +69,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_APPLICATION_NAME: post-service
       SPRING_DATASOURCE_URL: jdbc:mysql://172.28.0.4:3306/database
       SPRING_DATASOURCE_USERNAME: user
