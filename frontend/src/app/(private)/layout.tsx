@@ -12,10 +12,10 @@ export default function PrivateLayout({
   children: React.ReactNode;
 }) {
   const { setCategories } = useCategories();
-  const [getCategories, isLoading, categories] = useRequest<void, Category[]>({
+  const [] = useRequest<void, Category[]>({
     host: "postService",
     routeName: "getCategories",
-    onSuccess: (res) => setCategories(res.data)
+    onSuccess: (res) => setCategories(res.data),
   });
 
   return (

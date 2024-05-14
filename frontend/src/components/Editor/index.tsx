@@ -10,29 +10,28 @@ import { useToast } from "@/components/ui/use-toast"
 import { Fields } from "./Fields";
 
 type PayloadCreatePost = {
-  title: string,
-  content: string,
-  categoryId: string,
-  isPublic: boolean,
+  title: string;
+  content: string;
+  categoryId: string;
+  isPublic: boolean;
 };
 
 type ResponseCreatePost = {
-  postId: string,
-  title: string,
-  content: string,
-  authorEmail: string,
-  authorName: string,
-  categoryId: string,
+  postId: string;
+  title: string;
+  content: string;
+  authorEmail: string;
+  authorName: string;
+  categoryId: string;
   category: {
-    categoryId: string,
-    name: string,
-    color: string,
-    createdAt: string,
-    updatedAt: string,
-    enabled: boolean,
-  }
+    categoryId: string;
+    name: string;
+    color: string;
+    createdAt: string;
+    updatedAt: string;
+    enabled: boolean;
+  };
 };
-
 
 export function Editor() {
   const { categories } = useCategories()
@@ -40,7 +39,10 @@ export function Editor() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [createPost, isLoading] = useRequest<PayloadCreatePost, ResponseCreatePost>({
+  const [createPost, isLoading] = useRequest<
+    PayloadCreatePost,
+    ResponseCreatePost
+  >({
     host: "postService",
     routeName: "createPost",
     enabled: false,
@@ -84,6 +86,7 @@ export function Editor() {
         <CustomForm
           onSubmit={onSubmit}
           zodSchema={createPostSchema}
+          preventEnterSubmit
           className="p-4 border-t border-[#29292E]"
         >
           <Fields categories={categories} isLoading={isLoading} onCancel={onCancel} />

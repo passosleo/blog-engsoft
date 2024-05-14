@@ -25,6 +25,11 @@ const routes = {
     uri: "/api/v1/posts",
     listenHeaders: ["Authorization"],
   },
+  getPosts: {
+    method: "GET",
+    uri: "/api/v1/posts",
+    listenHeaders: ["Authorization"],
+  },
 } as const;
 
 export { hosts, routes };
