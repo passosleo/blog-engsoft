@@ -20,7 +20,7 @@ export function CustomButton({
   return (
     <Button className={twMerge(className)} {...props}>
       <When condition={isLoading}>
-        <CustomLoader />
+        <CustomLoader className="text-white " />
       </When>
       <When condition={!isLoading}>
         {leftIcon && <span className="mr-2">{leftIcon}</span>}

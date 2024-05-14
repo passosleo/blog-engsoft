@@ -1,16 +1,13 @@
 "use client";
 import { useState } from "react";
-import { CustomQuill } from "../CustomQuill";
-import { CustomButton } from "../CustomButton";
 
 import "./global.css";
-import { CustomSelect } from "../CustomSelect";
 import { CustomForm } from "../CustomForm";
-import { CustomInput } from "../CustomInput";
-import { CustomSwitch } from "../CustomSwitch";
 import { createPostSchema } from "@/schemas/post";
 import { useRequest } from "@/services/hooks/useRequest";
 import { useCategories } from "@/stores/categories";
+import { useToast } from "@/components/ui/use-toast"
+import { Fields } from "./Fields";
 
 type PayloadCreatePost = {
   title: string,
@@ -39,7 +36,7 @@ type ResponseCreatePost = {
 
 export function Editor() {
   const { categories } = useCategories()
-  console.log("categories: ", categories);
+  const { toast } = useToast()
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,20 +44,27 @@ export function Editor() {
     host: "postService",
     routeName: "createPost",
     enabled: false,
-    onSuccess: (res) => {
-      console.log("Post criado com sucesso: ", res.data);
+    onSuccess: () => {
+      toast({
+        title: "Publicação criada com sucesso!",
+        className: "bg-green-600 text-white",
+      })
+      onCancel();
     },
-    onError: (error) => {
-      console.log("Erro ao criar post: ", error);
+    onError: () => {
+      toast({
+        title: "Ocorreu um erro ao criar a publicação",
+        className: "bg-red-600 text-white",
+      })
     }
   });
 
   function onCancel() {
     setIsOpen(false);
+
   }
 
   function onSubmit(values: any) {
-    console.log("values: ", values);
     createPost({
       payload: {
         body: values,
@@ -82,41 +86,7 @@ export function Editor() {
           zodSchema={createPostSchema}
           className="p-4 border-t border-[#29292E]"
         >
-          <CustomInput
-            name="title"
-            className="bg-black  rounded px-3 focus:outline-none"
-            label="Título"
-            placeholder="Título da publicação"
-          />
-          <CustomSelect
-            options={categories.map((category) => ({
-              label: category.name,
-              value: category.categoryId,
-              key: category.categoryId,
-            }))}
-            id="categoryId"
-            name="categoryId"
-            label="Categoria"
-            className="w-full  "
-          />
-          <CustomSwitch
-            id="isPublic"
-            name="isPublic"
-            label="Público"
-            defaultChecked
-          />
-          <CustomQuill id="content" />
-          <div className="flex gap-3 justify-end">
-            <CustomButton
-              type="button"
-              className="bg-black-secundary h-[41px] hover:bg-transparent"
-              variant="outline"
-              onClick={onCancel}
-            >
-              Cancelar
-            </CustomButton>
-            <CustomButton type="submit" disabled={isLoading} isLoading={isLoading}>Publicar</CustomButton>
-          </div>
+          <Fields categories={categories} isLoading={isLoading} onCancel={onCancel} />
         </CustomForm>
       </div>
     </div>
