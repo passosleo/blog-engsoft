@@ -6,28 +6,22 @@ import { Category } from "@/types/category";
 import { useCategories } from "@/stores/categories";
 
 export function Menu() {
-  const { categories } = useCategories()
-  const isLoading = !categories.length
-
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  function handleSelectedCategory(category: string) {
-    setSelectedCategory(category);
-  }
+  const { categories, setSelectedCategory } = useCategories();
+  const isLoading = !categories.length;
 
   return (
     <div className="mr-5 flex flex-col gap-5">
       <CustomLoading isLoading={isLoading}>
         <div className="bg-black-secundary w-72 rounded-lg px-4 py-6 flex flex-col items-start gap-2">
-          {(categories || []).map(({ categoryId, color, name }) => {
+          {(categories || []).map((category) => {
             return (
               <button
-                key={categoryId}
-                onClick={() => handleSelectedCategory(categoryId)}
+                key={category.categoryId}
+                onClick={() => setSelectedCategory(category)}
                 className="border-l-4 pl-4 rounded h-9"
-                style={{ borderColor: color }}
+                style={{ borderColor: category.color }}
               >
-                {name}
+                {category.name}
               </button>
             );
           })}

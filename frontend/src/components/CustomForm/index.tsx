@@ -16,6 +16,7 @@ type Props<T extends FieldValues> = {
   zodSchema?: ZodSchema<Partial<T>>;
   resetOnSubmit?: boolean;
   className?: string;
+  preventEnterSubmit?: boolean;
 };
 
 export function CustomForm<T extends FieldValues>({
@@ -25,6 +26,7 @@ export function CustomForm<T extends FieldValues>({
   useFormProps,
   className,
   resetOnSubmit = false,
+  preventEnterSubmit = false,
 }: Props<T>) {
   const { methods } = useCustomForm<T>({ onSubmit, useFormProps, zodSchema });
 
@@ -34,7 +36,7 @@ export function CustomForm<T extends FieldValues>({
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLFormElement>) {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !preventEnterSubmit) {
       e.preventDefault();
       methods.handleSubmit((data) => onSubmit(data, methods))();
     }
