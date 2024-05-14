@@ -54,3 +54,9 @@ export type Pagination<T> = {
   numberOfElements: number;
   empty: boolean;
 };
+
+export type RequestWithPagination = {
+  page: number;
+  size: number;
+  sort?: ("asc" | "desc")[];
+};
