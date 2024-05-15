@@ -10,10 +10,18 @@ import { useAuth } from "@/context/AuthContext";
 import { LogOutIcon } from "lucide-react";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { When } from "@/components/shared/When";
+import { CustomButton } from "@/components/CustomButton";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 
 export function Header() {
   const { user } = useUserAccess();
   const { logout } = useAuth();
+  const router = useRouter();
+
+  const isLogged = user && Object.keys(user).length !== 0;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
@@ -23,10 +31,18 @@ export function Header() {
           <Link href="/home" className="">
             <Image src={EngSoft} alt="Logo" width={120} height={120} />
           </Link>
-          <CustomAvatar
-            name={user?.name}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          />
+          <When condition={isLogged}>
+            <CustomAvatar
+              name={user?.name}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </When>
+          <When condition={!isLogged}>
+            <div className="flex gap-4">
+              <CustomButton onClick={() => router.push("/login")}>Entrar</CustomButton>
+              <CustomButton onClick={() => router.push("/register")} variant="outline" className="hover:opacity-85">Cadastrar-se</CustomButton>
+            </div>
+          </When>
         </div>
         <div
           onClick={() => logout()}
@@ -38,7 +54,19 @@ export function Header() {
           <LogOutIcon size={18} color="#8257E5" />
           <span className="text-sm">Sair</span>
         </div>
+        <When condition={isLogged}>
+          <div
+            onClick={() => logout()}
+            className={twMerge(
+              "absolute right-0 bg-black py-2 px-4 gap-2 flex items-center rounded top-12 cursor-pointer",
+              isMenuOpen ? "visible" : "invisible"
+            )}
+          >
+            <LogOutIcon size={18} color="#8257E5" />
+            <span className="text-sm">Sair</span>
+          </div>
+        </When>
       </div>
-    </header>
+    </header >
   );
 }
