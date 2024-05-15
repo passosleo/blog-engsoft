@@ -1,4 +1,5 @@
-"use client";
+"use client"
+import { Toaster } from "@/components/ui/toaster";
 import { Authorized } from "@/context/Authorized";
 import { Header } from "@/layout/Header";
 import { useRequest } from "@/services/hooks/useRequest";
@@ -25,6 +26,7 @@ export default function PrivateLayout({
           {children}
         </main>
       </div>
+      <Toaster />
     </Authorized>
   );
 }

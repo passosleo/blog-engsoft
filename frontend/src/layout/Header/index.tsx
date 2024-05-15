@@ -21,14 +21,22 @@ export function Header() {
       <div className="max-w-screen-xl mx-auto w-full px-4 flex flex-col relative">
         <div className="flex flex-row justify-between items-center">
           <Link href="/home" className="">
-            {/* <Image src={Logo} alt="Logo" width={45} height={45} /> */}
             <Image src={EngSoft} alt="Logo" width={120} height={120} />
           </Link>
-          <CustomAvatar name={user.name} onClick={() => setIsMenuOpen(!isMenuOpen)} />
+          <CustomAvatar
+            name={user.name}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          />
         </div>
-        <div onClick={() => logout()} className={twMerge("absolute right-0 bg-black py-2 px-4 gap-2 flex items-center rounded top-12 cursor-pointer", isMenuOpen ? 'visible' : 'invisible')}>
+        <div
+          onClick={() => logout()}
+          className={twMerge(
+            "absolute right-0 bg-black py-2 px-4 gap-2 flex items-center rounded top-12 cursor-pointer",
+            isMenuOpen ? "visible" : "invisible"
+          )}
+        >
           <LogOutIcon size={18} color="#8257E5" />
-          <span className='text-sm'>Sair</span>
+          <span className="text-sm">Sair</span>
         </div>
       </div>
     </header>

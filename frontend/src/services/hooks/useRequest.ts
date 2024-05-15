@@ -39,9 +39,12 @@ export function useRequest<Payload, Response>({
     error: null,
   });
 
-  const { method, uri, listenHeaders, headers } = routes[
-    routeName
-  ] as unknown as {
+  const {
+    method,
+    uri,
+    listenHeaders,
+    headers: definedHeaders,
+  } = routes[routeName] as unknown as {
     listenHeaders?: string[];
     headers?: Record<string, string>;
     method: string;
@@ -83,6 +86,7 @@ export function useRequest<Payload, Response>({
     payload,
     onSuccess,
     onError,
+    headers,
   }: Omit<Options<Payload, Response>, "host" | "routeName" | "enabled"> = {}) {
     setRequestState((prev) => ({ ...prev, isLoading: true }));
 
@@ -97,8 +101,9 @@ export function useRequest<Payload, Response>({
       const needAuthorization =
         !!listenHeaders && listenHeaders.includes("Authorization");
       const presetHeaders = {
-        ...headers,
+        ...definedHeaders,
         ...headersDefault,
+        ...headers,
         "Content-Type": "application/json",
       };
 
@@ -107,9 +112,9 @@ export function useRequest<Payload, Response>({
         body: JSON.stringify(payload?.body || payloadDefault?.body),
         headers: needAuthorization
           ? {
-            ...presetHeaders,
-            Authorization: `Bearer ${getCookie("token") || ""}`,
-          }
+              ...presetHeaders,
+              Authorization: `Bearer ${getCookie("token") || ""}`,
+            }
           : presetHeaders,
       });
       if (response.ok) {
@@ -145,12 +150,6 @@ export function useRequest<Payload, Response>({
 
   const isFirstRender = useFirstRender();
 
-  const dependencies = [
-    ...Object.values(payloadDefault?.params || {}),
-    ...Object.values(payloadDefault?.query || {}),
-    ...Object.values(payloadDefault?.body || {}),
-  ];
-
   useEffect(() => {
     if (enabled) {
       request();
@@ -163,7 +162,7 @@ export function useRequest<Payload, Response>({
       request();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies);
+  }, [JSON.stringify(payloadDefault)]);
 
   return [
     request,

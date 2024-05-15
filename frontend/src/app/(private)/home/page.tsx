@@ -13,7 +13,6 @@ export default function Home() {
   const { user } = useUserAccess();
   const isMobile = useMobile();
 
-  console.log("user: ", user);
   return (
     <div className={twMerge("flex", isMobile ? "flex-col" : "flex-row")}>
       <When condition={!isMobile}>
@@ -26,7 +25,7 @@ export default function Home() {
 
       <When condition={isMobile}>
         <Editor />
-        <Menu />
+        <Menu className="mt-4" />
         <Posts />
       </When>
     </div>

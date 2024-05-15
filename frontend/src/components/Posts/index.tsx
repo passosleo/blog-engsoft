@@ -3,7 +3,7 @@ import { CustomPagination } from "../CustomPagination";
 import { Post } from "./Post";
 import { GetPosts, Post as PostType } from "@/types/post";
 import { Pageable, Pagination } from "@/types/generic";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { CustomLoading } from "../CustomLoading";
 import { useCategories } from "@/stores/categories";
 
@@ -23,7 +23,9 @@ export function Posts() {
     host: "postService",
     routeName: "getPosts",
     payload: {
-      query: pagination,
+      query: selectedCategory
+        ? { ...pagination, categoryId: selectedCategory.categoryId }
+        : pagination,
     },
   });
 
