@@ -34,11 +34,12 @@ type ResponseCreatePost = {
 };
 
 type EditorProps = {
-  isEditorOpen: boolean;
-  setIsEditorOpen: (value: boolean) => void;
+  afterCreatePost: () => void;
 };
 
-export function Editor({ isEditorOpen, setIsEditorOpen }: EditorProps) {
+export function Editor({ afterCreatePost }: EditorProps) {
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+
   const { categories, setSelectedCategory } = useCategories();
   const { toast } = useToast();
 
@@ -56,6 +57,7 @@ export function Editor({ isEditorOpen, setIsEditorOpen }: EditorProps) {
       });
       onCancel();
       setSelectedCategory(null);
+      afterCreatePost();
     },
     onError: () => {
       toast({
@@ -69,7 +71,7 @@ export function Editor({ isEditorOpen, setIsEditorOpen }: EditorProps) {
     setIsEditorOpen(false);
   }
 
-  function onSubmit(values: any) {
+  function onSubmit(values: PayloadCreatePost) {
     createPost({
       payload: {
         body: values,

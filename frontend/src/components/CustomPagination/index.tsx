@@ -21,14 +21,14 @@ export function CustomPagination({
   function onPrevPage() {
     if (!isFirstPage) {
       onPageChange(currentPage - 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0 });
     }
   }
 
   function onNextPage() {
     if (!isLastPage) {
       onPageChange(currentPage + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0 });
     }
   }
 

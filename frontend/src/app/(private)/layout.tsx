@@ -1,6 +1,5 @@
 "use client";
 import { Toaster } from "@/components/ui/toaster";
-import { Authorized } from "@/context/Authorized";
 import { Header } from "@/layout/Header";
 import { useRequest } from "@/services/hooks/useRequest";
 import { useCategories } from "@/stores/categories";
@@ -12,6 +11,7 @@ export default function PrivateLayout({
   children: React.ReactNode;
 }) {
   const { setCategories } = useCategories();
+
   useRequest<void, Category[]>({
     host: "postService",
     routeName: "getCategories",
@@ -20,7 +20,6 @@ export default function PrivateLayout({
 
   return (
     <>
-      {/* <Authorized> */}
       <div>
         <Header />
         <main className="h-screen w-full mt-16 max-w-screen-xl mx-auto p-4 ">
@@ -28,7 +27,6 @@ export default function PrivateLayout({
         </main>
       </div>
       <Toaster />
-      {/* </Authorized> */}
     </>
   );
 }
