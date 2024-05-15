@@ -14,6 +14,7 @@ type Options<Payload, Response> = {
     query?: UrlParam;
     body?: Payload;
   };
+  dependencies?: unknown[];
   onSuccess?: (res: DefaultResponse<Response>) => void;
   onError?: (error: { status: number; message: string }) => void;
   headers?: Record<string, string>;
@@ -23,6 +24,7 @@ export function useRequest<Payload, Response>({
   host,
   enabled = true,
   routeName,
+  dependencies = [],
   headers: headersDefault,
   payload: payloadDefault,
   onSuccess: onSuccessDefault,
@@ -162,7 +164,7 @@ export function useRequest<Payload, Response>({
       request();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(payloadDefault)]);
+  }, [JSON.stringify({ ...payloadDefault, ...dependencies })]);
 
   return [
     request,

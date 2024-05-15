@@ -7,7 +7,11 @@ import { useState } from "react";
 import { CustomLoading } from "../CustomLoading";
 import { useCategories } from "@/stores/categories";
 
-export function Posts() {
+type PostsProps = {
+  isEditorOpen: boolean;
+};
+
+export function Posts({ isEditorOpen }: PostsProps) {
   const { selectedCategory } = useCategories();
   const [page, setPage] = useState(0);
 
@@ -22,10 +26,14 @@ export function Posts() {
   >({
     host: "postService",
     routeName: "getPosts",
+    enabled: !isEditorOpen,
     payload: {
       query: selectedCategory
         ? { ...pagination, categoryId: selectedCategory.categoryId }
         : pagination,
+    },
+    onSuccess: (res) => {
+      if (page >= res?.data?.totalPages) setPage(0);
     },
   });
 

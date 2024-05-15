@@ -5,7 +5,7 @@ type StateProps = {
   categories: Category[];
   selectedCategory: Category | null;
   setCategories: (categories: Category[]) => void;
-  setSelectedCategory: (category: Category) => void;
+  setSelectedCategory: (category: Category | null) => void;
 };
 
 export const useCategories = create<StateProps>((set) => ({

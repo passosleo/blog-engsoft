@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { Menu } from "@/components/Menu";
 import { Editor } from "@/components/Editor";
@@ -13,20 +13,25 @@ export default function Home() {
   const { user } = useUserAccess();
   const isMobile = useMobile();
 
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+
   return (
     <div className={twMerge("flex", isMobile ? "flex-col" : "flex-row")}>
       <When condition={!isMobile}>
         <Menu />
         <div className="border-l pl-5 border-[#29292E] h-auto w-full ">
-          <Editor />
-          <Posts />
+          <Editor
+            isEditorOpen={isEditorOpen}
+            setIsEditorOpen={setIsEditorOpen}
+          />
+          <Posts isEditorOpen={isEditorOpen} />
         </div>
       </When>
 
       <When condition={isMobile}>
-        <Editor />
+        <Editor isEditorOpen={isEditorOpen} setIsEditorOpen={setIsEditorOpen} />
         <Menu className="mt-4" />
-        <Posts />
+        <Posts isEditorOpen={isEditorOpen} />
       </When>
     </div>
   );
