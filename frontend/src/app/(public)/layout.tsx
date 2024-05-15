@@ -7,6 +7,7 @@ import { useMobile } from "@/hooks/useMobile";
 import { redirect } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PublicLayout({
   children,
@@ -28,11 +29,13 @@ export default function PublicLayout({
     <div className="flex items-center justify-center h-screen w-full">
       <div className="flex flex-row items-center justify-center">
         <div className={twMerge("w-[60%] h-screen", isMobile && "hidden")}>
-          <Image
-            src={WelcomeImage}
-            alt="Image"
-            className="h-full object-cover shadow-xl"
-          />
+          <Link href="/">
+            <Image
+              src={WelcomeImage}
+              alt="Image"
+              className="h-full object-cover shadow-xl"
+            />
+          </Link>
         </div>
         <div
           className={twMerge(
@@ -41,13 +44,15 @@ export default function PublicLayout({
           )}
         >
           <div className="flex flex-col gap-3 p-5 m-3 max-w-md w-full">
-            <Image
-              src={Logo}
-              alt="Logo"
-              width={100}
-              className="mx-auto"
-              priority
-            />
+            <Link href="/">
+              <Image
+                src={Logo}
+                alt="Logo"
+                width={100}
+                className="mx-auto"
+                priority
+              />
+            </Link>
             {children}
           </div>
         </div>

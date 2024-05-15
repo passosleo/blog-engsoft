@@ -6,7 +6,7 @@ import {
   verifyTokenExpirationTime,
 } from "@/utils/functions/jwt-verify";
 import { jwtDecode } from "jwt-decode";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function useAuthentication() {
@@ -58,9 +58,9 @@ export function useAuthentication() {
 
   function logout() {
     setAuthentication({ token: "", authenticated: false });
-    setUser({});
     invalidateCookie("token");
-    router.replace("/login");
+    router.push("/login");
+    setUser(null);
   }
 
   return {

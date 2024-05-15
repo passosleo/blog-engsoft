@@ -24,7 +24,7 @@ export function Header() {
             <Image src={EngSoft} alt="Logo" width={120} height={120} />
           </Link>
           <CustomAvatar
-            name={user.name}
+            name={user?.name}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           />
         </div>

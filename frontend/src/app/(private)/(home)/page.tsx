@@ -19,6 +19,7 @@ export default function Home() {
   const { selectedCategory } = useCategories();
   const { user } = useUserAccess();
   const isMobile = useMobile();
+  const isUserLogged = !!user?.email;
 
   const [updatePosts, isLoading, posts] = useRequest<
     GetPosts,
@@ -46,13 +47,17 @@ export default function Home() {
       <When condition={!isMobile}>
         <Menu onClickCategory={() => onPaginate(1)} />
         <div className="border-l pl-5 border-[#29292E] h-auto w-full ">
-          <Editor afterCreatePost={afterCreatePost} />
+          <When condition={isUserLogged}>
+            <Editor afterCreatePost={afterCreatePost} />
+          </When>
           <Posts posts={posts} onPaginate={onPaginate} isLoading={isLoading} />
         </div>
       </When>
 
       <When condition={isMobile}>
-        <Editor afterCreatePost={afterCreatePost} />
+        <When condition={isUserLogged}>
+          <Editor afterCreatePost={afterCreatePost} />
+        </When>
         <Menu className="mt-4" onClickCategory={() => onPaginate(1)} />
         <Posts posts={posts} onPaginate={onPaginate} isLoading={isLoading} />
       </When>
