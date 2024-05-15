@@ -1,10 +1,12 @@
-import { CustomButton } from "@/components/CustomButton";
-import { CustomInput } from "@/components/CustomInput";
-import { CustomForm } from "@/components/CustomForm";
-import { registerSchema } from "@/schemas/register";
-import { useRequest } from "@/services/hooks/useRequest";
+"use client";
 import { useAuth } from "@/context/AuthContext";
+import { useRequest } from "@/services/hooks/useRequest";
 import { CustomLoading } from "@/components/CustomLoading";
+import { CustomForm } from "@/components/CustomForm";
+import { CustomInput } from "@/components/CustomInput";
+import { registerSchema } from "@/schemas/register";
+import { CustomButton } from "@/components/CustomButton";
+import Link from "next/link";
 
 type PayloadSignUp = {
   name: string;
@@ -17,7 +19,7 @@ type ResponseSignUp = {
   type: string;
 };
 
-export function Register() {
+export default function Register() {
   const { setAuthenticated } = useAuth();
 
   const [createUser, isLoading] = useRequest<PayloadSignUp, ResponseSignUp>({
@@ -69,6 +71,12 @@ export function Register() {
           </CustomButton>
         </CustomForm>
       </CustomLoading>
+      <div className="text-sm text-center border-t border-[#29292E] pt-5 mt-5">
+        Já possui conta?{" "}
+        <Link href="/login" className="font-bold text-primary underline">
+          Entre na plataforma
+        </Link>
+      </div>
     </div>
   );
 }

@@ -6,69 +6,87 @@ import Image from "next/image";
 import WelcomeImage from "@/assets/images/welcome-image.jpg";
 import { useMobile } from "@/hooks/useMobile";
 import { twMerge } from "tailwind-merge";
-import Logo from "@/assets/images/logo-name.svg";
-import Login from "./components/Login/page";
-import { Register } from "./components/Register/page";
+import { useAuth } from "@/context/AuthContext";
+import { useRequest } from "@/services/hooks/useRequest";
+import { UseFormReturn } from "react-hook-form";
+import { CustomLoading } from "@/components/CustomLoading";
+import { CustomForm } from "@/components/CustomForm";
+import { CustomInput } from "@/components/CustomInput";
+import { CustomButton } from "@/components/CustomButton";
+import { loginSchema } from "@/schemas/login";
+import Link from "next/link";
 
-export default function Welcome() {
-  const [isLogged, setIsLogged] = useState<"login" | "register">("login");
+type PayloadSignIn = {
+  email: string;
+  password: string;
+};
 
+type ResponseSignIn = {
+  token: string;
+  type: string;
+};
 
-  const isMobile = useMobile();
+export default function Login() {
+  const { setAuthenticated } = useAuth();
 
-  function onLogged(value: "login" | "register") {
-    setIsLogged(value);
+  const [signIn, isLoading] = useRequest<PayloadSignIn, ResponseSignIn>({
+    host: "authService",
+    routeName: "signIn",
+    enabled: false,
+    onSuccess: (res) => setAuthenticated(res.data.token),
+  });
+
+  function onSubmit(values: PayloadSignIn, form: UseFormReturn<PayloadSignIn>) {
+    signIn({
+      payload: {
+        body: values,
+      },
+      onError: (error) => {
+        if (error.status === 401) {
+          form.setError("password", {
+            type: "manual",
+            message: "Senha inválida",
+          });
+        }
+        if (error.status === 404) {
+          form.setError("email", {
+            type: "manual",
+            message: "E-mail não encontrado",
+          });
+        }
+      },
+    });
   }
 
   return (
-    <div className="flex flex-row items-center justify-center">
-      <div
-        className={twMerge(
-          "w-[60%] h-screen",
-          isMobile && "hidden"
-        )}
-      >
-        <Image src={WelcomeImage} alt="Image" className="h-full object-cover shadow-xl" />
-      </div>
-      <div
-        className={twMerge(
-          "flex justify-center h-screen items-center",
-          isMobile ? "w-screen" : "w-[40%]"
-        )}
-      >
-        <div className="flex flex-col gap-3 p-5 m-3 max-w-md w-full">
-          <Image
-            src={Logo}
-            alt="Logo"
-            width={100}
-            className="mx-auto"
-            priority
+    <div>
+      <h1 className="text-center text-lg font-semibold my-3">
+        Acesse sua conta
+      </h1>
+      <CustomLoading isLoading={isLoading}>
+        <CustomForm onSubmit={onSubmit} zodSchema={loginSchema}>
+          <CustomInput
+            name="email"
+            type="email"
+            label="E-mail"
+            disabled={isLoading}
           />
-          <When condition={isLogged === "login"}>
-            <Login />
-            <div className="text-sm text-center border-t border-[#29292E] pt-5 mt-5">
-              Não possui uma conta?{" "}
-              <span
-                onClick={() => onLogged("register")}
-                className="font-bold cursor-pointer"
-              >
-                Cadastre-se aqui
-              </span>
-            </div>
-          </When>
-          <When condition={isLogged === "register"}>
-            <Register />
-            <div className="text-sm text-center border-t border-[#29292E] pt-5 mt-5">
-              Já possui conta?{" "}
-              <span
-                onClick={() => onLogged("login")}
-                className="font-bold cursor-pointer"
-              >
-                Entre na plataforma
-              </span>
-            </div>
-          </When>
-        </div>
+          <CustomInput
+            name="password"
+            type="password"
+            label="Senha"
+            disabled={isLoading}
+          />
+          <CustomButton type="submit" className="mt-5" disabled={isLoading}>
+            Acessar
+          </CustomButton>
+        </CustomForm>
+      </CustomLoading>
+      <div className="text-sm text-center border-t border-[#29292E] pt-5 mt-5">
+        Não possui uma conta?{" "}
+        <Link href="/register" className="font-bold text-primary underline">
+          Cadastre-se aqui
+        </Link>
       </div>
     </div>
   );
