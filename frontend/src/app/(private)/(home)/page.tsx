@@ -20,11 +20,6 @@ export default function Home() {
   const { user } = useUserAccess();
   const isMobile = useMobile();
 
-  const normalizedPagination = {
-    page: pagination.page - 1,
-    size: pagination.size,
-  };
-
   const [updatePosts, isLoading, posts] = useRequest<
     GetPosts,
     Pagination<Post>
@@ -34,10 +29,10 @@ export default function Home() {
     payload: {
       query: selectedCategory
         ? {
-            ...normalizedPagination,
+            ...pagination,
             categoryId: selectedCategory.categoryId,
           }
-        : normalizedPagination,
+        : pagination,
     },
   });
 

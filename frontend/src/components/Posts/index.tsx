@@ -20,10 +20,10 @@ export function Posts({ posts, isLoading, onPaginate }: PostsProps) {
 
         {posts && (
           <CustomPagination
-            currentPage={posts.number}
+            currentPage={posts.number + 1}
             totalPages={posts.totalPages}
             totalItems={posts.totalElements}
-            onPageChange={(page) => onPaginate(page + 1)}
+            onPageChange={onPaginate}
           />
         )}
       </CustomLoading>

@@ -15,8 +15,8 @@ export function CustomPagination({
   onPageChange,
   hideOnSinglePage = true,
 }: CustomPaginationProps) {
-  const isFirstPage = currentPage === 0;
-  const isLastPage = currentPage === totalPages - 1;
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
 
   function onPrevPage() {
     if (!isFirstPage) {
@@ -50,7 +50,7 @@ export function CustomPagination({
       </div>
 
       <div>
-        <span>{currentPage + 1 + " / " + totalPages}</span>
+        <span>{currentPage + " / " + totalPages}</span>
       </div>
 
       <div className="w-6">
