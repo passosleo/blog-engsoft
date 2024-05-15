@@ -5,20 +5,19 @@ import { ptBR } from "date-fns/locale/pt-BR";
 import { CustomAvatar } from "@/components/CustomAvatar";
 import { Post as PostType } from "@/types/post";
 import { autocapitalize } from "@/utils/functions/string";
+import { Globe, LockKeyhole } from "lucide-react";
+import { formatDate } from "@/utils/functions/date";
 
 export function Post({
   title,
   content,
   category,
   authorName,
+  isPublic,
+  isEdited,
+  updatedAt,
   createdAt,
 }: PostType) {
-  const publishedDateFormatted = format(
-    createdAt || new Date(),
-    "dd 'de' MMMM 'de' yyyy 'às' HH:mm",
-    { locale: ptBR }
-  );
-
   const publishedDateRelativeToNow = formatDistanceToNow(
     createdAt || new Date(),
     {
@@ -34,24 +33,40 @@ export function Post({
           <CustomAvatar name={authorName} />
           <span className="font-medium">{autocapitalize(authorName)}</span>
         </div>
-        <div>
+        <div className="flex gap-1 items-center justify-center">
           <time
-            title={publishedDateFormatted}
+            title={formatDate(createdAt)}
             dateTime={createdAt.toString()}
             className="text-[#8d8d99] text-sm"
           >
             {publishedDateRelativeToNow}
           </time>
+          {isEdited && (
+            <time
+              title={formatDate(updatedAt)}
+              dateTime={createdAt.toString()}
+              className="text-[#8d8d99] text-sm"
+            >
+              {"(editado)"}
+            </time>
+          )}
         </div>
       </div>
 
       <div>
-        <h1>{title}</h1>
+        <div className="flex items-center justify-between">
+          <h1>{title}</h1>
+          {isPublic ? (
+            <Globe className="mt-[-40px]" size={18} />
+          ) : (
+            <LockKeyhole className="mt-[-40px]" size={18} />
+          )}
+        </div>
         <div>{ReactHtmlParser(content)}</div>
       </div>
 
       <div className="flex mt-4 gap-2 border-t border-[#29292E] pt-4">
-        <span className="text-[#8d8d99]">Tags:</span>
+        <span className="text-[#8d8d99]">Categoria:</span>
         <div
           className={`w-fit px-2 rounded text-white`}
           style={{ backgroundColor: category.color }}

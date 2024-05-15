@@ -72,7 +72,6 @@ export function Editor({ afterCreatePost }: EditorProps) {
   }
 
   function onSubmit(values: PayloadCreatePost) {
-    console.log("onSubmit ~ values", values);
     createPost({
       payload: {
         body: {
