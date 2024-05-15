@@ -22,7 +22,7 @@ export function Posts({ posts, isLoading, onPaginate }: PostsProps) {
           <CustomPagination
             currentPage={posts.number + 1}
             totalPages={posts.totalPages}
-            totalItems={posts.totalElements}
+            totalItems={posts.numberOfElements}
             onPageChange={onPaginate}
           />
         )}

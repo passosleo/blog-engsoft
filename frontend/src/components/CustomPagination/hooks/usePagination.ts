@@ -2,7 +2,14 @@ import { Pageable } from "@/types/generic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export function usePagination({ page = 1, size = 5 }: Partial<Pageable> = {}) {
+type Props = {
+  pathname: string;
+};
+
+export function usePagination(
+  pathname: string,
+  { page = 1, size = 5 }: Partial<Pageable> = {}
+) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = new URLSearchParams(Array.from(searchParams.entries()));
@@ -14,7 +21,7 @@ export function usePagination({ page = 1, size = 5 }: Partial<Pageable> = {}) {
 
   function onPaginate(page: number) {
     setPagination((prev) => ({ ...prev, page }));
-    router.replace(`/?page=${page}&size=${pagination.size}`);
+    router.replace(`${pathname}?page=${page}&size=${pagination.size}`);
   }
 
   return {

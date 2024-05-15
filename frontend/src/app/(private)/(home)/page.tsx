@@ -15,7 +15,7 @@ import { useCategories } from "@/stores/categories";
 import { usePagination } from "@/components/CustomPagination/hooks/usePagination";
 
 export default function Home() {
-  const { pagination, onPaginate } = usePagination();
+  const { pagination, onPaginate } = usePagination("/");
   const { selectedCategory } = useCategories();
   const { user } = useUserAccess();
   const isMobile = useMobile();
