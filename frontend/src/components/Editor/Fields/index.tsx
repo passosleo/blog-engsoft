@@ -44,7 +44,6 @@ export function Fields({ categories, isLoading, onCancel }: Props) {
         <CustomButton
           type="button"
           className="bg-black-secundary h-[41px] hover:bg-transparent"
-          variant="outline"
           onClick={() => {
             onCancel();
             form.reset();
@@ -52,8 +51,15 @@ export function Fields({ categories, isLoading, onCancel }: Props) {
         >
           Cancelar
         </CustomButton>
-        <CustomButton type="submit" disabled={isLoading} isLoading={isLoading} className="min-w-[90px]">Publicar</CustomButton>
+        <CustomButton
+          type="submit"
+          disabled={isLoading}
+          isLoading={isLoading}
+          className="min-w-[90px]"
+        >
+          Publicar
+        </CustomButton>
       </div>
     </>
-  )
+  );
 }
