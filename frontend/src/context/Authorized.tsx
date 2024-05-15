@@ -14,7 +14,7 @@ export function Authorized({ children }: Props) {
   }
 
   if (!authentication.authenticated) {
-    return redirect("/");
+    return redirect("/login");
   }
 
   return children;

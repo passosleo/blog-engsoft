@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { CustomLoading } from "@/components/CustomLoading";
 import { useAuth } from "@/context/AuthContext";
 import { redirect } from "next/navigation";
@@ -15,7 +15,7 @@ export default function PublicLayout({
   }
 
   if (authentication.authenticated) {
-    return redirect("/home");
+    return redirect("/");
   }
 
   return (
