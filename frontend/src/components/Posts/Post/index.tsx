@@ -7,6 +7,8 @@ import { Post as PostType } from "@/types/post";
 import { autocapitalize } from "@/utils/functions/string";
 import { Globe, LockKeyhole } from "lucide-react";
 import { formatDate } from "@/utils/functions/date";
+import { useCategories } from "@/stores/categories";
+import { useRouter } from "next/navigation";
 
 export function Post({
   title,
@@ -17,7 +19,12 @@ export function Post({
   isEdited,
   updatedAt,
   createdAt,
-}: PostType) {
+  onClickCategory,
+}: PostType & {
+  onClickCategory: () => void;
+}) {
+  const router = useRouter();
+  const { selectedCategory, setSelectedCategory } = useCategories();
   const publishedDateRelativeToNow = formatDistanceToNow(
     createdAt || new Date(),
     {
@@ -68,8 +75,13 @@ export function Post({
       <div className="flex mt-4 gap-2 border-t border-[#29292E] pt-4">
         <span className="text-[#8d8d99]">Categoria:</span>
         <div
-          className={`w-fit px-2 rounded text-white`}
+          className={`w-fit px-2 rounded text-white cursor-pointer select-none`}
           style={{ backgroundColor: category.color }}
+          onClick={() => {
+            if (selectedCategory?.categoryId === category.categoryId) return;
+            setSelectedCategory(category);
+            onClickCategory();
+          }}
         >
           <span className="font-medium text-sm">{category.name}</span>
         </div>

@@ -17,7 +17,7 @@ export function Posts({ posts, isLoading, onPaginate }: PostsProps) {
       <CustomLoading isLoading={isLoading}>
         <When condition={posts && posts?.content.length > 0}>
           {(posts?.content || []).map((post, index) => (
-            <Post key={index} {...post} />
+            <Post key={index} {...post} onClickCategory={() => onPaginate(1)} />
           ))}
 
           {posts && (
