@@ -1,6 +1,6 @@
 import ReactHtmlParser from "react-html-parser";
 import "./global.css";
-import { format, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { CustomAvatar } from "@/components/CustomAvatar";
 import { Post as PostType } from "@/types/post";
@@ -8,7 +8,7 @@ import { autocapitalize } from "@/utils/functions/string";
 import { Globe, LockKeyhole } from "lucide-react";
 import { formatDate } from "@/utils/functions/date";
 import { useCategories } from "@/stores/categories";
-import { useRouter } from "next/navigation";
+import { CustomTooltip } from "@/components/CustomTooltip";
 
 export function Post({
   title,
@@ -23,7 +23,6 @@ export function Post({
 }: PostType & {
   onClickCategory: () => void;
 }) {
-  const router = useRouter();
   const { selectedCategory, setSelectedCategory } = useCategories();
   const publishedDateRelativeToNow = formatDistanceToNow(
     createdAt || new Date(),
@@ -64,9 +63,13 @@ export function Post({
         <div className="flex items-center justify-between">
           <h1>{title}</h1>
           {isPublic ? (
-            <Globe className="mt-[-40px]" size={18} />
+            <CustomTooltip text="Público" sideOffset={45}>
+              <Globe className="mt-[-40px]" size={18} />
+            </CustomTooltip>
           ) : (
-            <LockKeyhole className="mt-[-40px]" size={18} />
+            <CustomTooltip text="Privado" sideOffset={45}>
+              <LockKeyhole className="mt-[-40px]" size={18} />
+            </CustomTooltip>
           )}
         </div>
         <div>{ReactHtmlParser(content)}</div>

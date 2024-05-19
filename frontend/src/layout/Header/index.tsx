@@ -15,7 +15,6 @@ import { CustomButton } from "@/components/CustomButton";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-
 export function Header() {
   const { user } = useUserAccess();
   const { logout } = useAuth();
@@ -28,7 +27,7 @@ export function Header() {
     <header className="bg-black-secundary w-full flex items-center border-b border-[#29292E] fixed top-0 left-0 right-0 h-16 z-50">
       <div className="max-w-screen-xl mx-auto w-full px-4 flex flex-col relative">
         <div className="flex flex-row justify-between items-center">
-          <Link href="/home" className="">
+          <Link href="/" className="">
             <Image src={EngSoft} alt="Logo" width={120} height={120} />
           </Link>
           <When condition={isLogged}>
@@ -39,8 +38,16 @@ export function Header() {
           </When>
           <When condition={!isLogged}>
             <div className="flex gap-4">
-              <CustomButton onClick={() => router.push("/login")}>Entrar</CustomButton>
-              <CustomButton onClick={() => router.push("/register")} variant="outline" className="hover:opacity-85">Cadastrar-se</CustomButton>
+              <CustomButton onClick={() => router.push("/login")}>
+                Entrar
+              </CustomButton>
+              <CustomButton
+                onClick={() => router.push("/register")}
+                variant="outline"
+                className="hover:opacity-85"
+              >
+                Cadastre-se
+              </CustomButton>
             </div>
           </When>
         </div>
@@ -67,6 +74,6 @@ export function Header() {
           </div>
         </When>
       </div>
-    </header >
+    </header>
   );
 }
