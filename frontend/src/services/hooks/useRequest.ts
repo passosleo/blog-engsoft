@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { hosts, routes } from "../router";
 import { DefaultResponse } from "../types";
+import { useCookies } from "@/hooks/useCookies";
 
 type UrlParam = Record<string, string | string[] | number | number[]>;
 
@@ -13,6 +14,7 @@ type Options<Payload, Response> = {
     query?: UrlParam;
     body?: Payload;
   };
+  dependencies?: unknown[];
   onSuccess?: (res: DefaultResponse<Response>) => void;
   onError?: (error: { status: number; message: string }) => void;
   headers?: Record<string, string>;
@@ -22,11 +24,13 @@ export function useRequest<Payload, Response>({
   host,
   enabled = true,
   routeName,
+  dependencies = [],
   headers: headersDefault,
   payload: payloadDefault,
   onSuccess: onSuccessDefault,
   onError: onErrorDefault,
 }: Options<Payload, Response>) {
+  const { getCookie } = useCookies();
   const [requestState, setRequestState] = useState<{
     isLoading: boolean;
     data: Response | null;
@@ -37,9 +41,12 @@ export function useRequest<Payload, Response>({
     error: null,
   });
 
-  const { method, uri, listenHeaders, headers } = routes[
-    routeName
-  ] as unknown as {
+  const {
+    method,
+    uri,
+    listenHeaders,
+    headers: definedHeaders,
+  } = routes[routeName] as unknown as {
     listenHeaders?: string[];
     headers?: Record<string, string>;
     method: string;
@@ -81,6 +88,7 @@ export function useRequest<Payload, Response>({
     payload,
     onSuccess,
     onError,
+    headers,
   }: Omit<Options<Payload, Response>, "host" | "routeName" | "enabled"> = {}) {
     setRequestState((prev) => ({ ...prev, isLoading: true }));
 
@@ -95,8 +103,9 @@ export function useRequest<Payload, Response>({
       const needAuthorization =
         !!listenHeaders && listenHeaders.includes("Authorization");
       const presetHeaders = {
-        ...headers,
+        ...definedHeaders,
         ...headersDefault,
+        ...headers,
         "Content-Type": "application/json",
       };
 
@@ -106,7 +115,7 @@ export function useRequest<Payload, Response>({
         headers: needAuthorization
           ? {
               ...presetHeaders,
-              Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+              Authorization: `Bearer ${getCookie("token") || ""}`,
             }
           : presetHeaders,
       });
@@ -143,12 +152,6 @@ export function useRequest<Payload, Response>({
 
   const isFirstRender = useFirstRender();
 
-  const dependencies = [
-    ...Object.values(payloadDefault?.params || {}),
-    ...Object.values(payloadDefault?.query || {}),
-    ...Object.values(payloadDefault?.body || {}),
-  ];
-
   useEffect(() => {
     if (enabled) {
       request();
@@ -161,7 +164,7 @@ export function useRequest<Payload, Response>({
       request();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies);
+  }, [JSON.stringify({ ...payloadDefault, ...dependencies })]);
 
   return [
     request,

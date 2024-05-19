@@ -1,108 +1,108 @@
 "use client";
 import { useState } from "react";
-import { CustomQuill } from "../CustomQuill";
-import { CustomButton } from "../CustomButton";
 
 import "./global.css";
-import { CustomSelect } from "../CustomSelect";
 import { CustomForm } from "../CustomForm";
-import { CustomInput } from "../CustomInput";
-import { CustomSwitch } from "../CustomSwitch";
-import { postSchema } from "@/schemas/post";
+import { createPostSchema } from "@/schemas/post";
+import { useRequest } from "@/services/hooks/useRequest";
+import { useCategories } from "@/stores/categories";
+import { useToast } from "@/components/ui/use-toast";
+import { Fields } from "./Fields";
 
-const categories = [
-  {
-    categoryId: "1",
-    name: "Front-End",
-    color: "#F3D0D7",
-  },
-  {
-    categoryId: "2",
-    name: "Back-End",
-    color: "#B0C5A4",
-  },
-  {
-    categoryId: "3",
-    name: "DevOps",
-    color: "#9BB0C1",
-  },
-  {
-    categoryId: "4",
-    name: "Mobile",
-    color: "#8E7AB5",
-  },
-  {
-    categoryId: "5",
-    name: "UX/UI",
-    color: "#F9B572",
-  },
-  {
-    categoryId: "6",
-    name: "Outros",
-    color: "#8DDFCB",
-  },
-];
+type PayloadCreatePost = {
+  title: string;
+  content: string;
+  categoryId: string;
+  isPublic: boolean;
+};
 
-export function Editor() {
-  const [isOpen, setIsOpen] = useState(false);
+type ResponseCreatePost = {
+  postId: string;
+  title: string;
+  content: string;
+  authorEmail: string;
+  authorName: string;
+  categoryId: string;
+  category: {
+    categoryId: string;
+    name: string;
+    color: string;
+    createdAt: string;
+    updatedAt: string;
+    enabled: boolean;
+  };
+};
+
+type EditorProps = {
+  afterCreatePost: () => void;
+};
+
+export function Editor({ afterCreatePost }: EditorProps) {
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+
+  const { categories, setSelectedCategory } = useCategories();
+  const { toast } = useToast();
+
+  const [createPost, isLoading] = useRequest<
+    PayloadCreatePost,
+    ResponseCreatePost
+  >({
+    host: "postService",
+    routeName: "createPost",
+    enabled: false,
+    onSuccess: () => {
+      toast({
+        title: "Publicação criada com sucesso!",
+        className: "bg-green-600 text-white",
+      });
+      onCancel();
+      setSelectedCategory(null);
+      afterCreatePost();
+    },
+    onError: () => {
+      toast({
+        title: "Ocorreu um erro ao criar a publicação",
+        className: "bg-red-600 text-white",
+      });
+    },
+  });
 
   function onCancel() {
-    setIsOpen(false);
+    setIsEditorOpen(false);
   }
 
-  function onSubmit(values: any) {
-    console.log("values: ", values);
+  function onSubmit(values: PayloadCreatePost) {
+    createPost({
+      payload: {
+        body: {
+          ...values,
+          content: values.content.replace("&lt;", "<").replace("&gt;", ">"), // Fix for html tags
+        },
+      },
+    });
   }
 
   return (
     <div className="bg-black-secundary flex flex-col rounded-lg ">
       <button
         className="bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4"
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsEditorOpen(isEditorOpen ? false : true)}
       >
         Crie uma nova postagem para compartilhar com a comunidade...
       </button>
-      <div className={`slide-down ${isOpen ? "open" : ""}`}>
+      <div className={`slide-down ${isEditorOpen ? "open" : ""}`}>
         <CustomForm
           onSubmit={onSubmit}
-          zodSchema={postSchema}
+          zodSchema={createPostSchema}
+          preventEnterSubmit
+          resetOnSubmit
           className="p-4 border-t border-[#29292E]"
         >
-          <CustomInput
-            name="title"
-            className="bg-black  rounded px-3 focus:outline-none"
-            label="Título"
-            placeholder="Título da publicação"
+          <Fields
+            categories={categories}
+            isLoading={isLoading}
+            onCancel={onCancel}
           />
-          <CustomSelect
-            options={categories.map((category) => ({
-              label: category.name,
-              value: category.categoryId,
-              key: category.categoryId,
-            }))}
-            id="category"
-            name="category"
-            label="Categoria"
-            className="w-full  "
-          />
-          <CustomSwitch
-            id="isPublic"
-            name="isPublic"
-            label="Público"
-            defaultChecked
-          />
-          <CustomQuill id="content" />
-          <div className="flex gap-3 justify-end">
-            <CustomButton
-              type="button"
-              className="bg-black-secundary h-[41px] hover:bg-transparent"
-              variant="outline"
-              onClick={onCancel}
-            >
-              Cancelar
-            </CustomButton>
-            <CustomButton type="submit">Publicar</CustomButton>
-          </div>
         </CustomForm>
       </div>
     </div>

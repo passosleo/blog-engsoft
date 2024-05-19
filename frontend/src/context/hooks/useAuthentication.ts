@@ -1,13 +1,18 @@
 import { useCookies } from "@/hooks/useCookies";
 import { useUserAccess } from "@/stores/user-access";
 import { User } from "@/types/user";
-import { JwtDecode, verifyTokenExpirationTime } from "@/utils/functions/jwt-verify";
+import {
+  JwtDecode,
+  verifyTokenExpirationTime,
+} from "@/utils/functions/jwt-verify";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function useAuthentication() {
   const { setUser } = useUserAccess();
   const { setCookie, getCookie, invalidateCookie } = useCookies();
+  const router = useRouter();
 
   const [authentication, setAuthentication] = useState({
     token: "",
@@ -29,6 +34,7 @@ export function useAuthentication() {
 
   useEffect(() => {
     verifyToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function setAuthenticated(token: string) {
@@ -51,9 +57,10 @@ export function useAuthentication() {
   }
 
   function logout() {
-    setAuthentication({ token: "", authenticated: false });
-    setUser({});
     invalidateCookie("token");
+    setAuthentication({ token: "", authenticated: false });
+    router.push("/login");
+    setUser(null);
   }
 
   return {
@@ -61,5 +68,5 @@ export function useAuthentication() {
     isLoading,
     authentication,
     setAuthenticated,
-  }
+  };
 }

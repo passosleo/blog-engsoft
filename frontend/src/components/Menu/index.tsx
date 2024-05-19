@@ -1,42 +1,55 @@
-import { useRequest } from "@/services/hooks/useRequest";
-import { DefaultResponse } from "@/services/types";
-import { useState } from "react";
+import { useCategories } from "@/stores/categories";
 import { CustomLoading } from "../CustomLoading";
+import { twMerge } from "tailwind-merge";
+import { useMobile } from "@/hooks/useMobile";
 
-type Category = {
-  categoryId: string;
-  name: string;
-  color: string;
-  isEnabled: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+type MenuProps = React.ComponentProps<"div"> & {
+  onClickCategory: () => void;
 };
 
-export function Menu() {
-  const [getCategories, isLoading, categories] = useRequest<void, Category[]>({
-    host: "postService",
-    routeName: "getCategories",
-  });
-
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  function handleSelectedCategory(category: string) {
-    setSelectedCategory(category);
-  }
+export function Menu({ className, onClickCategory }: MenuProps) {
+  const { categories, selectedCategory, setSelectedCategory } = useCategories();
+  const isLoading = !categories.length;
+  const isMobile = useMobile();
 
   return (
-    <div className="mr-5 flex flex-col gap-5">
+    <div
+      className={twMerge(
+        "flex flex-col gap-5",
+        !isMobile ? "mr-5" : "",
+        className
+      )}
+    >
       <CustomLoading isLoading={isLoading}>
-        <div className="bg-black-secundary w-72 rounded-lg px-4 py-6 flex flex-col items-start gap-2">
-          {(categories || []).map(({ categoryId, color, name }) => {
+        <div
+          className={twMerge(
+            `bg-black-secundary rounded-lg p-4 flex flex-col items-start gap-2 flex-wrap min-w-72`
+          )}
+        >
+          {(categories || []).map((category) => {
+            const isSelected =
+              selectedCategory?.categoryId === category.categoryId;
             return (
               <button
-                key={categoryId}
-                onClick={() => handleSelectedCategory(categoryId)}
-                className="border-l-4 pl-4 rounded h-9"
-                style={{ borderColor: color }}
+                key={category.categoryId}
+                onClick={() => {
+                  if (category.categoryId === selectedCategory?.categoryId) {
+                    setSelectedCategory(null);
+                  } else {
+                    setSelectedCategory(category);
+                  }
+                  onClickCategory();
+                }}
+                className={twMerge(
+                  "pl-2 rounded h-9 text-start transition-colors duration-200 ease-in-out w-full",
+                  isSelected ? "bg-black" : ""
+                )}
               >
-                {name}
+                <span
+                  className="rounded-md mr-2"
+                  style={{ background: category.color, padding: "0 2px" }}
+                />
+                {category.name}
               </button>
             );
           })}

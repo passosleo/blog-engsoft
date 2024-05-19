@@ -44,8 +44,10 @@ export function CustomCheckbox({
             render={({ field }) => (
               <div>
                 <div className="flex flex-row items-center gap-1">
-                  <Checkbox id={id} onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e.target.checked)} />
-                  <label htmlFor={id} className="text-sm cursor-pointer">{label}</label>
+                  <Checkbox {...field} id={id} />
+                  <label htmlFor={id} className="text-sm cursor-pointer">
+                    {label}
+                  </label>
                 </div>
                 <div className="h-4 pl-2">
                   {!hideError && (hasError || error) && (

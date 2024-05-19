@@ -1,7 +1,7 @@
 const hosts = {
   authService: process.env.NEXT_PUBLIC_AUTH_SERVICE_URL as string,
   postService: process.env.NEXT_PUBLIC_POST_SERVICE_URL as string,
-};
+} as const;
 
 const routes = {
   signIn: {
@@ -19,6 +19,21 @@ const routes = {
   getCategories: {
     method: "GET",
     uri: "/api/v1/categories",
+  },
+  createPost: {
+    method: "POST",
+    uri: "/api/v1/posts",
+    listenHeaders: ["Authorization"],
+  },
+  getPosts: {
+    method: "GET",
+    uri: "/api/v1/posts",
+    listenHeaders: ["Authorization"],
+  },
+  deletePost: {
+    method: "DELETE",
+    uri: "/api/v1/posts/:postId",
+    listenHeaders: ["Authorization"],
   },
 } as const;
 

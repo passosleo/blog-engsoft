@@ -1,13 +1,16 @@
 import { User } from "@/types/user";
 import { create } from "zustand";
-  
+
 type StateProps = {
-  user: User;
-  setUser: (user: Partial<User>) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
 };
 
-export const useUserAccess = create<StateProps>((set) => ({
-  user: {} as User,
-  setUser: (user: Partial<User>) =>
-    set((state) => ({ user: { ...state.user, ...user } })),
+export const useUserAccess = create<StateProps>((set, get) => ({
+  user: null,
+  setUser: (user) =>
+    set((state) => ({
+      ...state,
+      user,
+    })),
 }));
