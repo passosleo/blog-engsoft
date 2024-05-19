@@ -57,8 +57,8 @@ export function useAuthentication() {
   }
 
   function logout() {
-    setAuthentication({ token: "", authenticated: false });
     invalidateCookie("token");
+    setAuthentication({ token: "", authenticated: false });
     router.push("/login");
     setUser(null);
   }

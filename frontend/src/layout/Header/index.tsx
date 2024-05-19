@@ -13,6 +13,7 @@ import { twMerge } from "tailwind-merge";
 import { When } from "@/components/shared/When";
 import { CustomButton } from "@/components/CustomButton";
 import { useRouter } from "next/navigation";
+import { CustomDropdown } from "@/components/CustomDropdown";
 
 export function Header() {
   const { user } = useUserAccess();
@@ -30,10 +31,25 @@ export function Header() {
             <Image src={EngSoft} alt="Logo" width={120} height={120} />
           </Link>
           <When condition={isLogged}>
-            <CustomAvatar
-              name={user?.name}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            />
+            <CustomDropdown
+              className="right-[-12px] top-12"
+              items={[
+                {
+                  element: (
+                    <div className="flex gap-2 items-center justify-center">
+                      <LogOutIcon size={18} color="#8257E5" />
+                      <span className="text-sm">Sair</span>
+                    </div>
+                  ),
+                  onClick: () => logout(),
+                },
+              ]}
+            >
+              <CustomAvatar
+                name={user?.name}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              />
+            </CustomDropdown>
           </When>
           <When condition={!isLogged}>
             <div className="flex gap-4">
@@ -50,7 +66,7 @@ export function Header() {
             </div>
           </When>
         </div>
-        <When condition={isLogged}>
+        {/* <When condition={isLogged}>
           <div
             onClick={() => logout()}
             className={twMerge(
@@ -61,7 +77,7 @@ export function Header() {
             <LogOutIcon size={18} color="#8257E5" />
             <span className="text-sm">Sair</span>
           </div>
-        </When>
+        </When> */}
       </div>
     </header>
   );

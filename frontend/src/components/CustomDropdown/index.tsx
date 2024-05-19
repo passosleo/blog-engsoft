@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 export type DropdownProps = React.ComponentProps<"div"> & {
   items: {
-    label: React.ReactNode;
+    element: React.ReactNode;
     onClick: () => void;
     className?: string;
   }[];
@@ -63,7 +63,7 @@ export function CustomDropdown({
                 item.className
               )}
             >
-              {item.label}
+              {item.element}
             </span>
           ))}
         </div>

@@ -5,7 +5,14 @@ import { ptBR } from "date-fns/locale/pt-BR";
 import { CustomAvatar } from "@/components/CustomAvatar";
 import { Post as PostType } from "@/types/post";
 import { autocapitalize } from "@/utils/functions/string";
-import { Ellipsis, Globe, LockKeyhole } from "lucide-react";
+import {
+  Ellipsis,
+  Globe,
+  LockKeyhole,
+  LogOutIcon,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { formatDate } from "@/utils/functions/date";
 import { useCategories } from "@/stores/categories";
 import { CustomTooltip } from "@/components/CustomTooltip";
@@ -68,8 +75,24 @@ export function Post({
             <CustomDropdown
               className="right-0"
               items={[
-                { label: "Editar", onClick: () => console.log("editar") },
-                { label: "Excluir", onClick: () => console.log("excluir") },
+                {
+                  element: (
+                    <div className="flex gap-2 items-center">
+                      <Pencil size={16} color="#8257E5" />
+                      <span className="text-sm">Editar</span>
+                    </div>
+                  ),
+                  onClick: () => console.log("editar"),
+                },
+                {
+                  element: (
+                    <div className="flex gap-2 items-center">
+                      <Trash2 size={16} color="#8257E5" />
+                      <span className="text-sm">Excluir</span>
+                    </div>
+                  ),
+                  onClick: () => console.log("excluir"),
+                },
               ]}
             >
               <Ellipsis className="cursor-pointer" />
