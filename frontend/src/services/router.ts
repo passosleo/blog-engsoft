@@ -30,6 +30,11 @@ const routes = {
     uri: "/api/v1/posts",
     listenHeaders: ["Authorization"],
   },
+  deletePost: {
+    method: "DELETE",
+    uri: "/api/v1/posts/:postId",
+    listenHeaders: ["Authorization"],
+  },
 } as const;
 
 export { hosts, routes };

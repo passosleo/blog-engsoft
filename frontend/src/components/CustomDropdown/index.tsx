@@ -45,7 +45,9 @@ export function CustomDropdown({
 
   return (
     <div ref={dropdownRef} className="relative">
-      <div onClick={handleIsOpen}>{children}</div>
+      <div onClick={handleIsOpen} className="cursor-pointer">
+        {children}
+      </div>
       {isOpen && (
         <div
           {...props}

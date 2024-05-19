@@ -50,7 +50,12 @@ export default function Home() {
           <When condition={isUserLogged}>
             <Editor afterCreatePost={afterCreatePost} />
           </When>
-          <Posts posts={posts} onPaginate={onPaginate} isLoading={isLoading} />
+          <Posts
+            posts={posts}
+            onPaginate={onPaginate}
+            isLoading={isLoading}
+            afterDeletePost={updatePosts}
+          />
         </div>
       </When>
 
@@ -59,7 +64,12 @@ export default function Home() {
           <Editor afterCreatePost={afterCreatePost} />
         </When>
         <Menu className="mt-4" onClickCategory={() => onPaginate(1)} />
-        <Posts posts={posts} onPaginate={onPaginate} isLoading={isLoading} />
+        <Posts
+          posts={posts}
+          onPaginate={onPaginate}
+          isLoading={isLoading}
+          afterDeletePost={updatePosts}
+        />
       </When>
     </div>
   );

@@ -5,33 +5,33 @@ import { ptBR } from "date-fns/locale/pt-BR";
 import { CustomAvatar } from "@/components/CustomAvatar";
 import { Post as PostType } from "@/types/post";
 import { autocapitalize } from "@/utils/functions/string";
-import {
-  Ellipsis,
-  Globe,
-  LockKeyhole,
-  LogOutIcon,
-  Pencil,
-  Trash2,
-} from "lucide-react";
+import { Ellipsis, Globe, LockKeyhole, Pencil, Trash2 } from "lucide-react";
 import { formatDate } from "@/utils/functions/date";
 import { useCategories } from "@/stores/categories";
 import { CustomTooltip } from "@/components/CustomTooltip";
 import { CustomDropdown } from "@/components/CustomDropdown";
 import { confirm } from "@/providers/ConfirmModal";
+import { useUserAccess } from "@/stores/user-access";
+import { When } from "@/components/shared/When";
 
 export function Post({
+  postId,
   title,
   content,
   category,
+  authorEmail,
   authorName,
   isPublic,
   isEdited,
   updatedAt,
   createdAt,
+  onDelete,
   onClickCategory,
 }: PostType & {
   onClickCategory: () => void;
+  onDelete: (postId: string) => void;
 }) {
+  const { user } = useUserAccess();
   const { selectedCategory, setSelectedCategory } = useCategories();
   const publishedDateRelativeToNow = formatDistanceToNow(
     createdAt || new Date(),
@@ -76,37 +76,40 @@ export function Post({
       <div>
         <div className="flex items-start justify-between">
           <h1>{title}</h1>
-          <div className="flex justify-center items-center gap-2 mt-2 select-none">
-            <CustomDropdown
-              className="right-0"
-              items={[
-                {
-                  element: (
-                    <div className="flex gap-2 items-center">
-                      <Pencil size={16} color="#8257E5" />
-                      <span className="text-sm">Editar</span>
-                    </div>
-                  ),
-                  onClick: () => console.log("editar"),
-                },
-                {
-                  element: (
-                    <div className="flex gap-2 items-center">
-                      <Trash2 size={16} color="#8257E5" />
-                      <span className="text-sm">Excluir</span>
-                    </div>
-                  ),
-                  onClick: () =>
-                    confirm({
-                      title: "Tem certeza que deseja excluir esta publicação?",
-                      onConfirm: () => console.log("excluir"),
-                    }),
-                },
-              ]}
-            >
-              <Ellipsis className="cursor-pointer" />
-            </CustomDropdown>
-          </div>
+          <When condition={user?.email === authorEmail}>
+            <div className="flex justify-center items-center gap-2 mt-2 select-none">
+              <CustomDropdown
+                className="right-0"
+                items={[
+                  {
+                    element: (
+                      <div className="flex gap-2 items-center">
+                        <Pencil size={16} color="#8257E5" />
+                        <span className="text-sm">Editar</span>
+                      </div>
+                    ),
+                    onClick: () => console.log("editar"),
+                  },
+                  {
+                    element: (
+                      <div className="flex gap-2 items-center">
+                        <Trash2 size={16} color="#8257E5" />
+                        <span className="text-sm">Excluir</span>
+                      </div>
+                    ),
+                    onClick: () =>
+                      confirm({
+                        title:
+                          "Tem certeza que deseja excluir esta publicação?",
+                        onConfirm: () => onDelete(postId),
+                      }),
+                  },
+                ]}
+              >
+                <Ellipsis className="hover:text-primary transition-colors" />
+              </CustomDropdown>
+            </div>
+          </When>
         </div>
         <div>{ReactHtmlParser(content)}</div>
       </div>
