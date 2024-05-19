@@ -5,10 +5,11 @@ import { ptBR } from "date-fns/locale/pt-BR";
 import { CustomAvatar } from "@/components/CustomAvatar";
 import { Post as PostType } from "@/types/post";
 import { autocapitalize } from "@/utils/functions/string";
-import { Globe, LockKeyhole } from "lucide-react";
+import { Ellipsis, Globe, LockKeyhole } from "lucide-react";
 import { formatDate } from "@/utils/functions/date";
 import { useCategories } from "@/stores/categories";
 import { CustomTooltip } from "@/components/CustomTooltip";
+import { CustomDropdown } from "@/components/CustomDropdown";
 
 export function Post({
   title,
@@ -39,38 +40,41 @@ export function Post({
           <CustomAvatar name={authorName} />
           <span className="font-medium">{autocapitalize(authorName)}</span>
         </div>
-        <div className="flex gap-1 items-center justify-center">
-          <time
-            title={formatDate(createdAt)}
-            dateTime={createdAt.toString()}
-            className="text-[#8d8d99] text-sm"
-          >
-            {publishedDateRelativeToNow}
-          </time>
-          {isEdited && (
-            <time
-              title={formatDate(updatedAt)}
-              dateTime={createdAt.toString()}
-              className="text-[#8d8d99] text-sm"
-            >
-              {"(editado)"}
-            </time>
-          )}
+        <div className="flex gap-2 items-center justify-center">
+          <CustomTooltip text={isPublic ? "Público" : "Privado"}>
+            {isPublic ? <Globe size={18} /> : <LockKeyhole size={18} />}
+          </CustomTooltip>
+          <div>
+            <CustomTooltip text={formatDate(createdAt)}>
+              <span className="text-[#8d8d99] text-sm">
+                {publishedDateRelativeToNow}
+              </span>
+            </CustomTooltip>
+            {isEdited && (
+              <CustomTooltip text={formatDate(updatedAt)}>
+                <span className="text-[#8d8d99] text-sm ml-1">
+                  {"(editado)"}
+                </span>
+              </CustomTooltip>
+            )}
+          </div>
         </div>
       </div>
 
       <div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between">
           <h1>{title}</h1>
-          {isPublic ? (
-            <CustomTooltip text="Público" sideOffset={45}>
-              <Globe className="mt-[-40px]" size={18} />
-            </CustomTooltip>
-          ) : (
-            <CustomTooltip text="Privado" sideOffset={45}>
-              <LockKeyhole className="mt-[-40px]" size={18} />
-            </CustomTooltip>
-          )}
+          <div className="flex justify-center items-center gap-2 mt-2 select-none">
+            <CustomDropdown
+              className="right-0"
+              items={[
+                { label: "Editar", onClick: () => console.log("editar") },
+                { label: "Excluir", onClick: () => console.log("excluir") },
+              ]}
+            >
+              <Ellipsis className="cursor-pointer" />
+            </CustomDropdown>
+          </div>
         </div>
         <div>{ReactHtmlParser(content)}</div>
       </div>

@@ -12,7 +12,6 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { When } from "@/components/shared/When";
 import { CustomButton } from "@/components/CustomButton";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export function Header() {
@@ -50,16 +49,6 @@ export function Header() {
               </CustomButton>
             </div>
           </When>
-        </div>
-        <div
-          onClick={() => logout()}
-          className={twMerge(
-            "absolute right-0 bg-black py-2 px-4 gap-2 flex items-center rounded top-12 cursor-pointer",
-            isMenuOpen ? "visible" : "invisible"
-          )}
-        >
-          <LogOutIcon size={18} color="#8257E5" />
-          <span className="text-sm">Sair</span>
         </div>
         <When condition={isLogged}>
           <div
