@@ -17,6 +17,7 @@ import { formatDate } from "@/utils/functions/date";
 import { useCategories } from "@/stores/categories";
 import { CustomTooltip } from "@/components/CustomTooltip";
 import { CustomDropdown } from "@/components/CustomDropdown";
+import { confirm } from "@/providers/ConfirmModal";
 
 export function Post({
   title,
@@ -49,7 +50,11 @@ export function Post({
         </div>
         <div className="flex gap-2 items-center justify-center">
           <CustomTooltip text={isPublic ? "Público" : "Privado"}>
-            {isPublic ? <Globe size={18} /> : <LockKeyhole size={18} />}
+            {isPublic ? (
+              <Globe size={18} color="#8d8d99" />
+            ) : (
+              <LockKeyhole size={18} color="#8d8d99" />
+            )}
           </CustomTooltip>
           <div>
             <CustomTooltip text={formatDate(createdAt)}>
@@ -91,7 +96,11 @@ export function Post({
                       <span className="text-sm">Excluir</span>
                     </div>
                   ),
-                  onClick: () => console.log("excluir"),
+                  onClick: () =>
+                    confirm({
+                      title: "Tem certeza que deseja excluir esta publicação?",
+                      onConfirm: () => console.log("excluir"),
+                    }),
                 },
               ]}
             >

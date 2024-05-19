@@ -57,7 +57,10 @@ export function CustomDropdown({
           {items.map((item, index) => (
             <span
               key={index}
-              onClick={item.onClick}
+              onClick={() => {
+                item.onClick();
+                setIsOpen(false);
+              }}
               className={twMerge(
                 "cursor-pointer text-sm hover:text-primary transition-colors font-medium",
                 item.className
