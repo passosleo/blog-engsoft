@@ -2,14 +2,15 @@
 import { useState } from "react";
 
 import "./global.css";
-import { CustomForm } from "../CustomForm";
 import { createPostSchema } from "@/schemas/post";
 import { useRequest } from "@/services/hooks/useRequest";
 import { useCategories } from "@/stores/categories";
 import { useToast } from "@/components/ui/use-toast";
-import { Fields } from "./Fields";
-
-type PayloadCreatePost = {
+import { twMerge } from "tailwind-merge";
+import { useMobile } from "@/hooks/useMobile";
+import { FormEditor } from "./Form";
+import { Category } from "@/types/category";
+export type PayloadCreatePost = {
   title: string;
   content: string;
   categoryId: string;
@@ -23,14 +24,7 @@ type ResponseCreatePost = {
   authorEmail: string;
   authorName: string;
   categoryId: string;
-  category: {
-    categoryId: string;
-    name: string;
-    color: string;
-    createdAt: string;
-    updatedAt: string;
-    enabled: boolean;
-  };
+  category: Category
 };
 
 type EditorProps = {
@@ -39,6 +33,8 @@ type EditorProps = {
 
 export function Editor({ afterCreatePost }: EditorProps) {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+
+  const isMobile = useMobile();
 
   const { categories, setSelectedCategory } = useCategories();
   const { toast } = useToast();
@@ -85,25 +81,13 @@ export function Editor({ afterCreatePost }: EditorProps) {
   return (
     <div className="bg-black-secundary flex flex-col rounded-lg ">
       <button
-        className="bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4"
+        className={twMerge("bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4", isMobile ? 'text-sm' : 'text-base')}
         onClick={() => setIsEditorOpen(isEditorOpen ? false : true)}
       >
-        Crie uma nova postagem para compartilhar com a comunidade...
+        Criar nova postagem
       </button>
       <div className={`slide-down ${isEditorOpen ? "open" : ""}`}>
-        <CustomForm
-          onSubmit={onSubmit}
-          zodSchema={createPostSchema}
-          preventEnterSubmit
-          resetOnSubmit
-          className="p-4 border-t border-[#29292E]"
-        >
-          <Fields
-            categories={categories}
-            isLoading={isLoading}
-            onCancel={onCancel}
-          />
-        </CustomForm>
+        <FormEditor onSubmit={onSubmit} schema={createPostSchema} categories={categories} isLoading={isLoading} onCancel={onCancel} />
       </div>
     </div>
   );

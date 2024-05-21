@@ -64,9 +64,9 @@ export function Posts({
             />
           )}
         </When>
-        <When condition={posts && posts?.content.length === 0}>
+        <When condition={posts && posts?.content.length === 0}> 
           <h4 className="text-center opacity-90">
-            Ops! Parece que ainda não temos nenhuma postagem nesta categoria.
+            Nenhuma postagem encontrada
           </h4>
         </When>
       </CustomLoading>
