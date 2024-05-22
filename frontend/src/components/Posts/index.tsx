@@ -36,12 +36,6 @@ export function Posts({
         title: "Publicação excluída com sucesso!",
         className: "bg-green-600 text-white",
       }),
-    onError: () => {
-      toast({
-        title: "Ops! Algo deu errado ao excluir a publicação.",
-        className: "bg-red-600 text-white",
-      });
-    },
   });
 
   const [updatePost, isUpdating] = useRequest<PayloadUpdatePost, void>({
@@ -53,12 +47,6 @@ export function Posts({
         title: "Publicação editada com sucesso!",
         className: "bg-green-600 text-white",
       }),
-    onError: () => {
-      toast({
-        title: "Ops! Algo deu errado ao editar a publicação.",
-        className: "bg-red-600 text-white",
-      });
-    },
   });
 
   return (

@@ -2,7 +2,7 @@ import { config } from "../config";
 import { z } from "zod";
 import { validateEmail } from "@/utils/utils";
 
-const { isRequired } = config.messages.validations;
+const { isRequired, string } = config.messages.validations;
 
 export const loginSchema = z.object({
   email: z
@@ -11,5 +11,6 @@ export const loginSchema = z.object({
     .transform((value) => value.toLowerCase()),
   password: z
     .string({ required_error: isRequired })
+    .min(8, string.isMinThanExpectedLength)
     .nonempty("Insira uma senha"),
 });

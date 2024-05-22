@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { hosts, routes } from "../router";
 import { DefaultResponse } from "../types";
 import { useCookies } from "@/hooks/useCookies";
+import { toast } from "@/components/ui/use-toast";
 
 type UrlParam = Record<string, string | string[] | number | number[]>;
 
@@ -18,12 +19,14 @@ type Options<Payload, Response> = {
   onSuccess?: (res: DefaultResponse<Response>) => void;
   onError?: (error: { status: number; message: string }) => void;
   headers?: Record<string, string>;
+  notHandleError?: boolean;
 };
 
 export function useRequest<Payload, Response>({
   host,
-  enabled = true,
   routeName,
+  enabled = true,
+  notHandleError,
   dependencies = [],
   headers: headersDefault,
   payload: payloadDefault,
@@ -135,17 +138,20 @@ export function useRequest<Payload, Response>({
         };
       }
     } catch (error: Error | unknown) {
+      const defaultErrorMessage =
+        "Ops! Algo deu errado. Tente novamente mais tarde.";
       const errorObject = {
         status: (error as { status: number }).status || 500,
-        message:
-          (error as { message: string }).message || "Something went wrong",
+        message: (error as { message: string }).message || defaultErrorMessage,
       };
       setRequestState({ data: null, isLoading: false, error: errorObject });
-      if (onErrorDefault) {
-        onErrorDefault(errorObject);
-      }
-      if (onError) {
-        onError(errorObject);
+      if (onErrorDefault) onErrorDefault(errorObject);
+      if (onError) onError(errorObject);
+      if (!notHandleError) {
+        toast({
+          title: defaultErrorMessage,
+          className: "bg-red-600 text-white",
+        });
       }
     }
   }

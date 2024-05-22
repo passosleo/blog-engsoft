@@ -30,9 +30,9 @@ export default function Home() {
     payload: {
       query: selectedCategory
         ? {
-          ...pagination,
-          categoryId: selectedCategory.categoryId,
-        }
+            ...pagination,
+            categoryId: selectedCategory.categoryId,
+          }
         : pagination,
     },
   });
@@ -69,7 +69,6 @@ export default function Home() {
           onPaginate={onPaginate}
           isLoading={isLoading}
           reloadPosts={reloadPosts}
-
         />
       </When>
     </div>

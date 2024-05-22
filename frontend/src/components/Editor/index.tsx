@@ -26,7 +26,7 @@ type ResponseCreatePost = {
   authorEmail: string;
   authorName: string;
   categoryId: string;
-  category: Category
+  category: Category;
 };
 
 type EditorProps = {
@@ -57,12 +57,6 @@ export function Editor({ afterCreatePost }: EditorProps) {
       setSelectedCategory(null);
       afterCreatePost();
     },
-    onError: () => {
-      toast({
-        title: "Ocorreu um erro ao criar a publicação",
-        className: "bg-red-600 text-white",
-      });
-    },
   });
 
   function onCancel() {
@@ -83,14 +77,23 @@ export function Editor({ afterCreatePost }: EditorProps) {
   return (
     <div className="bg-black-secundary flex flex-col rounded-lg ">
       <button
-        className={twMerge("flex gap-2 items-center bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4", isMobile ? 'text-sm' : 'text-base')}
+        className={twMerge(
+          "flex gap-2 items-center bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4",
+          isMobile ? "text-sm" : "text-base"
+        )}
         onClick={() => setIsEditorOpen(isEditorOpen ? false : true)}
       >
         <PencilLine size={20} className="text-primary" />
         Criar nova postagem
       </button>
       <div className={`slide-down ${isEditorOpen ? "open" : ""}`}>
-        <FormCreatePost onSubmit={onSubmit} schema={createPostSchema} categories={categories} isLoading={isLoading} onCancel={onCancel} />
+        <FormCreatePost
+          onSubmit={onSubmit}
+          schema={createPostSchema}
+          categories={categories}
+          isLoading={isLoading}
+          onCancel={onCancel}
+        />
       </div>
     </div>
   );
