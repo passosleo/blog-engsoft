@@ -8,8 +8,10 @@ import { useCategories } from "@/stores/categories";
 import { useToast } from "@/components/ui/use-toast";
 import { twMerge } from "tailwind-merge";
 import { useMobile } from "@/hooks/useMobile";
-import { FormEditor } from "./Form";
+import { FormCreatePost } from "./FormCreatePost";
 import { Category } from "@/types/category";
+import { PencilLine, SquarePen } from "lucide-react";
+
 export type PayloadCreatePost = {
   title: string;
   content: string;
@@ -81,13 +83,14 @@ export function Editor({ afterCreatePost }: EditorProps) {
   return (
     <div className="bg-black-secundary flex flex-col rounded-lg ">
       <button
-        className={twMerge("bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4", isMobile ? 'text-sm' : 'text-base')}
+        className={twMerge("flex gap-2 items-center bg-black h-12 rounded px-3 focus:outline-none text-start text-[#9ca3af] hover:bg-black m-4", isMobile ? 'text-sm' : 'text-base')}
         onClick={() => setIsEditorOpen(isEditorOpen ? false : true)}
       >
+        <PencilLine size={20} className="text-primary" />
         Criar nova postagem
       </button>
       <div className={`slide-down ${isEditorOpen ? "open" : ""}`}>
-        <FormEditor onSubmit={onSubmit} schema={createPostSchema} categories={categories} isLoading={isLoading} onCancel={onCancel} />
+        <FormCreatePost onSubmit={onSubmit} schema={createPostSchema} categories={categories} isLoading={isLoading} onCancel={onCancel} />
       </div>
     </div>
   );

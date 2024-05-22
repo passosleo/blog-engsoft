@@ -15,9 +15,9 @@ import { useUserAccess } from "@/stores/user-access";
 import { When } from "@/components/shared/When";
 import { CustomModal } from "@/components/CustomModal";
 import { useCustomModal } from "@/components/CustomModal/hooks/useCustomModal";
-import { Editor } from "@/components/Editor";
-import { FormEditor } from "@/components/Editor/Form";
-import { createPostSchema } from "@/schemas/post";
+import { FormUpdatePost } from "@/components/Editor/FormUpdatePost";
+import { updatePostSchema } from "@/schemas/updatePost";
+import { PayloadUpdatePost } from "..";
 
 export function Post({
   postId,
@@ -32,9 +32,13 @@ export function Post({
   createdAt,
   onDelete,
   onClickCategory,
+  onUpdate,
+  isLoading,
 }: PostType & {
+  isLoading: boolean;
   onClickCategory: () => void;
   onDelete: (postId: string) => void;
+  onUpdate: (postId: string, post: PayloadUpdatePost, callback: () => void) => void;
 }) {
   const { user } = useUserAccess();
   const { isOpen, toggleModal } = useCustomModal();
@@ -139,7 +143,7 @@ export function Post({
       <CustomModal open={isOpen} onOpenChange={toggleModal}>
         <p className="m-0 mb-2 font-medium">Editar publicação</p>
 
-        <FormEditor onSubmit={() => { }} schema={createPostSchema} categories={categories} isLoading={true} onCancel={() => { }} />
+        <FormUpdatePost formValues={{ categoryId: category.categoryId, content, isPublic, title }} onSubmit={(data) => onUpdate(postId, data, toggleModal)} schema={updatePostSchema} categories={categories} isLoading={isLoading} onCancel={toggleModal} />
       </CustomModal>
     </>
   );

@@ -1,7 +1,8 @@
 import { CustomForm } from "@/components/CustomForm";
 import { Fields } from "../Fields";
-import { PayloadCreatePost } from "..";
 import { Category } from "@/types/category";
+import { PayloadCreatePost } from "..";
+
 type Props = {
   schema: any;
   categories: Category[];
@@ -10,7 +11,7 @@ type Props = {
   onCancel: () => void;
 };
 
-export function FormEditor({
+export function FormCreatePost({
   onSubmit,
   schema,
   categories,

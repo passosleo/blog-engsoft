@@ -20,14 +20,19 @@ const routes = {
     method: "GET",
     uri: "/api/v1/categories",
   },
+  getPosts: {
+    method: "GET",
+    uri: "/api/v1/posts",
+    listenHeaders: ["Authorization"],
+  },
   createPost: {
     method: "POST",
     uri: "/api/v1/posts",
     listenHeaders: ["Authorization"],
   },
-  getPosts: {
-    method: "GET",
-    uri: "/api/v1/posts",
+  updatePost: {
+    method: "PUT",
+    uri: "/api/v1/posts/:postId",
     listenHeaders: ["Authorization"],
   },
   deletePost: {
