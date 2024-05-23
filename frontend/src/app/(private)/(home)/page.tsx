@@ -54,7 +54,7 @@ export default function Home() {
             posts={posts}
             onPaginate={onPaginate}
             isLoading={isLoading}
-            reloadPosts={reloadPosts}
+            updatePosts={updatePosts}
           />
         </div>
       </When>
@@ -68,7 +68,7 @@ export default function Home() {
           posts={posts}
           onPaginate={onPaginate}
           isLoading={isLoading}
-          reloadPosts={reloadPosts}
+          updatePosts={updatePosts}
         />
       </When>
     </div>

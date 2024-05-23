@@ -11,7 +11,7 @@ type PostsProps = {
   posts: Pagination<PostType> | null;
   isLoading: boolean;
   onPaginate: (page: number) => void;
-  reloadPosts: () => void;
+  updatePosts: () => void;
 };
 
 export type PayloadUpdatePost = {
@@ -25,7 +25,7 @@ export function Posts({
   posts,
   isLoading,
   onPaginate,
-  reloadPosts,
+  updatePosts,
 }: PostsProps) {
   const [deletePost, isDeleting] = useRequest({
     host: "postService",
@@ -64,14 +64,14 @@ export function Posts({
                   payload: { body: data, params: { postId } },
                   onSuccess: () => {
                     callback();
-                    reloadPosts();
+                    updatePosts();
                   },
                 });
               }}
               onDelete={(postId) => {
                 deletePost({
                   payload: { params: { postId } },
-                  onSuccess: reloadPosts,
+                  onSuccess: updatePosts,
                 });
               }}
             />
