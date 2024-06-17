@@ -37,7 +37,7 @@ export default function Home() {
     },
   });
 
-  function afterCreatePost() {
+  function reloadPosts() {
     updatePosts();
     onPaginate(1);
   }
@@ -48,27 +48,27 @@ export default function Home() {
         <Menu onClickCategory={() => onPaginate(1)} />
         <div className="border-l pl-5 border-[#29292E] h-auto w-full ">
           <When condition={isUserLogged}>
-            <Editor afterCreatePost={afterCreatePost} />
+            <Editor afterCreatePost={reloadPosts} />
           </When>
           <Posts
             posts={posts}
             onPaginate={onPaginate}
             isLoading={isLoading}
-            afterDeletePost={updatePosts}
+            updatePosts={updatePosts}
           />
         </div>
       </When>
 
       <When condition={isMobile}>
         <When condition={isUserLogged}>
-          <Editor afterCreatePost={afterCreatePost} />
+          <Editor afterCreatePost={reloadPosts} />
         </When>
         <Menu className="mt-4" onClickCategory={() => onPaginate(1)} />
         <Posts
           posts={posts}
           onPaginate={onPaginate}
           isLoading={isLoading}
-          afterDeletePost={updatePosts}
+          updatePosts={updatePosts}
         />
       </When>
     </div>

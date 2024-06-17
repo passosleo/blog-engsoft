@@ -11,14 +11,21 @@ type PostsProps = {
   posts: Pagination<PostType> | null;
   isLoading: boolean;
   onPaginate: (page: number) => void;
-  afterDeletePost: () => void;
+  updatePosts: () => void;
+};
+
+export type PayloadUpdatePost = {
+  title: string;
+  content: string;
+  categoryId: string;
+  isPublic: boolean;
 };
 
 export function Posts({
   posts,
   isLoading,
   onPaginate,
-  afterDeletePost,
+  updatePosts,
 }: PostsProps) {
   const [deletePost, isDeleting] = useRequest({
     host: "postService",
@@ -29,12 +36,17 @@ export function Posts({
         title: "Publicação excluída com sucesso!",
         className: "bg-green-600 text-white",
       }),
-    onError: () => {
+  });
+
+  const [updatePost, isUpdating] = useRequest<PayloadUpdatePost, void>({
+    host: "postService",
+    routeName: "updatePost",
+    enabled: false,
+    onSuccess: () =>
       toast({
-        title: "Ops! Algo deu errado ao tentar excluir a publicação.",
-        className: "bg-red-600 text-white",
-      });
-    },
+        title: "Publicação editada com sucesso!",
+        className: "bg-green-600 text-white",
+      }),
   });
 
   return (
@@ -43,13 +55,23 @@ export function Posts({
         <When condition={posts && posts?.content.length > 0}>
           {(posts?.content || []).map((post, index) => (
             <Post
+              isLoading={isUpdating}
               key={index}
               {...post}
               onClickCategory={() => onPaginate(1)}
+              onUpdate={(postId, data, callback) => {
+                updatePost({
+                  payload: { body: data, params: { postId } },
+                  onSuccess: () => {
+                    callback();
+                    updatePosts();
+                  },
+                });
+              }}
               onDelete={(postId) => {
                 deletePost({
                   payload: { params: { postId } },
-                  onSuccess: afterDeletePost,
+                  onSuccess: updatePosts,
                 });
               }}
             />
@@ -66,7 +88,7 @@ export function Posts({
         </When>
         <When condition={posts && posts?.content.length === 0}>
           <h4 className="text-center opacity-90">
-            Ops! Parece que ainda não temos nenhuma postagem nesta categoria.
+            Nenhuma postagem encontrada
           </h4>
         </When>
       </CustomLoading>

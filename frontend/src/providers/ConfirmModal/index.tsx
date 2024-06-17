@@ -2,6 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { CustomModal } from "@/components/CustomModal";
+import { CustomButton } from "@/components/CustomButton";
 
 type ShowModalOptions = {
   title?: string;
@@ -45,22 +46,24 @@ function confirm({
       onOpenChange={() => closeConfirmModal()}
       footer={
         <div
-          className={`flex gap-2 w-full justify-center sm:${
-            alignButtons === "left"
-              ? "justify-start"
-              : alignButtons === "center"
+          className={`flex gap-2 w-full justify-center sm:${alignButtons === "left"
+            ? "justify-start"
+            : alignButtons === "center"
               ? "justify-center"
               : "justify-end"
-          }`}
+            }`}
         >
-          <DialogTrigger
-            className="transition-all inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-transparent border border-primary text-primary bg-background hover:bg-accent h-10 px-4 py-2"
-            onClick={() => {
-              if (onCancel) onCancel();
-              closeConfirmModal();
-            }}
-          >
-            {cancelText}
+          <DialogTrigger>
+            <CustomButton
+              onClick={() => {
+                if (onCancel) onCancel();
+                closeConfirmModal();
+              }}
+              variant="outline"
+              className="hover:opacity-85"
+            >
+              {cancelText}
+            </CustomButton>
           </DialogTrigger>
           <DialogTrigger
             className="transition-all inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-transparent bg-primary text-primary-foreground hover:bg-primary/90 text-white h-10 px-4 py-2"

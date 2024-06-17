@@ -21,6 +21,7 @@ export function Fields({ categories, isLoading, onCancel }: Props) {
         className="bg-black  rounded px-3 focus:outline-none"
         label="Título"
         placeholder="Título da publicação"
+        autoFocus
       />
       <CustomSelect
         options={categories.map((category) => ({

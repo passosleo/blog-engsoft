@@ -1,11 +1,5 @@
 "use client";
 
-import { When } from "@/components/shared/When";
-import { useState } from "react";
-import Image from "next/image";
-import WelcomeImage from "@/assets/images/welcome-image.jpg";
-import { useMobile } from "@/hooks/useMobile";
-import { twMerge } from "tailwind-merge";
 import { useAuth } from "@/context/AuthContext";
 import { useRequest } from "@/services/hooks/useRequest";
 import { UseFormReturn } from "react-hook-form";
@@ -15,6 +9,7 @@ import { CustomInput } from "@/components/CustomInput";
 import { CustomButton } from "@/components/CustomButton";
 import { loginSchema } from "@/schemas/login";
 import Link from "next/link";
+import { toast } from "@/components/ui/use-toast";
 
 type PayloadSignIn = {
   email: string;
@@ -33,6 +28,7 @@ export default function Login() {
     host: "authService",
     routeName: "signIn",
     enabled: false,
+    notHandleError: true,
     onSuccess: (res) => setAuthenticated(res.data.token),
   });
 
@@ -47,11 +43,15 @@ export default function Login() {
             type: "manual",
             message: "Senha inválida",
           });
-        }
-        if (error.status === 404) {
+        } else if (error.status === 404) {
           form.setError("email", {
             type: "manual",
             message: "E-mail não encontrado",
+          });
+        } else {
+          toast({
+            title: "Ops! Algo deu errado. Tente novamente mais tarde.",
+            className: "bg-red-600 text-white",
           });
         }
       },

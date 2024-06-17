@@ -1,6 +1,5 @@
 "use client";
 import { CustomLoading } from "@/components/CustomLoading";
-import { Toaster } from "@/components/ui/toaster";
 import { Header } from "@/layout/Header";
 import { useRequest } from "@/services/hooks/useRequest";
 import { useCategories } from "@/stores/categories";
@@ -33,7 +32,6 @@ export default function PrivateLayout({
           </Suspense>
         </main>
       </div>
-      <Toaster />
     </>
   );
 }
