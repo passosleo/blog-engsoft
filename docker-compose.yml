@@ -33,6 +33,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
+      NODE_ENV: production
       HOST: http://localhost
       PORT: 3000
       NAME: auth-service
@@ -82,3 +83,23 @@ services:
     networks:
       private_network:
         ipv4_address: 172.28.0.5
+
+  application:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        AUTH_SERVICE_URL: "http://localhost:3000"
+        POST_SERVICE_URL: "http://localhost:8080"
+    restart: always
+    environment:
+      NODE_ENV: "production"
+      PORT: "3001"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - auth_service
+      - post_service
+    networks:
+      private_network:
+        ipv4_address: 172.28.0.6
