@@ -23,6 +23,9 @@
    - [Tecnologias Utilizadas](#tecnologias-utilizadas-2)
    - [Critérios de Aceitação](#critérios-de-aceitação-2)
    - [Telas](#telas)
+7. [Contribuidores](#contribuidores)
+8. [Orientadores](#orientadores)
+9. [Licença](#licença)
 
 ## Sobre o Projeto
 
